@@ -1,0 +1,7 @@
+*.idea
+*.swp
+generated-src/
+docs/
+out/
+build/
+.gradle/
