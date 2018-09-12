@@ -38,4 +38,9 @@ sourceSets {
         java.srcDir 'generated-src/antlr/main/'
     }
 }
+
 compileJava.source sourceSets.generated.java, sourceSets.main.java
+
+clean {
+    delete 'generated-src'
+}

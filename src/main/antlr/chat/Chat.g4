@@ -1,7 +1,7 @@
 grammar Chat ;
 
 @header {
-package prj.clark.lang;
+package prj.clark.lang.chat;
 }
 
 /*
@@ -22,9 +22,7 @@ emoticon            : ':' '-'? ')'
                     | ':' '-'? '('
                     ;
 
-// Text has been modified to contain the brackets directly.
-// link                : '[' TEXT ']' '(' TEXT ')' ;
-link                : TEXT TEXT ;
+link                : '[' TEXT ']' '(' TEXT ')' ;
 
 color               : '/' WORD '/' message '/';
 
@@ -49,8 +47,6 @@ SAYS                : S A Y S ;
 
 SHOUTS              : S H O U T S;
 
-WORD                : (LOWERCASE | UPPERCASE | '_')+ ;
-
 WHITESPACE          : (' ' | '\t') ;
 
 NEWLINE             : ('\r'? '\n' | '\r')+ ;
@@ -61,4 +57,6 @@ NEWLINE             : ('\r'? '\n' | '\r')+ ;
 // them ourselves.
 // TEXT                : ('(' (.)+? ')'|'[' (.)+? ']') ; // ('['|'(') ~[])]+ (']'|')') ;
 // We replace it with a semantic predicate. Sadly, this part is language specific.
-TEXT                : {_input.LA(-1) == '[' || _input.LA(-1) == '('}? ~[])]+ ;
+TEXT                : {_input.LA(-1) == '[' || _input.LA(-1) == '('}? ~[)]+? ;
+
+WORD                : (LOWERCASE | UPPERCASE | '_')+ ;
