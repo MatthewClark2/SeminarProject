@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.IOError;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 public class SampleChatListener extends ChatBaseListener {
     // We use this in order to write information out via the ChatContext.
@@ -43,7 +44,6 @@ public class SampleChatListener extends ChatBaseListener {
 
     @Override
     public void exitColor(ChatParser.ColorContext ctx) {
-        write(ctx.message().getText() + " ");
         reset();
     }
 
@@ -64,19 +64,6 @@ public class SampleChatListener extends ChatBaseListener {
 
     @Override
     public void exitMessage(ChatParser.MessageContext ctx) {
-        StringBuilder message = new StringBuilder();
-
-        for (ParseTree child : ctx.children) {
-            if (! (child.getChildCount() > 0)) {
-                message.append(child.getText());
-            }
-
-            if (child instanceof ChatParser.LineContext) {
-                write(message.toString());
-            } else {
-            }
-        }
-
         write(ctx.getText() + " ");
     }
 
