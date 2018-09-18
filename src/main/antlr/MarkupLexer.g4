@@ -17,6 +17,6 @@ SLASH            : '/' ;
 EQUALS           : '=' ;
 STRING           : '"' .*? '"' ;
 ID               : LETTERS+ ;
-WS               : [\t\n\r] -> skip ;
+WS               : [ \t\n\r] -> skip ;
 
 fragment LETTERS : [a-zA-Z] ;

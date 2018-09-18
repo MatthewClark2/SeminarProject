@@ -12,7 +12,7 @@ public class MarkupVisitor extends MarkupParserBaseVisitor<String> {
 
     @Override
     public String visitContent(MarkupParser.ContentContext ctx) {
-        System.out.println(ctx.TEXT().getText());
+        System.out.print(ctx.TEXT().getText());
 
         return visitChildren(ctx);
     }
