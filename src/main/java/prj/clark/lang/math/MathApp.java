@@ -6,6 +6,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 public class MathApp {
     public static void main(String[] args) {
         System.out.println(evaluate("5 + (3 / 2) ^ 3"));
+        System.out.println(evaluate("1-5"));
     }
 
     public static double evaluate(String expr) {

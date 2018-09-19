@@ -25,15 +25,16 @@ statement : expression NEWLINE ;
 fragment DIGIT : [0-9] ;
 fragment NUMERIC_FRAGMENT : DIGIT+ ;
 
-// Both the sign and value after the decimal are optional.
-NUMBER : ( AS )? NUMERIC_FRAGMENT ('.' NUMERIC_FRAGMENT)? ;
-
 // The use of compound operators is due to the fact that they have shared precedence.
 LPAREN : '(' ;
 RPAREN : ')' ;
 EXP : '^' ;
 MD : ( '*' | '/' );
 AS : ( '+' | '-' );
+
+// Both the sign and value after the decimal are optional.
+NUMBER : NUMERIC_FRAGMENT ('.' NUMERIC_FRAGMENT)? ;
+
 
 NEWLINE : '\n' ;
 
