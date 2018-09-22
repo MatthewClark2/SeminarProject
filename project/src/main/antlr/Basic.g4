@@ -29,7 +29,7 @@ expression : LPAR expression RPAR
            ;
 
 printStatement : PRINT expression ;
-declaration : VAR (IDENTIFIER | assignment) ;
+declaration : VAR assignment ;
 assignment : IDENTIFIER EQ expression ;
 
 // Keyword letters.
@@ -45,8 +45,8 @@ fragment S : ('s'|'S') ;
 // Core language features.
 PRINT : P R I N T ;
 VAR : V A R ;
-EQ : '=' ;
-QUOTE : '"' ;
+fragment EQ : '=' ;
+fragment QUOTE : '"' ;
 AS : A S ;
 INT : 'Int' ;
 DEC : 'Float' ;
