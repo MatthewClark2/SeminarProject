@@ -25,10 +25,11 @@ expression : LPAR expression RPAR
            | value=expression AS target=type
            | DECIMAL
            | INTEGER
+           | STRING
            ;
 
 printStatement : PRINT expression ;
-declaration : VAR IDENTIFIER assignment;
+declaration : VAR (IDENTIFIER | assignment) ;
 assignment : IDENTIFIER EQ expression ;
 
 // Keyword letters.
@@ -45,6 +46,7 @@ fragment S : ('s'|'S') ;
 PRINT : P R I N T ;
 VAR : V A R ;
 EQ : '=' ;
+QUOTE : '"' ;
 AS : A S ;
 INT : 'Int' ;
 DEC : 'Float' ;
@@ -63,8 +65,9 @@ RPAR : ')' ;
 fragment DIGIT : [0-9] ;
 DECIMAL : DIGIT+ '.' DIGIT+ ;
 INTEGER : DIGIT+ ;
+STRING : QUOTE .*? QUOTE ;
 
 IDENTIFIER : [a-zA-Z_][a-zA-Z_0-9]* ;
 
 NL : ('\n' | '\r\n' | '\r') ;
-WS : [\t ] ;
+WS : [\t ] -> skip;
