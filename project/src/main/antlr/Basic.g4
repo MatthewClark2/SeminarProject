@@ -14,7 +14,7 @@ line : statement (NL | EOF) ;
 
 file : lines=line+ ;
 
-type : (INT | DEC) ;
+type : (INT | DEC | STR) ;
 
 expression : LPAR expression RPAR
            | left=expression operator=(MUL | DIV | MOD) right=expression
@@ -48,6 +48,7 @@ fragment QUOTE : '"' ;
 AS : A S ;
 INT : 'Int' ;
 DEC : 'Float' ;
+STR : 'String' ;
 
 // Operators.
 ADD  : '+' ;
