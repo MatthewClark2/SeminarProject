@@ -8,6 +8,7 @@ package prj.clark.lang.basic;
 statement : printStatement
           | declaration
           | assignment
+          | expression
           ;
 
 line : statement (NL | EOF) ;

@@ -5,22 +5,26 @@ import prj.clark.lang.basic.env.DecimalData;
 import prj.clark.lang.basic.env.IntegerData;
 import prj.clark.lang.basic.env.StringData;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class NodeFactory {
-    private static final HashMap<String, Supplier<BinaryOperation>> OPERATION_MAP =
-            new HashMap<String, Supplier<BinaryOperation>>() {{
-                put("+", AdditionNode::new);
-                put("-", SubtractionNode::new);
-                put("*", ModulusNode::new);
-                put("/", DivisionNode::new);
-                put("^", ExponentNode::new);
-                put("%", ModulusNode::new);
-            }};
+    private static final Map<String, Supplier<BinaryOperation>> OPERATION_MAP;
 
-    private NodeFactory() {
+    static {
+        HashMap<String, Supplier<BinaryOperation>> operations = new HashMap<>();
+        operations.put("+", AdditionNode::new);
+        operations.put("-", SubtractionNode::new);
+        operations.put("*", ModulusNode::new);
+        operations.put("/", DivisionNode::new);
+        operations.put("^", ExponentNode::new);
+        operations.put("%", ModulusNode::new);
+        OPERATION_MAP = Collections.unmodifiableMap(operations);
     }
+
+    private NodeFactory() {}
 
     public static ExpressionNode getExpression(BasicParser.ExpressionContext ctx) {
         // Handle the case of terminal nodes.
@@ -47,6 +51,11 @@ public class NodeFactory {
     }
 
     public static Node getStatement(BasicParser.StatementContext ctx) {
+        if (ctx.printStatement() != null) {
+            return new PrintNode(getExpression(ctx.printStatement().expression()));
+        }
+
+        // An assignment can mean either a reassignment of an existing variable, or a declaration of a new one.
         if (ctx.assignment() != null) {
             BasicParser.AssignmentContext assignment = ctx.assignment();
             String identifier = assignment.IDENTIFIER().getText();
@@ -61,7 +70,6 @@ public class NodeFactory {
             return an;
         }
 
-        // Otherwise, it's a print statement.
-        return new PrintNode(getExpression(ctx.printStatement().expression()));
+        return getExpression(ctx.expression());
     }
 }
