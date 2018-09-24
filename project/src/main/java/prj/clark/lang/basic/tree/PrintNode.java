@@ -2,6 +2,7 @@ package prj.clark.lang.basic.tree;
 
 import prj.clark.lang.basic.env.BasicContext;
 
+import java.io.IOError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,12 @@ public class PrintNode implements Node {
     }
 
     @Override
-    public void execute(BasicContext ctx) throws IOException {
-        ctx.getWriter().write(expression.evaluate().getContent());
+    public void execute(BasicContext ctx) {
+        try {
+            ctx.getWriter().write(expression.evaluate().getContent());
+        } catch (IOException e) {
+            throw new IOError(e);
+        }
     }
 
     @Override

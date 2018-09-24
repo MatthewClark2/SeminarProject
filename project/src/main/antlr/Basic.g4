@@ -14,8 +14,6 @@ line : statement (NL | EOF) ;
 
 file : lines=line+ ;
 
-number : (DECIMAL | INTEGER) ;
-
 type : (INT | DEC) ;
 
 expression : LPAR expression RPAR
@@ -45,7 +43,7 @@ fragment S : ('s'|'S') ;
 // Core language features.
 PRINT : P R I N T ;
 VAR : V A R ;
-fragment EQ : '=' ;
+EQ : '=' ;
 fragment QUOTE : '"' ;
 AS : A S ;
 INT : 'Int' ;
