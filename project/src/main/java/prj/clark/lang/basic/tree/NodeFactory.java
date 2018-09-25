@@ -34,6 +34,8 @@ public class NodeFactory {
             return new LiteralNode(new IntegerData(ctx.INTEGER().getText()));
         } else if (ctx.STRING() != null) {
             return new LiteralNode(new StringData(ctx.STRING().getText()));
+        } else if (ctx.IDENTIFIER() != null) {
+            return new IdentifierNode(ctx.IDENTIFIER().getText());
         }
 
         // Handle the instance of casting.
@@ -55,19 +57,18 @@ public class NodeFactory {
             return new PrintNode(getExpression(ctx.printStatement().expression()));
         }
 
-        // An assignment can mean either a reassignment of an existing variable, or a declaration of a new one.
+        if (ctx.declaration() != null) {
+            BasicParser.AssignmentContext assignment = ctx.declaration().assignment();
+            String identifier = assignment.IDENTIFIER().getText();
+
+            return new DeclarationNode(identifier, getExpression(assignment.expression()));
+        }
+
         if (ctx.assignment() != null) {
             BasicParser.AssignmentContext assignment = ctx.assignment();
             String identifier = assignment.IDENTIFIER().getText();
 
-            AssignmentNode an = new AssignmentNode(identifier, getExpression(assignment.expression()));
-
-            // Check if its an initial declaration.
-            if (ctx.declaration() != null) {
-                return new DeclarationNode(identifier, an);
-            }
-
-            return an;
+            return new AssignmentNode(identifier, getExpression(assignment.expression()));
         }
 
         return getExpression(ctx.expression());

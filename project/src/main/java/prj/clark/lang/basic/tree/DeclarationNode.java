@@ -9,23 +9,23 @@ import java.util.List;
 
 public class DeclarationNode implements Node {
     private String identifier;
-    private AssignmentNode assignment;
+    private ExpressionNode expression;
 
-    public DeclarationNode(String identifier, AssignmentNode assignment) {
+    public DeclarationNode(String identifier, ExpressionNode expression) {
         this.identifier = identifier;
-        this.assignment = assignment;
+        this.expression = expression;
     }
 
     @Override
     public void execute(BasicContext ctx) {
         Bindings bindings = ctx.getBindings(ScriptContext.ENGINE_SCOPE);
-        bindings.put(identifier, assignment);
+        bindings.put(identifier, expression.evaluate(ctx));
     }
 
     @Override
     public List<Node> getChildren() {
         return new ArrayList<Node>() {{
-            add(assignment);
+            add(expression);
         }};
     }
 }

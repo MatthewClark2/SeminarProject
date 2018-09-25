@@ -4,7 +4,7 @@ import prj.clark.lang.basic.env.BasicContext;
 import prj.clark.lang.basic.env.BasicData;
 
 public abstract class ExpressionNode implements Node {
-    public abstract BasicData evaluate();
+    public abstract BasicData evaluate(BasicContext ctx);
 
     @Override
     public void execute(BasicContext ctx) {

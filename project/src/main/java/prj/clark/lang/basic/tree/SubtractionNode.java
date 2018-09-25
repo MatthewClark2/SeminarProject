@@ -1,20 +1,14 @@
 package prj.clark.lang.basic.tree;
 
-import prj.clark.lang.basic.env.BasicData;
-import prj.clark.lang.basic.env.DataType;
-import prj.clark.lang.basic.env.DecimalData;
-import prj.clark.lang.basic.env.IntegerData;
-
-import java.util.ArrayList;
-import java.util.List;
+import prj.clark.lang.basic.env.*;
 
 public class SubtractionNode extends NumericBinaryOperation {
 
     @Override
-    public BasicData evaluate() {
-        ensureNumeric(left, right);
-        BasicData leftOperand = left.evaluate();
-        BasicData rightOperand = right.evaluate();
+    public BasicData evaluate(BasicContext ctx) {
+        ensureNumeric(ctx, left, right);
+        BasicData leftOperand = left.evaluate(ctx);
+        BasicData rightOperand = right.evaluate(ctx);
 
         if (leftOperand.getType() == DataType.DECIMAL || rightOperand.getType() == DataType.DECIMAL) {
             return new DecimalData(

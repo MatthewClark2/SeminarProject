@@ -24,7 +24,7 @@ public class AssignmentNode implements Node {
             throw new IllegalStateException("Cannot implicitly declare variable " + identifier);
         }
 
-        bindings.put(identifier, expression.evaluate());
+        bindings.put(identifier, expression.evaluate(ctx));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package prj.clark.lang.basic.tree;
 
+import prj.clark.lang.basic.env.BasicContext;
 import prj.clark.lang.basic.env.BasicData;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public class LiteralNode extends ExpressionNode {
     }
 
     @Override
-    public BasicData evaluate() {
+    public BasicData evaluate(BasicContext ctx) {
         return data;
     }
 

@@ -25,6 +25,7 @@ expression : LPAR expression RPAR
            | DECIMAL
            | INTEGER
            | STRING
+           | IDENTIFIER
            ;
 
 printStatement : PRINT expression ;

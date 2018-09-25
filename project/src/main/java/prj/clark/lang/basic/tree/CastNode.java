@@ -1,9 +1,6 @@
 package prj.clark.lang.basic.tree;
 
-import prj.clark.lang.basic.env.BasicData;
-import prj.clark.lang.basic.env.DecimalData;
-import prj.clark.lang.basic.env.IntegerData;
-import prj.clark.lang.basic.env.StringData;
+import prj.clark.lang.basic.env.*;
 
 import java.util.List;
 
@@ -23,8 +20,8 @@ public class CastNode extends ExpressionNode {
     }
 
     @Override
-    public BasicData evaluate() {
-        String rawData = expression.evaluate().getContent();
+    public BasicData evaluate(BasicContext ctx) {
+        String rawData = expression.evaluate(ctx).getContent();
 
         switch (cast) {
             case "String": return new StringData(rawData);
