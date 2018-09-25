@@ -21,6 +21,7 @@ public class PrintNode implements Node {
             BasicData result = expression.evaluate(ctx);
             char[] bytes = result.getContent().toCharArray();
             ctx.getWriter().write(bytes, 0, bytes.length);
+            ctx.getWriter().write('\n');
         } catch (IOException e) {
             throw new IOError(e);
         }

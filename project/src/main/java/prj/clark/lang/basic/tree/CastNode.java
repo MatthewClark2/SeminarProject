@@ -25,7 +25,11 @@ public class CastNode extends ExpressionNode {
 
         switch (cast) {
             case "String": return new StringData(rawData);
-            case "Int": return new IntegerData(rawData);
+            case "Int": {
+                // This is a special case, as we may need to trim some information away.
+                long data = (long) Double.parseDouble(rawData);
+                return new IntegerData(data);
+            }
             case "Float": return new DecimalData(rawData);
             default: throw new IllegalStateException("Cannot resolve cast: " + cast);
         }

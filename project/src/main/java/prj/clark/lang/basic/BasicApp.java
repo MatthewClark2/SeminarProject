@@ -10,7 +10,7 @@ import java.io.*;
 
 public class BasicApp {
     public static void main(String[] args) throws IOException {
-        ANTLRInputStream is = new ANTLRInputStream("var hello = \"hi\"\nprint hello\nvar goodbye = \"goodbye\"");
+        ANTLRInputStream is = new ANTLRInputStream("var hello = \"hi\"\nprint hello\nvar goodbye = \"goodbye\"\nprint 5.2 as Int");
         BasicLexer lexer = new BasicLexer(is);
         CommonTokenStream cts = new CommonTokenStream(lexer);
         BasicParser parser = new BasicParser(cts);
