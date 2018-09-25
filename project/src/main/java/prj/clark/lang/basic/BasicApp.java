@@ -1,32 +1,20 @@
 package prj.clark.lang.basic;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
-import prj.clark.lang.basic.env.BasicContext;
-import prj.clark.lang.basic.tree.AbstractSyntaxTree;
+import prj.clark.lang.basic.env.BasicEvaluator;
+import prj.clark.lang.basic.env.Evaluator;
 
-import javax.script.ScriptContext;
-import java.io.*;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class BasicApp {
     public static void main(String[] args) throws IOException {
-        ANTLRInputStream is = new ANTLRInputStream("var hello = \"hi\"\nprint hello\nvar goodbye = \"goodbye\"\nprint 5.2 as Int");
-        BasicLexer lexer = new BasicLexer(is);
-        CommonTokenStream cts = new CommonTokenStream(lexer);
-        BasicParser parser = new BasicParser(cts);
-        parser.setBuildParseTree(true);
-        BasicParser.FileContext ctx = parser.file();
+        Scanner in = new Scanner(System.in);
+        Evaluator eval = new BasicEvaluator();
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        Writer writer = new BufferedWriter(new OutputStreamWriter(out));
-
-        BasicContext bCtx = new BasicContext();
-        bCtx.setWriter(writer);
-
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(ctx);
-        ast.execute(bCtx);
-        bCtx.getBindings(ScriptContext.ENGINE_SCOPE).forEach((x, y) -> System.out.println(x + ": " + y));
-        writer.close();
-        System.out.println(out.toString());
+        while (true) {
+            System.out.print(" >>> ");
+            String input = in.nextLine();
+            System.out.println("\t" + eval.eval(input));
+        }
     }
 }

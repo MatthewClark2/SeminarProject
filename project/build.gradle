@@ -48,3 +48,14 @@ sourceSets.main.java.srcDir new File('generated-src/antlr/')
 clean {
     delete 'generated-src'
 }
+
+run {
+    standardInput = System.in
+    standardOutput = System.out
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'prj.clark.lang.basic.BasicApp'
+    }
+}
