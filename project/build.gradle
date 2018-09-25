@@ -26,7 +26,7 @@ dependencies {
 generateGrammarSource {
     maxHeapSize = "64m"
     arguments += ["-visitor", "-long-messages"]
-    outputDirectory = file('generated-src/antlr/java/prj/clark/lang/basic')
+    outputDirectory = file('generated-src/antlr/java')
 }
 
 idea {

@@ -17,7 +17,7 @@ public class NodeFactory {
         HashMap<String, Supplier<BinaryOperation>> operations = new HashMap<>();
         operations.put("+", AdditionNode::new);
         operations.put("-", SubtractionNode::new);
-        operations.put("*", ModulusNode::new);
+        operations.put("*", MultiplicationNode::new);
         operations.put("/", DivisionNode::new);
         operations.put("^", ExponentNode::new);
         operations.put("%", ModulusNode::new);
