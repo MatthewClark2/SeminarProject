@@ -9,7 +9,7 @@ import javax.script.ScriptContext;
 import java.io.*;
 
 public class BasicApp {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ANTLRInputStream is = new ANTLRInputStream("var hello = \"hi\"\nprint hello\nvar goodbye = \"goodbye\"");
         BasicLexer lexer = new BasicLexer(is);
         CommonTokenStream cts = new CommonTokenStream(lexer);
@@ -26,5 +26,7 @@ public class BasicApp {
         AbstractSyntaxTree ast = new AbstractSyntaxTree(ctx);
         ast.execute(bCtx);
         bCtx.getBindings(ScriptContext.ENGINE_SCOPE).forEach((x, y) -> System.out.println(x + ": " + y));
+        writer.close();
+        System.out.println(out.toString());
     }
 }

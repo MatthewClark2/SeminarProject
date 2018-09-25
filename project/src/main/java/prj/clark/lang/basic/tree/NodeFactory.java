@@ -33,7 +33,10 @@ public class NodeFactory {
         } else if (ctx.INTEGER() != null) {
             return new LiteralNode(new IntegerData(ctx.INTEGER().getText()));
         } else if (ctx.STRING() != null) {
-            return new LiteralNode(new StringData(ctx.STRING().getText()));
+            // Strip the leading and trailing quotes that remain from the parsing stage.
+            String string = ctx.STRING().getText();
+            string = string.substring(1, string.length() - 1);
+            return new LiteralNode(new StringData(string));
         } else if (ctx.IDENTIFIER() != null) {
             return new IdentifierNode(ctx.IDENTIFIER().getText());
         }

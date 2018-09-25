@@ -16,4 +16,9 @@ public class StringData implements BasicData {
     public DataType getType() {
         return DataType.STRING;
     }
+
+    @Override
+    public String toString() {
+        return getContent();
+    }
 }

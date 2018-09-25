@@ -25,4 +25,9 @@ public class IntegerData implements BasicData {
     public String getContent() {
         return String.valueOf(content);
     }
+
+    @Override
+    public String toString() {
+        return getContent();
+    }
 }
