@@ -3,10 +3,13 @@ plugins {
 }
 
 apply plugin: 'antlr'
+apply plugin: 'application'
 apply plugin: 'idea'
 
 group 'prj.clark.lang'
 version '1.0-SNAPSHOT'
+
+mainClassName = 'prj.clark.lang.basic.BasicApp'
 
 sourceCompatibility = 1.8
 
@@ -33,13 +36,14 @@ idea {
 }
 
 compileJava.dependsOn generateGrammarSource
+
 sourceSets {
     generated {
         java.srcDir 'generated-src/antlr/main/'
     }
 }
 
-compileJava.source sourceSets.generated.java, sourceSets.main.java
+sourceSets.main.java.srcDir new File('generated-src/antlr/')
 
 clean {
     delete 'generated-src'
