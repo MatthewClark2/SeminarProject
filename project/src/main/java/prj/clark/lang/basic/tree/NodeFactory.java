@@ -27,6 +27,12 @@ public class NodeFactory {
     private NodeFactory() {}
 
     public static ExpressionNode getExpression(BasicParser.ExpressionContext ctx) {
+        // Handle parenthesized expressions.
+        if (ctx.LPAR() != null) {
+            // There is only one expression if there is a parenthesis.
+            return getExpression(ctx.expression(0));
+        }
+
         // Handle the case of terminal nodes.
         if (ctx.DECIMAL() != null) {
             return new LiteralNode(new DecimalData(ctx.DECIMAL().getText()));

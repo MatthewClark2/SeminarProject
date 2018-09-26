@@ -18,9 +18,9 @@ file : lines=line+ ;
 type : (INT | DEC | STR) ;
 
 expression : LPAR expression RPAR
+           | left=expression operator=POW right=expression
            | left=expression operator=(MUL | DIV | MOD) right=expression
            | left=expression operator=(ADD | SUB) right=expression
-           | left=expression operator=POW right=expression
            | value=expression AS target=type
            | DECIMAL
            | INTEGER
