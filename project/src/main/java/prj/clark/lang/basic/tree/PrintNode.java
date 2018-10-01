@@ -22,6 +22,10 @@ public class PrintNode implements Node {
             char[] bytes = result.getContent().toCharArray();
             ctx.getWriter().write(bytes, 0, bytes.length);
             ctx.getWriter().write('\n');
+
+            // Force the output to be written, as the script is expected to run in real time. This can be specialized
+            // in certain contexts if IO needs to be limited.
+            ctx.getWriter().flush();
         } catch (IOException e) {
             throw new IOError(e);
         }
