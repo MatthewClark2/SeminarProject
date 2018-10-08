@@ -15,7 +15,7 @@ file : statement* ;
 
 // Type literals.
 bool : (TRUE | FALSE) ;
-primitive : (STRING | DOUBLE | INTEGER | bool) ;
+primitive : (STRING | FLOAT | INT | bool) ;
 
 // Collection literals.
 tuple : LPAREN (expressionList)? RPAREN ;
@@ -32,7 +32,10 @@ comment : COMMENT_START content=.*? COMMENT_END ;
 
 // Binding semantics for destructuring.
 tupleIdentifier : LPAREN (tupleIdentifier | IDENTIFIER) (COMMA (tupleIdentifier | IDENTIFIER))* RPAREN;
-binding : (IDENTIFIER | tupleIdentifier) ;
+// The :IDENTIFIER is for type specification. This is in place for later.
+// It is left as optional now due to the implementation being ignored in the
+// early stages of the language.
+binding : (IDENTIFIER | tupleIdentifier) (COLON IDENTIFIER)? ;
 
 // Assignment semantics.
 constAssignment : DEF binding expression ;
@@ -104,8 +107,8 @@ FALSE : 'false' ;
 
 STRING : '"' .*? '"' ;
 
-DOUBLE  : DIGIT+ '.' DIGIT+ ;
-INTEGER : DIGIT+ ;
+FLOAT  : DIGIT+ '.' DIGIT+ ;
+INT : DIGIT+ ;
 
 // Binops
 PLUS : '+' ;
