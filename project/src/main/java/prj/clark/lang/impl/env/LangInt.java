@@ -5,18 +5,18 @@ package prj.clark.lang.impl.env;
  * to default to arbitrary precision, or there may be several implementations
  * that work with various levels of precision.
  */
-public class Int extends PrimitiveData<Long> {
-    private Int(long value) {
+public class LangInt extends PrimitiveData<Long> {
+    private LangInt(long value) {
         super(value, PrimitiveType.INT);
     }
 
     public static Data of(long value) {
-        return new Int(value);
+        return new LangInt(value);
     }
 
     public static Data of(String content) {
         try {
-            return new Int(Long.parseLong(content));
+            return new LangInt(Long.parseLong(content));
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e);
         }

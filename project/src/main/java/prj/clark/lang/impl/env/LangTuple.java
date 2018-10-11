@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Tuple implements Data {
+public class LangTuple implements Data {
     private final List<Data> data;
     private final DataType type;
 
-    public Tuple(List<Data> data) {
+    public LangTuple(List<Data> data) {
         this.data = data;
 
         if (data.isEmpty()) {

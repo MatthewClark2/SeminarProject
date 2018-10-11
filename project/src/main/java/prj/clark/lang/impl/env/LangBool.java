@@ -1,12 +1,12 @@
 package prj.clark.lang.impl.env;
 
-public class Bool extends PrimitiveData<Boolean> {
-    private Bool(boolean value) {
+public class LangBool extends PrimitiveData<Boolean> {
+    private LangBool(boolean value) {
         super(value, PrimitiveType.BOOL);
     }
 
     public static Data of(boolean value) {
-        return new Bool(value);
+        return new LangBool(value);
     }
 
     public static Data of(String content) {

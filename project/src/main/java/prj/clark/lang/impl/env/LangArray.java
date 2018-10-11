@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Array extends Collection {
+public class LangArray extends Collection {
     private final List<Data> data;
     private final DataType type;
 
-    public Array(List<Data> data) {
+    public LangArray(List<Data> data) {
         ensureHomogeneous(data);
         this.data = new ArrayList<>(data);
         type = new ListType(data.isEmpty()? Empty.get() : data.get(0).getType());

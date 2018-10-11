@@ -1,7 +1,7 @@
 package prj.clark.lang.impl.env;
 
-public class Float extends PrimitiveData<Double> {
-    private Float(double value) {
+public class LangFloat extends PrimitiveData<Double> {
+    private LangFloat(double value) {
         super(value, PrimitiveType.FLOAT);
     }
 
@@ -14,6 +14,6 @@ public class Float extends PrimitiveData<Double> {
     }
 
     public static Data of(double value) {
-        return new Float(value);
+        return new LangFloat(value);
     }
 }
