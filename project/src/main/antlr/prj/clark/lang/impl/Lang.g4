@@ -48,7 +48,7 @@ expression : LPAREN expression RPAREN
            | left=expression op=POW right=expression
            | left=expression op=(MUL | DIV | MOD) right=expression
            | left=expression op=(PLUS | MINUS) right=expression
-           | left=expression op=(LT | LE | GT | GE | IS) right=expression
+           | left=expression op=(LT | LE | GT | GE) right=expression
            | left=expression op=(EQ | NEQ) right=expression
            | prefix
            // Infix notation
