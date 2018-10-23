@@ -4,6 +4,7 @@ import prj.clark.lang.impl.env.BooleanConverter;
 import prj.clark.lang.impl.env.Context;
 import prj.clark.lang.impl.env.Converter;
 import prj.clark.lang.impl.env.Data;
+import prj.clark.lang.impl.err.LangException;
 
 public class LogicalInversionNode implements Node {
     private static final Converter BOOL_CONVERTER;
@@ -19,7 +20,7 @@ public class LogicalInversionNode implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) {
+    public Data evaluate(Context ctx) throws LangException {
         return BOOL_CONVERTER.convert(node.evaluate(ctx));
     }
 }

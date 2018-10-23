@@ -3,6 +3,7 @@ package prj.clark.lang.impl.tree;
 import org.junit.Before;
 import org.junit.Test;
 import prj.clark.lang.impl.env.*;
+import prj.clark.lang.impl.err.LangException;
 import prj.clark.lang.impl.err.TypeMismatchException;
 
 import static org.junit.Assert.*;
@@ -26,7 +27,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test
-    public void intAddition() {
+    public void intAddition() throws LangException {
         Data a = LangInt.of(5);
         Data b = LangInt.of(5);
         Data expected = LangInt.of(10);
@@ -36,7 +37,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test
-    public void floatAddition() {
+    public void floatAddition() throws LangException {
         Data a = LangFloat.of(2.5);
         Data b = LangFloat.of(-1.25);
         Data expected = LangFloat.of(1.25);
@@ -46,7 +47,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringAddition() {
+    public void stringAddition() throws LangException {
         Data a = LangString.of("hello");
         Data b = LangString.of("world");
 
@@ -55,7 +56,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolAddition() {
+    public void boolAddition() throws LangException {
         Data a = LangBool.of(true);
         Data b = LangBool.of(false);
 
@@ -64,7 +65,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringIntAddition() {
+    public void stringIntAddition() throws LangException {
         Data a = LangString.of("asdfasdf");
         Data b = LangInt.of(-8);
 
@@ -73,7 +74,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringFloatAddition() {
+    public void stringFloatAddition() throws LangException {
         Data a = LangString.of("klajsdlksakjh");
         Data b = LangFloat.of(3.75);
 
@@ -82,7 +83,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolIntAddition() {
+    public void boolIntAddition() throws LangException {
         Data a = LangBool.of(false);
         Data b = LangInt.of(777);
 
@@ -91,7 +92,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolFloatAddition() {
+    public void boolFloatAddition() throws LangException {
         Data a = LangBool.of(true);
         Data b = LangFloat.of(123.456);
 
@@ -100,7 +101,7 @@ public class AdditionNodePrimitiveTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolStringAddition() {
+    public void boolStringAddition() throws LangException {
         Data a = LangBool.of(true);
         Data b = LangString.of("khats");
 

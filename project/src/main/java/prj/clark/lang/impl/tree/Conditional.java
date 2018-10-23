@@ -1,6 +1,7 @@
 package prj.clark.lang.impl.tree;
 
 import prj.clark.lang.impl.env.*;
+import prj.clark.lang.impl.err.LangException;
 
 public class Conditional implements Node {
     private static final Converter BOOL_CONVERTER;
@@ -19,7 +20,7 @@ public class Conditional implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) {
+    public Data evaluate(Context ctx) throws LangException {
         // For now, this only works with actual booleans. Later, you'll need to add a casting logic to the Data.
         Data check = condition.evaluate(ctx);
 
