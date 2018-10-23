@@ -16,12 +16,10 @@ public class StatementListNode implements Node {
 
     @Override
     public Data evaluate(Context ctx) throws LangException {
-        return statements.stream()
-                .reduce((a, b) -> {
-                    a.evaluate(ctx);
-                    return b;
-                })  // Used to obtain the last value in the stream.
-                .orElseThrow(IllegalStateException::new)  // Realistically, this shouldn't occur.
-                .evaluate(ctx);
+        for (int i = 0; i < statements.size() - 1; ++i) {
+            statements.get(i).evaluate(ctx);
+        }
+
+        return statements.get(statements.size() - 1).evaluate(ctx);
     }
 }
