@@ -6,6 +6,6 @@ package prj.clark.lang.impl.env;
  * - Associated input / output streams
  * - Variables
  */
-public class Context {
+public interface Context {
 
 }
