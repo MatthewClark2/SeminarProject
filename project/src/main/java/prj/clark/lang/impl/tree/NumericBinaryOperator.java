@@ -1,7 +1,6 @@
 package prj.clark.lang.impl.tree;
 
 import prj.clark.lang.impl.env.*;
-import prj.clark.lang.impl.env.LangFloat;
 
 import java.util.function.BiFunction;
 
@@ -20,6 +19,6 @@ public abstract class NumericBinaryOperator extends BinaryOperator {
     private static boolean isNumeric(Context ctx, Node node) {
         DataType type = node.evaluate(ctx).getType();
 
-        return type instanceof LangFloat || type instanceof LangInt;
+        return type.equals(PrimitiveType.INT) || type.equals(PrimitiveType.FLOAT);
     }
 }

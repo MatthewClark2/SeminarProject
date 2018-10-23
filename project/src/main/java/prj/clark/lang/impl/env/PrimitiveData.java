@@ -33,4 +33,19 @@ public abstract class PrimitiveData<T> implements Data {
     public String toString() {
         return content;
     }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof PrimitiveData) {
+            PrimitiveData p = (PrimitiveData) o;
+            return value.equals(p.value);
+        }
+
+        return false;
+    }
 }
