@@ -5,6 +5,7 @@ package prj.clark.lang.impl.env;
  * @param <T> the type of element stored as a primitive. This should only be
  *           String, a numeric type, or boolean.
  */
+// TODO(matthew-c21) - Consider caching some values to reduce object overhead.
 public abstract class PrimitiveData<T> implements Data {
     private final T value;
     private final String content;
