@@ -4,7 +4,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+// TODO(matthew-c21) - Add testing for the toString methods.
 public class LangStringTest {
+    @Test
+    public void toStringReturnsCorrectStringValue() {
+        Data s = LangString.of("asdf");
+        Data t = LangString.of("lkjlkhkj");
+
+        assertEquals("asdf", s.toString());
+        assertEquals("lkjlkhkj", t.toString());
+    }
+
     @Test
     public void equalValuesEqual() {
         Data s = LangString.of("hello");
