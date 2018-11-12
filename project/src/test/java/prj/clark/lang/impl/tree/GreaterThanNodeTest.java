@@ -17,7 +17,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void intGTETrue() throws LangException {
+    public void intGTTrue() throws LangException {
         Data a = LangInt.of(5);
         Data b = LangInt.of(3);
         Node n = create(a, b);
@@ -26,7 +26,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void floatGTETrue() throws LangException {
+    public void floatGTTrue() throws LangException {
         Data a = LangFloat.of(5);
         Data b = LangFloat.of(3);
         Node n = create(a, b);
@@ -35,7 +35,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void intFloatGTETrue() throws LangException {
+    public void intFloatGTTrue() throws LangException {
         Data a = LangInt.of(5);
         Data b = LangFloat.of(3);
         Node n = create(a, b);
@@ -44,7 +44,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void floatIntGTETrue() throws LangException {
+    public void floatIntGTTrue() throws LangException {
         Data a = LangFloat.of(5);
         Data b = LangInt.of(3);
         Node n = create(a, b);
@@ -53,7 +53,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void intGTEFalse() throws LangException {
+    public void intGTFalse() throws LangException {
         Data a = LangInt.of(3);
         Data b = LangInt.of(5);
         Node n = create(a, b);
@@ -62,7 +62,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void floatGTEFalse() throws LangException {
+    public void floatGTFalse() throws LangException {
         Data a = LangFloat.of(3);
         Data b = LangFloat.of(5);
         Node n = create(a, b);
@@ -71,7 +71,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void intFloatGTEFalse() throws LangException {
+    public void intFloatGTFalse() throws LangException {
         Data a = LangInt.of(3);
         Data b = LangFloat.of(5);
         Node n = create(a, b);
@@ -80,7 +80,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test
-    public void floatIntGTEFalse() throws LangException {
+    public void floatIntGTFalse() throws LangException {
         Data a = LangFloat.of(3);
         Data b = LangInt.of(5);
         Node n = create(a, b);
@@ -89,7 +89,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolGTE() throws LangException {
+    public void boolGT() throws LangException {
         Data a = TRUE;
         Data b = FALSE;
         Node n = create(a, b);
@@ -98,7 +98,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringGTE() throws LangException {
+    public void stringGT() throws LangException {
         Data a = LangString.of("hello");
         Data b = LangString.of("world");
         Node n = create(a, b);
@@ -107,7 +107,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolStringGTE() throws LangException {
+    public void boolStringGT() throws LangException {
         Data a = TRUE;
         Data b = LangString.of("asdf");
         Node n = create(a, b);
@@ -116,7 +116,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringBoolGTE() throws LangException {
+    public void stringBoolGT() throws LangException {
         Data a = LangString.of("lkasdfhjk");
         Data b = FALSE;
         Node n = create(a, b);
@@ -125,7 +125,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void intBoolGTE() throws LangException {
+    public void intBoolGT() throws LangException {
         Data a = LangInt.of(5);
         Data b = FALSE;
         Node n = create(a, b);
@@ -134,7 +134,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolIntGTE() throws LangException {
+    public void boolIntGT() throws LangException {
         Data a = TRUE;
         Data b = LangInt.of(3);
         Node n = create(a, b);
@@ -143,7 +143,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void floatBoolGTE() throws LangException {
+    public void floatBoolGT() throws LangException {
         Data a = LangFloat.of(2.5);
         Data b = FALSE;
         Node n = create(a, b);
@@ -152,7 +152,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void boolFloatGTE() throws LangException {
+    public void boolFloatGT() throws LangException {
         Data a = FALSE;
         Data b = LangFloat.of(2.5);
         Node n = create(a, b);
@@ -161,7 +161,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void intStringGTE() throws LangException {
+    public void intStringGT() throws LangException {
         Data a = LangInt.of(2);
         Data b = LangString.of("yo");
         Node n = create(a, b);
@@ -170,7 +170,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringIntGTE() throws LangException {
+    public void stringIntGT() throws LangException {
         Data a = LangString.of("yo");
         Data b = LangInt.of(2);
         Node n = create(a, b);
@@ -179,7 +179,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void floatStringGTE() throws LangException {
+    public void floatStringGT() throws LangException {
         Data a = LangFloat.of(2.5);
         Data b = LangString.of("yo");
         Node n = create(a, b);
@@ -188,7 +188,7 @@ public class GreaterThanNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void stringFloatGTE() throws LangException {
+    public void stringFloatGT() throws LangException {
         Data a = LangString.of("yo");
         Data b = LangFloat.of(2.5);
         Node n = create(a, b);

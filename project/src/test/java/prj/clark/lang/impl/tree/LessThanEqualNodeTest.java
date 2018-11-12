@@ -20,24 +20,18 @@ public class LessThanEqualNodeTest {
     public void intLTEFalse() throws LangException {
         Data a = LangInt.of(5);
         Data b = LangInt.of(3);
-        Data c = LangInt.of(3);
         Node n = create(a, b);
-        Node o = create(b, c);
 
         assertEquals(FALSE, n.evaluate(ctx));
-        assertEquals(FALSE, o.evaluate(ctx));
     }
 
     @Test
     public void floatLTEFalse() throws LangException {
         Data a = LangFloat.of(5);
         Data b = LangFloat.of(3);
-        Data c = LangFloat.of(3);
         Node n = create(a, b);
-        Node o = create(b, c);
 
         assertEquals(FALSE, n.evaluate(ctx));
-        assertEquals(FALSE, o.evaluate(ctx));
     }
 
     @Test
@@ -46,10 +40,8 @@ public class LessThanEqualNodeTest {
         Data b = LangFloat.of(3);
         Data c = LangFloat.of(3);
         Node n = create(a, b);
-        Node o = create(b, c);
 
         assertEquals(FALSE, n.evaluate(ctx));
-        assertEquals(FALSE, o.evaluate(ctx));
     }
 
     @Test
@@ -58,10 +50,8 @@ public class LessThanEqualNodeTest {
         Data b = LangInt.of(3);
         Data c = LangInt.of(3);
         Node n = create(a, b);
-        Node o = create(b, c);
 
         assertEquals(FALSE, n.evaluate(ctx));
-        assertEquals(FALSE, o.evaluate(ctx));
     }
 
     @Test
