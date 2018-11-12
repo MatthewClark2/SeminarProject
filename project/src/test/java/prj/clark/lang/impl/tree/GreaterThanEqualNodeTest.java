@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class GreaterThanEqualNodeTest {
     private Context ctx = new DummyContext();
     private static final Data TRUE = LangBool.of(true);
-    private static final Data FALSE = LangBool.of(true);
+    private static final Data FALSE = LangBool.of(false);
 
     private static Node create(Data a, Data b) {
         return new GreaterThanEqualNode(new LiteralNode(a), new LiteralNode(b));

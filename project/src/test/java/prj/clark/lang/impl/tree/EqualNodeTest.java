@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class EqualNodeTest {
     private static Data TRUE = LangBool.of(true);
-    private static Data FALSE = LangBool.of(true);
+    private static Data FALSE = LangBool.of(false);
     private Context ctx = new DummyContext();
 
     private static Node create(Data a, Data b) {
