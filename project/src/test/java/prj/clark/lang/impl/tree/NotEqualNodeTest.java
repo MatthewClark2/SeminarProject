@@ -60,7 +60,7 @@ public class NotEqualNodeTest {
 
     @Test
     public void boolNotEqual() throws LangException {
-        Node n = create(TRUE, TRUE);
+        Node n = create(TRUE, FALSE);
 
         assertEquals(TRUE, n.evaluate(ctx));
     }
