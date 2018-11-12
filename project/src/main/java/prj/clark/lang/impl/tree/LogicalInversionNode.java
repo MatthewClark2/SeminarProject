@@ -1,9 +1,6 @@
 package prj.clark.lang.impl.tree;
 
-import prj.clark.lang.impl.env.BooleanConverter;
-import prj.clark.lang.impl.env.Context;
-import prj.clark.lang.impl.env.Converter;
-import prj.clark.lang.impl.env.Data;
+import prj.clark.lang.impl.env.*;
 import prj.clark.lang.impl.err.LangException;
 
 public class LogicalInversionNode implements Node {
@@ -21,6 +18,9 @@ public class LogicalInversionNode implements Node {
 
     @Override
     public Data evaluate(Context ctx) throws LangException {
-        return BOOL_CONVERTER.convert(node.evaluate(ctx));
+        // TODO(matthew-c21) - Find a good way to cache this value.
+        boolean result = ((LangBool) BOOL_CONVERTER.convert(node.evaluate(ctx))).getValue();
+
+        return LangBool.of(! result);
     }
 }
