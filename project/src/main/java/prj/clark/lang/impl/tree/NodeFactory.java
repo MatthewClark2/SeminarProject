@@ -8,13 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 /**
  * This is basically just a sample class for converting the expression nodes of a parse tree into chunks of an AST.
  * It does not cover a solid chunk of the actual language.
  */
-public class ExpressionFactory {
+public class NodeFactory {
     private static final Map<String, BiFunction<Node, Node, Node>> BINOP_SUPPLIER = new HashMap<>();
 
     static {
@@ -77,8 +76,8 @@ public class ExpressionFactory {
                 throw new UnsupportedOperationException();
             }
 
-            return new Conditional(getStatmentBody(cctx.statementBody(0)),
-                    getStatmentBody(cctx.statementBody(1)),
+            return new Conditional(getStatementBody(cctx.statementBody(0)),
+                    getStatementBody(cctx.statementBody(1)),
                     getExpression(cctx.expression(0)));
         }
 
@@ -90,7 +89,7 @@ public class ExpressionFactory {
         throw new UnsupportedOperationException();
     }
 
-    public Node getStatmentBody(LangParser.StatementBodyContext ctx) {
+    public Node getStatementBody(LangParser.StatementBodyContext ctx) {
         List<Node> statements = new ArrayList<>();
 
         for (LangParser.StatementContext statement : ctx.statement()) {
