@@ -83,6 +83,8 @@ public class ExpressionFactory {
         }
 
         // TODO(matthew-c21) - Add creation of identifier and binding nodes.
+        // Basic binding support.
+
 
         // Otherwise, we're dealing with a lambda, function call, or collection. These aren't supported quite yet.
         throw new UnsupportedOperationException();

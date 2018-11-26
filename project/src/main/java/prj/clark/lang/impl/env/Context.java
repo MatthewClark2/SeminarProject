@@ -7,5 +7,6 @@ package prj.clark.lang.impl.env;
  * - Variables
  */
 public interface Context {
-
+    void bindMutably(String identifier, Data d);
+    void bindImmutably(String identifier, Data d);
 }

@@ -5,5 +5,13 @@ package prj.clark.lang.impl.env;
  * for testing those nodes.
  */
 public class DummyContext implements Context {
+    @Override
+    public void bindMutably(String identifier, Data d) {
 
+    }
+
+    @Override
+    public void bindImmutably(String identifier, Data d) {
+
+    }
 }
