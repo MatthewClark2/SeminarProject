@@ -1,6 +1,6 @@
 package prj.clark.lang.impl.env;
 
-// TODO(matthew-c21) - This should actually be an empty Tuple instead of its own null fill-in. 
+// TODO(matthew-c21) - This should actually be an empty Tuple instead of its own null fill-in.
 public class Empty implements Data {
     private static final Data EMPTY;
 
