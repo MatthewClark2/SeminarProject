@@ -34,9 +34,9 @@ public class AbstractSyntaxTreeTest {
     }
 
     @Test
-    public void emptyTreeReturnsEmpty() {
+    public void emptyTreeReturnsEmpty() throws LangException {
         // This is only the case until an empty value is added to the language.
-        fail("EmptyType value unavailable.");
+        assertEquals(Empty.get(), create().execute(new DummyContext()));
     }
 
     @Test

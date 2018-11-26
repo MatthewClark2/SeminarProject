@@ -7,7 +7,7 @@ public class Empty implements Data {
         EMPTY = new Empty();
     }
 
-    public Data get() {
+    public static Data get() {
         return EMPTY;
     }
 
