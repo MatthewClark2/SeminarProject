@@ -9,7 +9,7 @@ package prj.clark.lang.impl;
  */
 
 // Components of a file and blocks.
-statement : (expression | assignment | fnAssignment) SEMICOLON ;
+statement : ((expression | assignment | fnAssignment) SEMICOLON | comment);
 statementBody : LBRACE statement* RBRACE ;
 file : statement* ;
 
@@ -35,7 +35,7 @@ tupleIdentifier : LPAREN (tupleIdentifier | IDENTIFIER) (COMMA (tupleIdentifier 
 // The :IDENTIFIER is for type specification. This is in place for later.
 // It is left as optional now due to the implementation being ignored in the
 // early stages of the language.
-binding : (IDENTIFIER | tupleIdentifier) (COLON IDENTIFIER)? ;
+binding : (IDENTIFIER | tupleIdentifier) ; // (COLON IDENTIFIER)? ;
 
 // Assignment semantics.
 fnAssignment : DEFN IDENTIFIER lambda ;
@@ -98,7 +98,6 @@ COMMA : ',' ;
 COMMENT_START : '/*';
 COMMENT_END : '*/';
 
-IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
 
 // Primitive value literals.
 TRUE : 'true' ;
@@ -155,3 +154,4 @@ TYPE : 'type';
 ENUM : 'enum' ;
 
 WHITESPACE : [ \t\n\r] -> skip ;
+IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;

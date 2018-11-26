@@ -23,7 +23,7 @@ public class DefaultContext implements Context {
         immutableBindings = new HashMap<>();
 
         mutableBindings.put(MODULE, new HashMap<>());
-        mutableBindings.put(MODULE, new HashMap<>());
+        immutableBindings.put(MODULE, new HashMap<>());
     }
 
     @Override

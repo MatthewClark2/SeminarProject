@@ -7,9 +7,9 @@ apply plugin: 'application'
 apply plugin: 'idea'
 
 group 'prj.clark.lang'
-version '1.0-SNAPSHOT'
+version '0.1-SNAPSHOT'
 
-mainClassName = 'prj.clark.lang.basic.BasicApp'
+mainClassName = 'prj.clark.lang.impl.REPL'
 
 sourceCompatibility = 1.8
 

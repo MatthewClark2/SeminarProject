@@ -1,6 +1,5 @@
 package prj.clark.lang.impl.tree;
 
-import prj.clark.lang.basic.BasicParser;
 import prj.clark.lang.impl.LangParser;
 import prj.clark.lang.impl.env.*;
 
@@ -34,16 +33,18 @@ public class NodeFactory {
     }
 
     public List<Node> getAll(LangParser.FileContext ctx) {
-        return ctx.statement().stream().map(this::get).collect(Collectors.toList());
+        return ctx.statement().stream().map((LangParser.StatementContext s) -> get(s)).collect(Collectors.toList());
     }
 
     public Node get(LangParser.StatementContext ctx) {
-        if (ctx.expression() != null) {
-            return get(ctx.expression());
-        } else if (ctx.assignment() != null) {
+        // Check assignment first since an assignment contains an expression.
+        if (ctx.assignment() != null) {
             return get(ctx.assignment());
+        } else if (ctx.expression() != null) {
+            return get(ctx.expression());
         } else {
-            // TODO(matthew-c21) - Function assignments are currently abandoned.
+            // TODO(matthew-c21) - Function assignments are currently abandoned
+            // TODO(matthew-c21) - Comments throw exceptions.
             throw new IllegalStateException("Unable to convert statement to node.");
         }
     }
@@ -57,6 +58,11 @@ public class NodeFactory {
         // Handle parentheses.
         if (ctx.LPAREN() != null) {
             return get(ctx.expression(0));
+        }
+
+        // Logical inversion.
+        if (ctx.NOT() != null) {
+            return new LogicalInversionNode(get(ctx.expression(0)));
         }
 
         // Handle binary operators.
@@ -85,17 +91,13 @@ public class NodeFactory {
             return new LiteralNode(data);
         }
 
-        // Logical inversion.
-        if (ctx.NOT() != null) {
-            return new LogicalInversionNode(get(ctx.expression(0)));
-        }
 
         // Handle conditions. Currently ignores elif.
         if (ctx.conditional() != null) {
             LangParser.ConditionalContext cctx = ctx.conditional();
 
             if (cctx.ELIF() != null) {
-                throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException("Elifs don't do anything");
             }
 
             return new Conditional(get(cctx.statementBody(0)),
@@ -103,8 +105,12 @@ public class NodeFactory {
                     get(cctx.expression(0)));
         }
 
+        if (ctx.IDENTIFIER() != null) {
+            return new IdentifierNode(ctx.IDENTIFIER().getText());
+        }
+
         // Otherwise, we're dealing with a lambda, function call, or collection. These aren't supported quite yet.
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Unable to manage " + ctx.getText());
     }
 
     public Node get(LangParser.StatementBodyContext ctx) {

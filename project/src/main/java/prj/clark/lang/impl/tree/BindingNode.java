@@ -2,6 +2,7 @@ package prj.clark.lang.impl.tree;
 
 import prj.clark.lang.impl.env.Context;
 import prj.clark.lang.impl.env.Data;
+import prj.clark.lang.impl.env.Empty;
 import prj.clark.lang.impl.err.LangException;
 import prj.clark.lang.impl.validation.IdentifierValidation;
 
@@ -15,7 +16,7 @@ public class BindingNode implements Node {
         this.identifier = identifier;
         this.body = body;
         this.isMutableBinding = isMutableBinding;
-        this.binds = IdentifierValidation.isUnboundIdentifier(this.identifier);
+        this.binds = ! IdentifierValidation.isUnboundIdentifier(this.identifier);
     }
 
     @Override
@@ -32,6 +33,6 @@ public class BindingNode implements Node {
         }
 
         // Return some empty type.
-        return null;
+        return Empty.get();
     }
 }

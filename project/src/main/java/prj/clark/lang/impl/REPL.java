@@ -9,6 +9,8 @@ import prj.clark.lang.impl.err.LangException;
 import prj.clark.lang.impl.tree.AbstractSyntaxTree;
 import prj.clark.lang.impl.tree.NodeFactory;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class REPL {
@@ -47,6 +49,7 @@ public class REPL {
                     ANTLRInputStream is = new ANTLRInputStream(input);
                     System.out.println("\t" + parse(is, ctx));
                 } catch (Exception e) {
+                    e.printStackTrace();
                     System.out.println(e.getMessage());
                 }
             }
@@ -55,5 +58,16 @@ public class REPL {
 
     private static void displayPrompt() {
         System.out.print(" >>> ");
+    }
+
+    private static void staticTest() {
+        try {
+            InputStream i = REPL.class.getClassLoader().getResourceAsStream("/prj/clark/lang/impl/data.lng");
+            ANTLRInputStream is = new ANTLRInputStream(i);
+            System.out.println(parse(is, new DefaultContext()));
+        } catch (Exception e) {
+            // Whatever.
+            throw new RuntimeException(e);
+        }
     }
 }
