@@ -1,5 +1,7 @@
 package prj.clark.lang.impl.env;
 
+import java.util.Optional;
+
 /**
  * For now, this is just a dummy class for managing the execution context of a
  * script. It only exists to give a type to execution. Managed data includes:
@@ -9,4 +11,5 @@ package prj.clark.lang.impl.env;
 public interface Context {
     void bindMutably(String identifier, Data d);
     void bindImmutably(String identifier, Data d);
+    Optional<Data> search(String identifier);
 }

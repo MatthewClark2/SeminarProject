@@ -4,7 +4,9 @@ import prj.clark.lang.impl.err.IllegalRebindingException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import static prj.clark.lang.impl.validation.IdentifierValidation.isUnboundIdentifier;
 import static prj.clark.lang.impl.validation.IdentifierValidation.validate;
 
 public class DefaultContext implements Context {
@@ -45,5 +47,22 @@ public class DefaultContext implements Context {
 
         validate(identifier);
         immutableBindings.get(MODULE).put(identifier, d);
+    }
+
+    @Override
+    public Optional<Data> search(String identifier) {
+        if (isUnboundIdentifier(identifier)) {
+            return Optional.empty();
+        }
+
+        if (immutableBindings.get(MODULE).containsKey(identifier)) {
+            return Optional.of(immutableBindings.get(MODULE).get(identifier));
+        }
+
+        if (mutableBindings.get(MODULE).containsKey(identifier)) {
+            return Optional.of(mutableBindings.get(MODULE).get(identifier));
+        }
+
+        return Optional.empty();
     }
 }
