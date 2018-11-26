@@ -11,7 +11,7 @@ public class LangArray extends Collection {
     public LangArray(List<Data> data) {
         ensureHomogeneous(data);
         this.data = new ArrayList<>(data);
-        type = new ListType(data.isEmpty()? Empty.get() : data.get(0).getType());
+        type = new ListType(data.isEmpty()? EmptyType.get() : data.get(0).getType());
     }
 
     private static void ensureHomogeneous(List<Data> data) {

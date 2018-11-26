@@ -11,7 +11,7 @@ public class IdentifierValidation {
 
     public static void validate(String identifier) {
         if (identifier == null || identifier.isEmpty()) {
-            throw new InvalidIdentifierException("Empty identifier");
+            throw new InvalidIdentifierException("EmptyType identifier");
         }
 
         if (!Character.isJavaIdentifierStart(identifier.charAt(0))) {

@@ -32,7 +32,7 @@ public interface Bindings {
     /**
      * Find a piece of data given its identifier.
      * @param id the name of the binding.
-     * @return an Optional containing the found data if the binding has been created, or Empty.
+     * @return an Optional containing the found data if the binding has been created, or EmptyType.
      */
     Optional<Data> search(String id) throws LangException;
 

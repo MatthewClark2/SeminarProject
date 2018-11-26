@@ -12,7 +12,7 @@ public class LangTuple implements Data {
         this.data = data;
 
         if (data.isEmpty()) {
-            type = Empty.get();
+            type = EmptyType.get();
         } else {
             type = new TupleType(data.stream().map(Data::getType).collect(Collectors.toList()));
         }

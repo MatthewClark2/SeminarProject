@@ -12,8 +12,8 @@ public class LangDict extends Collection {
         ensureHomogeneous(data);
         this.data = new HashMap<>(data);
         type = new DictType(
-                data.keySet().stream().findFirst().map(Data::getType).orElse(Empty.get()),
-                data.values().stream().findFirst().map(Data::getType).orElse(Empty.get())
+                data.keySet().stream().findFirst().map(Data::getType).orElse(EmptyType.get()),
+                data.values().stream().findFirst().map(Data::getType).orElse(EmptyType.get())
         );
     }
 

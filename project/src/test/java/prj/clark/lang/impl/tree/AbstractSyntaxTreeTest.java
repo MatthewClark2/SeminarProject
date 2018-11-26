@@ -36,7 +36,7 @@ public class AbstractSyntaxTreeTest {
     @Test
     public void emptyTreeReturnsEmpty() {
         // This is only the case until an empty value is added to the language.
-        fail("Empty value unavailable.");
+        fail("EmptyType value unavailable.");
     }
 
     @Test

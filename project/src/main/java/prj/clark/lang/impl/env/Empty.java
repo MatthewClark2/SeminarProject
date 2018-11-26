@@ -1,20 +1,23 @@
 package prj.clark.lang.impl.env;
 
-public class Empty implements DataType {
-    private static final Empty EMPTY;
+public class Empty implements Data {
+    private static final Data EMPTY;
 
     static {
         EMPTY = new Empty();
     }
 
-    private Empty() {}
-
-    public static Empty get() {
+    public Data get() {
         return EMPTY;
     }
 
     @Override
-    public boolean ofType(DataType dt) {
-        return dt == EMPTY;
+    public DataType getType() {
+        return EmptyType.get();
+    }
+
+    @Override
+    public String toString() {
+        return "nil";
     }
 }
