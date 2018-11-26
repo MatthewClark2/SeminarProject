@@ -2,6 +2,7 @@ package prj.clark.lang.impl.tree;
 
 import prj.clark.lang.impl.env.Context;
 import prj.clark.lang.impl.env.Data;
+import prj.clark.lang.impl.env.Empty;
 import prj.clark.lang.impl.err.LangException;
 
 import java.util.List;
@@ -25,8 +26,7 @@ public class AbstractSyntaxTree {
      * @throws LangException should any node in the tree fail.
      */
     public Data execute(Context ctx) throws LangException {
-        // TODO(matthew-c21) - Fix this method when something in the language represents empty.
-        Data d = null;
+        Data d = Empty.get();
 
         for (Node n : nodes) {
             d = n.evaluate(ctx);
