@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * This is basically just a sample class for converting the expression nodes of a parse tree into chunks of an AST.
@@ -30,6 +31,21 @@ public class NodeFactory {
         BINOP_SUPPLIER.put(">=", GreaterThanEqualNode::new);
         BINOP_SUPPLIER.put("==", EqualNode::new);
         BINOP_SUPPLIER.put("!=", NotEqualNode::new);
+    }
+
+    public List<Node> getAll(LangParser.FileContext ctx) {
+        return ctx.statement().stream().map(this::get).collect(Collectors.toList());
+    }
+
+    public Node get(LangParser.StatementContext ctx) {
+        if (ctx.expression() != null) {
+            return get(ctx.expression());
+        } else if (ctx.assignment() != null) {
+            return get(ctx.assignment());
+        } else {
+            // TODO(matthew-c21) - Function assignments are currently abandoned.
+            throw new IllegalStateException("Unable to convert statement to node.");
+        }
     }
 
     public Node get(LangParser.AssignmentContext ctx) {

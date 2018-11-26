@@ -9,7 +9,7 @@ package prj.clark.lang.impl;
  */
 
 // Components of a file and blocks.
-statement : expression SEMICOLON ;
+statement : (expression | assignment | fnAssignment) SEMICOLON ;
 statementBody : LBRACE statement* RBRACE ;
 file : statement* ;
 
