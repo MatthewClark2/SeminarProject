@@ -38,9 +38,8 @@ tupleIdentifier : LPAREN (tupleIdentifier | IDENTIFIER) (COMMA (tupleIdentifier 
 binding : (IDENTIFIER | tupleIdentifier) (COLON IDENTIFIER)? ;
 
 // Assignment semantics.
-constAssignment : DEF binding expression ;
-mutAssignment : DEFMUT binding expression ;
 fnAssignment : DEFN IDENTIFIER lambda ;
+assignment : (DEF | DEFMUT) binding expression ;
 
 // Defined in descending order of precedence.
 expression : LPAREN expression RPAREN

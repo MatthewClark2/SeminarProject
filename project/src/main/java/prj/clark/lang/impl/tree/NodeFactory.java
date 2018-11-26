@@ -1,5 +1,6 @@
 package prj.clark.lang.impl.tree;
 
+import prj.clark.lang.basic.BasicParser;
 import prj.clark.lang.impl.LangParser;
 import prj.clark.lang.impl.env.*;
 
@@ -31,15 +32,20 @@ public class NodeFactory {
         BINOP_SUPPLIER.put("!=", NotEqualNode::new);
     }
 
-    public Node getExpression(LangParser.ExpressionContext ctx) {
+    public Node get(LangParser.AssignmentContext ctx) {
+        boolean isConst = ctx.DEFMUT() != null;
+        return new BindingNode(ctx.binding().getText(), get(ctx.expression()), isConst);
+    }
+
+    public Node get(LangParser.ExpressionContext ctx) {
         // Handle parentheses.
         if (ctx.LPAREN() != null) {
-            return getExpression(ctx.expression(0));
+            return get(ctx.expression(0));
         }
 
         // Handle binary operators.
         if (ctx.op != null) {
-            return BINOP_SUPPLIER.get(ctx.op.getText()).apply(getExpression(ctx.left), getExpression(ctx.right));
+            return BINOP_SUPPLIER.get(ctx.op.getText()).apply(get(ctx.left), get(ctx.right));
         }
 
         // Handle terminals.
@@ -65,7 +71,7 @@ public class NodeFactory {
 
         // Logical inversion.
         if (ctx.NOT() != null) {
-            return new LogicalInversionNode(getExpression(ctx.expression(0)));
+            return new LogicalInversionNode(get(ctx.expression(0)));
         }
 
         // Handle conditions. Currently ignores elif.
@@ -76,24 +82,20 @@ public class NodeFactory {
                 throw new UnsupportedOperationException();
             }
 
-            return new Conditional(getStatementBody(cctx.statementBody(0)),
-                    getStatementBody(cctx.statementBody(1)),
-                    getExpression(cctx.expression(0)));
+            return new Conditional(get(cctx.statementBody(0)),
+                    get(cctx.statementBody(1)),
+                    get(cctx.expression(0)));
         }
-
-        // TODO(matthew-c21) - Add creation of identifier and binding nodes.
-        // Basic binding support.
-
 
         // Otherwise, we're dealing with a lambda, function call, or collection. These aren't supported quite yet.
         throw new UnsupportedOperationException();
     }
 
-    public Node getStatementBody(LangParser.StatementBodyContext ctx) {
+    public Node get(LangParser.StatementBodyContext ctx) {
         List<Node> statements = new ArrayList<>();
 
         for (LangParser.StatementContext statement : ctx.statement()) {
-            statements.add(getExpression(statement.expression()));
+            statements.add(get(statement.expression()));
         }
 
         return new StatementListNode(statements);
