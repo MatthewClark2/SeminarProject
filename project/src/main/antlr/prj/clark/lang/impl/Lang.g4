@@ -17,13 +17,6 @@ file : statement* ;
 bool : (TRUE | FALSE) ;
 primitive : (STRING | FLOAT | INT | bool) ;
 
-// Collection literals.
-tuple : LPAREN (expressionList)? RPAREN ;
-array : LBRACKET (expressionList)? RBRACKET ;
-dictEntry : expression COLON expression ;
-dictEntryList : dictEntry (COMMA dictEntry)* ;
-dict : LBRACE dictEntryList? RBRACE ;
-
 // Function literal.
 lambda : tupleIdentifier statementBody ;
 
@@ -31,11 +24,8 @@ lambda : tupleIdentifier statementBody ;
 comment : COMMENT_START content=.*? COMMENT_END ;
 
 // Binding semantics for destructuring.
-tupleIdentifier : LPAREN (tupleIdentifier | IDENTIFIER) (COMMA (tupleIdentifier | IDENTIFIER))* RPAREN;
-// The :IDENTIFIER is for type specification. This is in place for later.
-// It is left as optional now due to the implementation being ignored in the
-// early stages of the language.
-binding : (IDENTIFIER | tupleIdentifier) ; // (COLON IDENTIFIER)? ;
+tupleIdentifier : LPAREN IDENTIFIER (COMMA IDENTIFIER)*? RPAREN ;
+binding : (IDENTIFIER | tupleIdentifier) ;
 
 // Assignment semantics.
 fnAssignment : DEFN IDENTIFIER lambda ;
@@ -49,28 +39,20 @@ expression : LPAREN expression RPAREN
            | left=expression op=(PLUS | MINUS) right=expression
            | left=expression op=(LT | LE | GT | GE) right=expression
            | left=expression op=(EQ | NEQ) right=expression
-           | prefix
-           // Infix notation
-           | left=expression func=IDENTIFIER right=expression
+             // Function invocation.
+           | left=expression infix=expression right=expression
+           | prefix=expression LPAREN expressionList RPAREN
+             // Terminals
            | IDENTIFIER
            | primitive
-           | array
-           | tuple
-           | dict
            | conditional
            | lambda
            ;
 
-// Function invocation.
 expressionList : expression (COMMA expression)* ;
-prefix : func=IDENTIFIER args=tuple ;
 
 // Flow control.
 conditional : IF expression statementBody (ELIF expression statementBody)*? ELSE statementBody ;
-whileLoop : WHILE expression statementBody ;
-forLoop : FOR binding IN expression statementBody ;
-
-// Add list comprehensions similar to Haskell.
 
 /*
  * Lexer Rules
