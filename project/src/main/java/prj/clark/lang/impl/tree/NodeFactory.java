@@ -73,37 +73,13 @@ public class NodeFactory {
 
         // Handle terminals.
         if (ctx.primitive() != null) {
-            Data data;
-
-            LangParser.PrimitiveContext pctx = ctx.primitive();
-
-            if (pctx.bool() != null) {
-                data = LangBool.of(pctx.bool().getText());
-            } else if (pctx.FLOAT() != null) {
-                data = LangFloat.of(pctx.FLOAT().getText());
-            } else if (pctx.INT() != null) {
-                data = LangInt.of(pctx.INT().getText());
-            } else if (pctx.STRING() != null) {
-                data = LangString.of(pctx.STRING().getText());
-            } else {
-                throw new IllegalStateException("Illegal primitive.");
-            }
-
-            return new LiteralNode(data);
+            return get(ctx.primitive());
         }
 
 
         // Handle conditions. Currently ignores elif.
         if (ctx.conditional() != null) {
-            LangParser.ConditionalContext cctx = ctx.conditional();
-
-            if (cctx.ELIF() != null) {
-                throw new UnsupportedOperationException("Elifs don't do anything");
-            }
-
-            return new Conditional(get(cctx.statementBody(0)),
-                    get(cctx.statementBody(1)),
-                    get(cctx.expression(0)));
+            return get(ctx.conditional());
         }
 
         if (ctx.IDENTIFIER() != null) {
@@ -111,15 +87,46 @@ public class NodeFactory {
         }
 
         if (ctx.lambda() != null) {
-            LangParser.LambdaContext lctx = ctx.lambda();
-            return new FunctionCreationNode(
-                    get(lctx.statementBody()),
-                    lctx.tupleIdentifier().IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList())
-            );
+            return get(ctx.lambda());
         }
 
-        // Otherwise, we're dealing with a lambda, function call, or collection. These aren't supported quite yet.
+        // Otherwise, we're dealing with a function call, or collection. These aren't supported quite yet.
         throw new UnsupportedOperationException("Unable to manage " + ctx.getText());
+    }
+
+    public Node get(LangParser.PrimitiveContext ctx) {
+        Data data;
+
+        if (ctx.bool() != null) {
+            data = LangBool.of(ctx.bool().getText());
+        } else if (ctx.FLOAT() != null) {
+            data = LangFloat.of(ctx.FLOAT().getText());
+        } else if (ctx.INT() != null) {
+            data = LangInt.of(ctx.INT().getText());
+        } else if (ctx.STRING() != null) {
+            data = LangString.of(ctx.STRING().getText());
+        } else {
+            throw new IllegalStateException("Illegal primitive.");
+        }
+
+        return new LiteralNode(data);
+    }
+
+    public Node get(LangParser.ConditionalContext ctx) {
+        if (ctx.ELIF() != null) {
+            throw new UnsupportedOperationException("Elifs don't do anything");
+        }
+
+        return new Conditional(get(ctx.statementBody(0)),
+                get(ctx.statementBody(1)),
+                get(ctx.expression(0)));
+    }
+
+    public Node get(LangParser.LambdaContext ctx) {
+        return new FunctionCreationNode(
+                get(ctx.statementBody()),
+                ctx.tupleIdentifier().IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList())
+        );
     }
 
     public Node get(LangParser.StatementBodyContext ctx) {
