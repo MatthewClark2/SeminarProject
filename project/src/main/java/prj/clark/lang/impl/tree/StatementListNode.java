@@ -18,8 +18,8 @@ public class StatementListNode implements Node {
     @Override
     public Data evaluate(Context ctx) throws LangException {
         Data d = Empty.get();
-        for (int i = 0; i < statements.size(); ++i) {
-            d = statements.get(i).evaluate(ctx);
+        for (Node n : statements) {
+            d = n.evaluate(ctx);
         }
 
         return d;
