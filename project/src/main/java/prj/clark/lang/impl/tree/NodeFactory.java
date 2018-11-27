@@ -44,15 +44,29 @@ public class NodeFactory {
         } else if (ctx.expression() != null) {
             return get(ctx.expression());
         } else {
-            // TODO(matthew-c21) - Function assignments are currently abandoned
             // TODO(matthew-c21) - Comments throw exceptions.
             throw new IllegalStateException("Unable to convert statement to node.");
         }
     }
 
     public Node get(LangParser.AssignmentContext ctx) {
+        if (ctx.fnAssignment() != null) {
+            return get(ctx.fnAssignment());
+        } else if (ctx.varAssignment() != null) {
+            return get(ctx.varAssignment());
+        } else {
+            throw new IllegalStateException("Unable to resolve assignment type.");
+        }
+    }
+
+    public Node get(LangParser.VarAssignmentContext ctx) {
         boolean isConst = ctx.DEFMUT() != null;
         return new BindingNode(ctx.binding().getText(), get(ctx.expression()), isConst);
+    }
+
+    public Node get(LangParser.FnAssignmentContext ctx) {
+        // Functions may not be re-assigned.
+        return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), false);
     }
 
     public Node get(LangParser.ExpressionContext ctx) {
