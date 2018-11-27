@@ -33,7 +33,6 @@ public class GeneratedFunction implements Function {
 
     @Override
     public Data apply(List<Data> args) throws LangException {
-        // TODO(matthew-c21) -
         if (args.size() < argCount) {
             // return a partial function.
             return null;
@@ -41,7 +40,12 @@ public class GeneratedFunction implements Function {
             throw new FunctionInvocationException("Too many arguments supplied to function.");
         } else {
             // Apply the function using the given function body.
-            return null;
+            // TODO(matthew-c21) - Create the new scoped context here so that it can be discarded after use.
+            for (int i = 0; i < args.size(); ++i) {
+                enclosingContext.bindMutably(arguments.get(i), args.get(i));
+            }
+
+            return functionBody.evaluate(enclosingContext);
         }
     }
 
