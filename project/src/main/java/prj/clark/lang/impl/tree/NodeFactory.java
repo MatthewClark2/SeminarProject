@@ -1,5 +1,6 @@
 package prj.clark.lang.impl.tree;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import prj.clark.lang.impl.LangParser;
 import prj.clark.lang.impl.env.*;
 
@@ -107,6 +108,14 @@ public class NodeFactory {
 
         if (ctx.IDENTIFIER() != null) {
             return new IdentifierNode(ctx.IDENTIFIER().getText());
+        }
+
+        if (ctx.lambda() != null) {
+            LangParser.LambdaContext lctx = ctx.lambda();
+            return new FunctionCreationNode(
+                    get(lctx.statementBody()),
+                    lctx.tupleIdentifier().IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList())
+            );
         }
 
         // Otherwise, we're dealing with a lambda, function call, or collection. These aren't supported quite yet.
