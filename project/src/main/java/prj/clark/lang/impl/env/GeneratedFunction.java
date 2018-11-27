@@ -7,7 +7,9 @@ import prj.clark.lang.impl.tree.StatementListNode;
 import java.util.List;
 
 /**
- * Used for functions that are created at runtime.
+ * Used for functions that are created at runtime. This class should conform to the automatic currying in the language.
+ * Instances are assumed to be raw, untyped functions.
+ * @see RawFunction
  */
 public class GeneratedFunction implements Function {
     private final StatementListNode functionBody;
