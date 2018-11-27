@@ -29,7 +29,8 @@ binding : (IDENTIFIER | tupleIdentifier) ;
 
 // Assignment semantics.
 fnAssignment : DEFN IDENTIFIER lambda ;
-assignment : (DEF | DEFMUT) binding expression ;
+varAssignment : (DEF | DEFMUT) binding expression ;
+assignment : (fnAssignment | varAssignment) ;
 
 // Defined in descending order of precedence.
 expression : LPAREN expression RPAREN
