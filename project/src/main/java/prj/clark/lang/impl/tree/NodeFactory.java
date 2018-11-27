@@ -4,10 +4,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import prj.clark.lang.impl.LangParser;
 import prj.clark.lang.impl.env.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -34,7 +31,7 @@ public class NodeFactory {
     }
 
     public List<Node> getAll(LangParser.FileContext ctx) {
-        return ctx.statement().stream().filter(x -> x.comment() != null).map(this::get).collect(Collectors.toList());
+        return ctx.statement().stream().filter(x -> x.comment() == null).map(this::get).collect(Collectors.toList());
     }
 
     public Node get(LangParser.StatementContext ctx) {
@@ -44,7 +41,6 @@ public class NodeFactory {
         } else if (ctx.expression() != null) {
             return get(ctx.expression());
         } else {
-            // TODO(matthew-c21) - Comments throw exceptions.
             throw new IllegalStateException("Unable to convert statement to node.");
         }
     }
@@ -86,6 +82,14 @@ public class NodeFactory {
         }
 
         // Handle terminals.
+        if (ctx.infix != null) {
+            return new FunctionApplicationNode(get(ctx.infix), Arrays.asList(get(ctx.left), get(ctx.right)));
+        }
+
+        if (ctx.prefix != null) {
+            return new FunctionApplicationNode(get(ctx.prefix), ctx.expression().stream().map(this::get).collect(Collectors.toList()));
+        }
+
         if (ctx.primitive() != null) {
             return get(ctx.primitive());
         }
