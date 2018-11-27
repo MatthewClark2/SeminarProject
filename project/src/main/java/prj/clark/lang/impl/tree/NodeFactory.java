@@ -34,7 +34,7 @@ public class NodeFactory {
     }
 
     public List<Node> getAll(LangParser.FileContext ctx) {
-        return ctx.statement().stream().map((LangParser.StatementContext s) -> get(s)).collect(Collectors.toList());
+        return ctx.statement().stream().filter(x -> x.comment() != null).map(this::get).collect(Collectors.toList());
     }
 
     public Node get(LangParser.StatementContext ctx) {
