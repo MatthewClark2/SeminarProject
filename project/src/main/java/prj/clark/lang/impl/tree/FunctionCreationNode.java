@@ -11,10 +11,10 @@ import java.util.List;
  * Yields a {@link prj.clark.lang.impl.env.GeneratedFunction} when evaluated.
  */
 public class FunctionCreationNode implements Node {
-    private final StatementListNode body;
+    private final Node body;
     private final List<String> parameters;
 
-    public FunctionCreationNode(StatementListNode body, List<String> parameters) {
+    public FunctionCreationNode(Node body, List<String> parameters) {
         this.body = body;
         this.parameters = parameters;
 

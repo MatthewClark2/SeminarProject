@@ -2,6 +2,7 @@ package prj.clark.lang.impl.env;
 
 import prj.clark.lang.impl.err.FunctionInvocationException;
 import prj.clark.lang.impl.err.LangException;
+import prj.clark.lang.impl.tree.Node;
 import prj.clark.lang.impl.tree.StatementListNode;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
  * @see RawFunction
  */
 public class GeneratedFunction implements Function {
-    private final StatementListNode functionBody;
+    private final Node functionBody;
     private final Context enclosingContext;
     private final int argCount;
     private final List<String> arguments;
@@ -47,7 +48,7 @@ public class GeneratedFunction implements Function {
      * @param enclosingContext the surrounding context of the function.
      * @param arguments the names of all bound parameters. The length of this List should be the same as argCount.
      */
-    public GeneratedFunction(StatementListNode functionBody, Context enclosingContext, List<String> arguments) {
+    public GeneratedFunction(Node functionBody, Context enclosingContext, List<String> arguments) {
         // TODO(matthew-c21) - Consider taking copies rather than pointers.
         this.functionBody = functionBody;
         this.enclosingContext = enclosingContext;
