@@ -9,7 +9,6 @@ import prj.clark.lang.impl.err.LangException;
 import prj.clark.lang.impl.tree.AbstractSyntaxTree;
 import prj.clark.lang.impl.tree.NodeFactory;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Scanner;
 

@@ -9,7 +9,7 @@ package prj.clark.lang.impl;
  */
 
 // Components of a file and blocks.
-statement : ((expression | assignment | fnAssignment) SEMICOLON | comment);
+statement : ((expression | assignment) SEMICOLON | comment);
 statementBody : LBRACE statement* RBRACE ;
 file : statement* ;
 
@@ -20,11 +20,13 @@ primitive : (STRING | FLOAT | INT | bool) ;
 // Function literal.
 lambda : tupleIdentifier statementBody ;
 
+tuple : LPAREN (expression (COMMA expression)*?)? RPAREN ;
+
 // Comments. These are just discarded at runtime.
 comment : COMMENT_START content=.*? COMMENT_END ;
 
 // Binding semantics for destructuring.
-tupleIdentifier : LPAREN IDENTIFIER (COMMA IDENTIFIER)*? RPAREN ;
+tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*?)? RPAREN ;
 binding : (IDENTIFIER | tupleIdentifier) ;
 
 // Assignment semantics.
@@ -41,13 +43,13 @@ expression : LPAREN expression RPAREN
            | left=expression op=(LT | LE | GT | GE) right=expression
            | left=expression op=(EQ | NEQ) right=expression
              // Function invocation.
+           | prefix=expression args=tuple
            | left=expression infix=expression right=expression
-           | prefix=expression LPAREN expressionList RPAREN
              // Terminals
-           | IDENTIFIER
+           | lambda
            | primitive
            | conditional
-           | lambda
+           | IDENTIFIER
            ;
 
 expressionList : expression (COMMA expression)* ;

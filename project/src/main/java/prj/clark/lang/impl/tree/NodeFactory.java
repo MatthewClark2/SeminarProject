@@ -87,13 +87,14 @@ public class NodeFactory {
         }
 
         if (ctx.prefix != null) {
-            return new FunctionApplicationNode(get(ctx.prefix), ctx.expression().stream().map(this::get).collect(Collectors.toList()));
+            return new FunctionApplicationNode(get(ctx.prefix), ctx.args.expression().stream()
+                    .map(this::get)
+                    .collect(Collectors.toList()));
         }
 
         if (ctx.primitive() != null) {
             return get(ctx.primitive());
         }
-
 
         // Handle conditions. Currently ignores elif.
         if (ctx.conditional() != null) {
