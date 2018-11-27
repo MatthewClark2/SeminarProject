@@ -150,9 +150,7 @@ public class NodeFactory {
     public Node get(LangParser.StatementBodyContext ctx) {
         List<Node> statements = new ArrayList<>();
 
-        for (LangParser.StatementContext statement : ctx.statement()) {
-            statements.add(get(statement.expression()));
-        }
+        ctx.statement().forEach(x -> statements.add(get(x)));
 
         return new StatementListNode(statements);
     }

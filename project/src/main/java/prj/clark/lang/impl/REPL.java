@@ -50,7 +50,6 @@ public class REPL {
                     System.out.println("\t" + parse(is, ctx));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    System.out.println(e.getMessage());
                 }
             }
         }
