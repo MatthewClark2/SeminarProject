@@ -9,7 +9,28 @@ import java.util.Optional;
  * - Variables
  */
 public interface Context {
+    /**
+     * Bind a value to a given identifier. This binding will fail if the given identifier is already bound to another
+     * value immutably.
+     * @param identifier the identifier being bound.
+     * @param d the value being bound to the given identifier.
+     * @throws prj.clark.lang.impl.err.IllegalRebindingException if the given identifier is already bound immutably.
+     */
     void bindMutably(String identifier, Data d);
+
+    /**
+     * Bind a value to a given identifier. This binding will fail if the given identifier is already bound to another
+     * value immutably. The identifier will not be able to be bound again within the same {@link Context}.
+     * @param identifier the identifier being bound.
+     * @param d the value being bound to the given identifier.
+     * @throws prj.clark.lang.impl.err.IllegalRebindingException if the given identifier is already bound immutably.
+     */
     void bindImmutably(String identifier, Data d);
+
+    /**
+     * Determine if a given identifier has been bound within the current {@link Context}.
+     * @param identifier the name of the identifier being searched.
+     * @return an {@link Optional} containing the result of the search.
+     */
     Optional<Data> search(String identifier);
 }
