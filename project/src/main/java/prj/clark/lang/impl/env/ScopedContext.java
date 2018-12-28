@@ -47,12 +47,12 @@ public class ScopedContext implements Context {
 
     @Override
     public Optional<Data> search(String identifier) {
-        Optional<Data> originalResult = original.search(identifier);
+        Optional<Data> result = current.search(identifier);
 
-        if (originalResult.isPresent()) {
-            return originalResult;
+        if (result.isPresent()) {
+            return result;
         }
 
-        return current.search(identifier);
+        return original.search(identifier);
     }
 }
