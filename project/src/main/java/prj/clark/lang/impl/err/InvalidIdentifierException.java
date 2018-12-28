@@ -1,6 +1,6 @@
 package prj.clark.lang.impl.err;
 
-public class InvalidIdentifierException extends StaticLangException {
+public class InvalidIdentifierException extends LangException {
     public InvalidIdentifierException() {
         super();
     }

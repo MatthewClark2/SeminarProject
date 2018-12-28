@@ -2,9 +2,9 @@ package prj.clark.lang.impl.err;
 
 /**
  * TODO(matthew-c21) - Managing these exceptions is turning into a hassle when dealing with the abstract parts of the
- * interpreter. Find a way to make it less painful to work with. The same holds true when dealing with {@link StaticLangException}.
+ * interpreter. Find a way to make it less painful to work with.
  */
-public abstract class LangException extends Exception {
+public abstract class LangException extends RuntimeException {
     protected LangException() {
         super();
     }
