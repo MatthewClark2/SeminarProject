@@ -31,7 +31,7 @@ public class DefaultContext implements Context {
         // TODO(matthew-c21) - Decide on whether or not another level of abstraction would be useful here to avoid
         // direct validation.
         if (immutableBindings.containsKey(identifier)) {
-            throw new RuntimeException(new IllegalRebindingException());
+            throw new IllegalRebindingException();
         }
 
         validate(identifier);
@@ -42,7 +42,7 @@ public class DefaultContext implements Context {
     @Override
     public void bindImmutably(String identifier, Data d) {
         if (immutableBindings.get(MODULE).containsKey(identifier) || mutableBindings.get(MODULE).containsKey(identifier)) {
-            throw new RuntimeException(new IllegalRebindingException());
+            throw new IllegalRebindingException();
         }
 
         validate(identifier);
