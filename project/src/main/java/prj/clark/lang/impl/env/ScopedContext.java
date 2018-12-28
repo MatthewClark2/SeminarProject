@@ -2,8 +2,6 @@ package prj.clark.lang.impl.env;
 
 import prj.clark.lang.impl.err.IllegalRebindingException;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -12,22 +10,13 @@ import java.util.Optional;
  * original may be reflected through the wrapper.
  */
 public class ScopedContext implements Context {
-    // The outer map contains everything into a module like structure. This is currently unused.
-    private Map<String, Map<String, Data>> mutableBindings;
-    private Map<String, Map<String, Data>> immutableBindings;
     private Context original;
-    // Consider injecting this.
     private Context current;
 
     private static final String MODULE = ".";
 
     public ScopedContext(Context original) {
         this.original = original;
-        mutableBindings = new HashMap<>();
-        immutableBindings = new HashMap<>();
-
-        mutableBindings.put(MODULE, new HashMap<>());
-        immutableBindings.put(MODULE, new HashMap<>());
 
         // TODO(matthew-c21) - Change from a DefaultContext to an empty context.
         current = new DefaultContext();
