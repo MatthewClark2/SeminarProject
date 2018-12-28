@@ -2,6 +2,7 @@ package prj.clark.lang.impl.env;
 
 import org.junit.Before;
 import org.junit.Test;
+import prj.clark.lang.impl.err.IllegalRebindingException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -79,13 +80,13 @@ public class ScopedContextTest {
         scoped.bindImmutably("name", LangString.of("Matthew"));
     }
 
-    @Test
+    @Test(expected = IllegalRebindingException.class)
     public void mayNotRebindImmutableValuesImmutably() {
         scoped.bindImmutably("name", LangString.of("Matthew"));
         scoped.bindImmutably("name", LangString.of("Billy"));
     }
 
-    @Test
+    @Test(expected = IllegalRebindingException.class)
     public void mayNotRebindImmutableValuesMutably() {
         scoped.bindImmutably("name", LangString.of("Matthew"));
         scoped.bindMutably("name", LangString.of("Billy"));
