@@ -39,7 +39,7 @@ public class ScopedContextTest {
 
         @Override
         public boolean isBoundImmutably(String identifier) {
-            return true;
+            return bindings.containsKey(identifier);
         }
     }
 

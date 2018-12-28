@@ -1,5 +1,7 @@
 package prj.clark.lang.impl.env;
 
+import prj.clark.lang.impl.err.IllegalRebindingException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -26,16 +28,26 @@ public class ScopedContext implements Context {
 
         mutableBindings.put(MODULE, new HashMap<>());
         immutableBindings.put(MODULE, new HashMap<>());
+
+        // TODO(matthew-c21) - Change from a DefaultContext to an empty context.
         current = new DefaultContext();
     }
 
     @Override
     public void bindMutably(String identifier, Data d) {
+        if (isBoundImmutably(identifier)) {
+            throw new IllegalRebindingException();
+        }
+
         current.bindMutably(identifier, d);
     }
 
     @Override
     public void bindImmutably(String identifier, Data d) {
+        if (isBoundImmutably(identifier)) {
+            throw new IllegalRebindingException();
+        }
+
         current.bindImmutably(identifier, d);
     }
 

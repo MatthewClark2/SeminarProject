@@ -67,6 +67,6 @@ public class DefaultContext implements Context {
 
     @Override
     public boolean isBoundImmutably(String identifier) {
-        return immutableBindings.containsKey(identifier);
+        return immutableBindings.get(MODULE).containsKey(identifier);
     }
 }
