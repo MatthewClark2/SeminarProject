@@ -64,4 +64,9 @@ public class DefaultContext implements Context {
 
         return Optional.empty();
     }
+
+    @Override
+    public boolean isBoundImmutably(String identifier) {
+        return immutableBindings.containsKey(identifier);
+    }
 }

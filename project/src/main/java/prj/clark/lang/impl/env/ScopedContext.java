@@ -40,6 +40,11 @@ public class ScopedContext implements Context {
     }
 
     @Override
+    public boolean isBoundImmutably(String identifier) {
+        return current.isBoundImmutably(identifier) || original.isBoundImmutably(identifier);
+    }
+
+    @Override
     public Optional<Data> search(String identifier) {
         Optional<Data> originalResult = original.search(identifier);
 

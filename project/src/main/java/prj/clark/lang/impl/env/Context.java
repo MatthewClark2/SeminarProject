@@ -33,4 +33,12 @@ public interface Context {
      * @return an {@link Optional} containing the result of the search.
      */
     Optional<Data> search(String identifier);
+
+    /**
+     * Determine if a given identifier is already bound immutably. This method also works as a soft check to see whether
+     * or not an invocation to either binding method using the given identifier will work.
+     * @param identifier the identifier being checked against.
+     * @return false if the identifier is either bound mutably, or not bound at all, and true otherwise.
+     */
+    boolean isBoundImmutably(String identifier);
 }

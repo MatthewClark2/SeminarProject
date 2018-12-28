@@ -36,6 +36,11 @@ public class ScopedContextTest {
         public Optional<Data> search(String identifier) {
             return bindings.containsKey(identifier) ? Optional.of(bindings.get(identifier)) : Optional.empty();
         }
+
+        @Override
+        public boolean isBoundImmutably(String identifier) {
+            return true;
+        }
     }
 
     static {
