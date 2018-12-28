@@ -18,6 +18,11 @@ public class DummyContext implements Context {
     }
 
     @Override
+    public boolean isBoundImmutably(String identifier) {
+        return false;
+    }
+
+    @Override
     public Optional<Data> search(String identifier) {
         return Optional.empty();
     }

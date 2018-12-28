@@ -129,6 +129,28 @@ public class ScopedContextTest {
     }
 
     @Test
+    public void mutableBindingsNotBoundImmutably() {
+        scoped.bindMutably("hi", LangString.of("guy"));
+        assertFalse(scoped.isBoundImmutably("hi"));
+    }
+
+    @Test
+    public void unboundBindingsNotBoundImmutably() {
+        assertFalse(scoped.isBoundImmutably("random"));
+    }
+
+    @Test
+    public void immutableBindingsBoundImmutably() {
+        // The nested bindings should be immutable, as they are immutably bound in the original.
+        assertTrue(scoped.isBoundImmutably("hello"));
+        assertTrue(scoped.isBoundImmutably("foo"));
+        assertTrue(scoped.isBoundImmutably("False"));
+
+        scoped.bindImmutably("quxx", LangBool.of(true));
+        assertTrue(scoped.isBoundImmutably("quxx"));
+    }
+
+    @Test
     public void overwritingExternalVariablesProducesNewValue() {
         scoped.bindMutably("hello", LangString.of("Hello"));
         assertEquals(LangString.of("hello"), scoped.search("hello").get());
