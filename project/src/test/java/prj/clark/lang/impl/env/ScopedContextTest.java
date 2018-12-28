@@ -157,7 +157,7 @@ public class ScopedContextTest {
         Context sc = new ScopedContext(ctx);
 
         sc.bindMutably("bar", LangString.of("fdsa"));
-        assertEquals(LangString.of("fdsa"), scoped.search("bar").get());
+        assertEquals(LangString.of("fdsa"), sc.search("bar").get());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class ScopedContextTest {
         Context sc = new ScopedContext(ctx);
 
         sc.bindImmutably("bar", LangString.of("fdsa"));
-        assertEquals(LangString.of("fdsa"), scoped.search("bar").get());
+        assertEquals(LangString.of("fdsa"), sc.search("bar").get());
     }
 
     @Test(expected = IllegalRebindingException.class)
