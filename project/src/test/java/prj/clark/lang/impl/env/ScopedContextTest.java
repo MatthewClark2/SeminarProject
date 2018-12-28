@@ -151,9 +151,23 @@ public class ScopedContextTest {
     }
 
     @Test
-    public void overwritingExternalVariablesProducesNewValue() {
-        scoped.bindMutably("hello", LangString.of("Hello"));
-        assertEquals(LangString.of("hello"), scoped.search("hello").get());
+    public void overwritingExternalVariablesMutablyProducesNewValue() {
+        Context ctx = new DefaultContext();
+        ctx.bindMutably("bar", LangString.of("asdf"));
+        Context sc = new ScopedContext(ctx);
+
+        sc.bindMutably("bar", LangString.of("fdsa"));
+        assertEquals(LangString.of("fdsa"), scoped.search("bar").get());
+    }
+
+    @Test
+    public void overwritingExternalVariablesImmutablyProducesNewValue() {
+        Context ctx = new DefaultContext();
+        ctx.bindMutably("bar", LangString.of("asdf"));
+        Context sc = new ScopedContext(ctx);
+
+        sc.bindImmutably("bar", LangString.of("fdsa"));
+        assertEquals(LangString.of("fdsa"), scoped.search("bar").get());
     }
 
     @Test(expected = IllegalRebindingException.class)
