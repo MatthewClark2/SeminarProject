@@ -1,4 +1,4 @@
-grammar Lang ;  // The language is currently nameless.
+grammar Alchemy ;  // The language is currently nameless.
 
 @header {
 package prj.clark.lang.impl;
@@ -16,6 +16,9 @@ file : statement* ;
 // Type literals.
 bool : (TRUE | FALSE) ;
 primitive : (STRING | FLOAT | INT | bool) ;
+
+// TODO(matthew-c21) - Delete after testing.
+prim : (ASCII_CHAR | UNICODE_CODEPOINT | FLOAT | INT | bool) ;
 
 // Function literal.
 lambda : tupleIdentifier statementBody ;
@@ -66,6 +69,11 @@ fragment IDENTIFIER_PART : [a-zA-Z_0-9?] ;
 fragment UPPER : [A-Z] ;
 fragment LOWER : [a-z] ;
 fragment DIGIT : [0-9] ;
+// This fancy regex matches all printable base ASCII characters from space (0x20) to tilde (0x5E).
+// TODO(matthew-c21) - Ensure that this matches specification.
+fragment LEGAL_ASCII_CHAR : [ -~] ;
+fragment UNICODE_CODEPOINT : [0-9a-fA-F] ;
+
 
 // Offset values.
 LPAREN : '(' ;
@@ -75,23 +83,24 @@ RBRACKET : ']' ;
 LBRACE : '{' ;
 RBRACE : '}' ;
 BAR : '|' ;
-ARROW : '<-' ;
+RANGE : '..' ;
 
 COLON : ':' ;
-SEMICOLON : ';' ;
 COMMA : ',' ;
-COMMENT_START : '/*';
-COMMENT_END : '*/';
+BLOCK_COMMENT_START : '/*';
+BLOCK_COMMENT_END : '*/';
 
+// TODO(matthew-c21) - Add string as a parser rule.
+STRING_DELIMITER : '"' ;
 
 // Primitive value literals.
-TRUE : 'true' ;
-FALSE : 'false' ;
-
-STRING : '"' .*? '"' ;
-
+TRUE : 'True' ;
+FALSE : 'False' ;
 FLOAT  : DIGIT+ '.' DIGIT+ ;
 INT : DIGIT+ ;
+// TODO(matthew-c21) - Update character definition to allow for unicode to be recognized on it's own.
+ASCII_CHAR : '\\' LEGAL_ASCII_CHAR ;
+UNICODE_CHAR : '\\u' UNICODE_CODEPOINT UNICODE_CODEPOINT UNICODE_CODEPOINT UNICODE_CODEPOINT
 
 // Binops
 PLUS : '+' ;
@@ -106,37 +115,15 @@ LE : '<=' ;
 GE : '>=' ;
 EQ : '==' ;
 NEQ : '!=' ;
-RANGE : '..' ;
+FEED_FIRST : '>>' ;
+FEED_LAST : '<<' ;
+ACCESS : '.' ;
 
-// Even though the language is aimed at behaving primarily functionally, I'm keeping all of these here until they can be
-// decisively removed at a later date.
 ASSIGN : '=' ;
-PLUS_ASSIGN : '+=' ;
-MINUS_ASSIGN : '-=' ;
-DIV_ASSIGN : '/=' ;
-MUL_ASSIGN : '*=' ;
-POW_ASSIGN : '^=' ;
-MOD_ASSIGN : '%=' ;
 
 // Keywords
-OFTYPE : 'oftype' ;
-IS : 'is' ;
-AND : 'and' ;
-OR : 'or' ;
-NOT : 'not' ;
-IF : 'if' ;
-ELIF : 'elif' ;
-ELSE : 'else' ;
-FOR : 'for' ;
-IN : 'in' ;
-WHILE : 'while' ;
-DEF : 'def' ;
-DEFMUT : 'defmut' ;
 DEFN : 'defn' ;
-FN : 'fn' ;
-DEFREC : 'defrec' ;
-TYPE : 'type';
-ENUM : 'enum' ;
 
-WHITESPACE : [ \t\n\r] -> skip ;
+NEWLINE : '\n' ;
+WHITESPACE : [ \t\r] -> skip ;
 IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
