@@ -15,10 +15,13 @@ file : statement* ;
 
 // Type literals.
 bool : (TRUE | FALSE) ;
+string : STRING_DELIMITER content=PRINTABLE_CHARACTER*? STRING_DELIMITER ;
+char : CHAR_DELIMITER content=PRINTABLE_CHARACTER*? CHAR_DELIMITER ;
 primitive : (STRING | FLOAT | INT | bool) ;
 
 // TODO(matthew-c21) - Delete after testing.
-prim : (ASCII_CHAR | UNICODE_CODEPOINT | FLOAT | INT | bool) ;
+prim : (char | string | FLOAT | INT | bool) NEWLINE ;
+prims : prim* ;
 
 // Function literal.
 lambda : tupleIdentifier statementBody ;
@@ -69,11 +72,9 @@ fragment IDENTIFIER_PART : [a-zA-Z_0-9?] ;
 fragment UPPER : [A-Z] ;
 fragment LOWER : [a-z] ;
 fragment DIGIT : [0-9] ;
-// This fancy regex matches all printable base ASCII characters from space (0x20) to tilde (0x5E).
-// TODO(matthew-c21) - Ensure that this matches specification.
-fragment LEGAL_ASCII_CHAR : [ -~] ;
-fragment UNICODE_CODEPOINT : [0-9a-fA-F] ;
 
+// TODO(matthew-c21) - Find a Unicode usable substitute.
+PRINTABLE_CHARACTER : '\X' ;
 
 // Offset values.
 LPAREN : '(' ;
@@ -92,15 +93,13 @@ BLOCK_COMMENT_END : '*/';
 
 // TODO(matthew-c21) - Add string as a parser rule.
 STRING_DELIMITER : '"' ;
+CHAR_DELIMITER : '\'' ;
 
 // Primitive value literals.
 TRUE : 'True' ;
 FALSE : 'False' ;
 FLOAT  : DIGIT+ '.' DIGIT+ ;
 INT : DIGIT+ ;
-// TODO(matthew-c21) - Update character definition to allow for unicode to be recognized on it's own.
-ASCII_CHAR : '\\' LEGAL_ASCII_CHAR ;
-UNICODE_CHAR : '\\u' UNICODE_CODEPOINT UNICODE_CODEPOINT UNICODE_CODEPOINT UNICODE_CODEPOINT
 
 // Binops
 PLUS : '+' ;
