@@ -17,10 +17,10 @@ file : statement* ;
 bool : (TRUE | FALSE) ;
 string : STRING_DELIMITER content=PRINTABLE_CHARACTER*? STRING_DELIMITER ;
 char : CHAR_DELIMITER content=PRINTABLE_CHARACTER*? CHAR_DELIMITER ;
-primitive : (STRING | FLOAT | INT | bool) ;
+primitive : (STRING | FLOAT | INT | BOOL) ;
 
 // TODO(matthew-c21) - Delete after testing.
-prim : (char | string | FLOAT | INT | bool) NEWLINE ;
+prim : (CHAR | STRING | FLOAT | INT | BOOL) NEWLINE ;
 prims : prim* ;
 
 // Function literal.
@@ -69,12 +69,7 @@ conditional : IF expression statementBody (ELIF expression statementBody)*? ELSE
 
 fragment IDENTIFIER_START : [a-zA-Z_] ;
 fragment IDENTIFIER_PART : [a-zA-Z_0-9?] ;
-fragment UPPER : [A-Z] ;
-fragment LOWER : [a-z] ;
 fragment DIGIT : [0-9] ;
-
-// TODO(matthew-c21) - Find a Unicode usable substitute.
-PRINTABLE_CHARACTER : '\X' ;
 
 // Offset values.
 LPAREN : '(' ;
@@ -85,23 +80,31 @@ LBRACE : '{' ;
 RBRACE : '}' ;
 BAR : '|' ;
 RANGE : '..' ;
-
 COLON : ':' ;
 COMMA : ',' ;
+
+// Comments
 BLOCK_COMMENT_START : '/*';
 BLOCK_COMMENT_END : '*/';
+LINE_COMMENT_START : '//' ;
 
-// TODO(matthew-c21) - Add string as a parser rule.
-STRING_DELIMITER : '"' ;
-CHAR_DELIMITER : '\'' ;
+COMMENT : ( BLOCK_COMMENT_START .*? BLOCK_COMMENT_END | LINE_COMMENT_START .*? NEWLINE ) ;
 
 // Primitive value literals.
-TRUE : 'True' ;
-FALSE : 'False' ;
+fragment TRUE : 'True' ;
+fragment FALSE : 'False' ;
+BOOL : TRUE | FALSE ;
+
 FLOAT  : DIGIT+ '.' DIGIT+ ;
 INT : DIGIT+ ;
 
-// Binops
+STRING_DELIMITER : '"' ;
+STRING : STRING_DELIMITER .*? STRING_DELIMITER ;
+
+CHAR_DELIMITER : '\'' ;
+CHAR : CHAR_DELIMITER .*? CHAR_DELIMITER ;
+
+// Operators
 PLUS : '+' ;
 MINUS : '-' ;
 DIV : '/' ;
@@ -117,12 +120,14 @@ NEQ : '!=' ;
 FEED_FIRST : '>>' ;
 FEED_LAST : '<<' ;
 ACCESS : '.' ;
+NOT : '!' ;
 
+// Assignment
 ASSIGN : '=' ;
 
 // Keywords
 DEFN : 'defn' ;
 
-NEWLINE : '\n' ;
-WHITESPACE : [ \t\r] -> skip ;
+NEWLINE : '\n' | '\r' | '\r\n' | '\n\r' ;
+WHITESPACE : [ \t] -> skip ;
 IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
