@@ -162,21 +162,24 @@ Booleans are fairly standard true/false values like you might find in any langua
 `Printable`
 
 ### Strings and characters
-Strings are relatively weakly enforced right now, but effectively behave as eager lists of characters. Individual characters are more or less just Unicode code points, and are literally given in the form `\u[0-9a-fA-F]{4}`, `\.` where `.` is any printable ASCII character, or `\a[0-9]{3}` where the three digit code is the ASCII value for the desired character. Characters themselves aren't particularly useful on their own, which is why most string utilities overwrite the need for them. Strings are any text delimited by double quotes, with some valid escape options available. Examples of literals include:
+Strings are relatively weakly enforced right now, but effectively behave as eager lists of characters. Individual characters are more or less just Unicode code points, and are literally given in the form `'...'` where the internal ellipsis is to be replaced by something that may be parsed as a single character. 
+
+Characters themselves aren't particularly useful on their own, which is why most string utilities overwrite the need for them. Strings are any text delimited by double quotes, with some valid escape options available. Examples of literals include:
 
     "Hello, world"
     
     "\u1F914" // Thinking face as a string
     
-    \u1f914 // Thinking face as a character
+    '\u1f914' // Thinking face as a character
     
-    \c // The literal character 'c'.
+    'c' // The literal character 'c'.
     
-Escape sequences available in strings include:
+Escape sequences available in strings and characters include:
 * The aforementioned unicode escape for creating unicode characters
 * Standard whitespace escapes (`\t, \n, \r, \f`)
 * Backslash `\\`
 * Double quotation mark `\"`
+* Single quotation mark `\'`
 * Backspace `\b`
 
 Since strings are just lists of characters, you can make a string equivalent like so:
