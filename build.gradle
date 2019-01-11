@@ -9,7 +9,7 @@ apply plugin: 'idea'
 group 'prj.clark.lang'
 version '0.1-SNAPSHOT'
 
-mainClassName = 'prj.clark.lang.impl.REPL'
+mainClassName = 'prj.clark.lang.prj.clark.alchemy.REPL'
 
 sourceCompatibility = 1.8
 
@@ -52,10 +52,4 @@ clean {
 run {
     standardInput = System.in
     standardOutput = System.out
-}
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'prj.clark.lang.basic.BasicApp'
-    }
 }
