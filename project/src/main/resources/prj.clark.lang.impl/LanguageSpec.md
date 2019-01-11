@@ -105,26 +105,20 @@ Tuples are the only way to utilize tuple binding.
 `Sequenced, Iterable, Indexed, Printable`
 
 ### Lists
-Lists are created using square brackets like so:
+Lists are the primary sequence type, representing a collection of ordered data. The standard syntax for creating a list literal is:
 
     [1, 2, 3]
 
-List comprehensions may be performed using a syntax similar to Haskell or Python: [ binding form : applied function | source ]. Both the first and second portions may be removed while still yielding a collection. If the third is omitted, then a map function is generated instead.
+Oftentimes, you'll find your lists being produced lazily by other functions rather than produced literally.
 
-    [x : x * 3 | nums]  // Equivalent to [x * 3 for x in nums] in Python.
-    
-    [k : inc(k)] // Equivalent to map(inc).
-    
-    [inc | nums] // Equivalent to map(inc, nums).
-    
 #### Access
 Barring the standard set of functions for dealing with and manipulating lists, you have standard Python slice syntax for eagerly reading part of a list into a sublist. There's also the basic zero-indexed index access available in most languages.
 
     nums[1] // Yield the second number.
     
-    nums[1:3] // Yield the second and third numbers as a smaller list unrelated to the first.
+    nums[1:3] // Yield the second and third numbers as a smaller list.
     
-    nums[::-1] // Standard Python syntax for reversing a list.
+    nums[::-1] // Standard Python syntax for reversing a list as valid Alchemy syntax.
     
 The slice syntax comes down to three arguments, all optional, delimited by colons.
 * The first dictates the starting index. If the second and third arguments are omitted, then this is taken to represent a single element.
