@@ -17,7 +17,9 @@ file : line* EOF ;
 // This is a duplicate of tupleIdentifier since this definition will not be updated.
 lambda : LPAREN (IDENTIFIER  (COMMA IDENTIFIER)*? COMMA?)? RPAREN statementBody ;
 
-tuple : LPAREN (expression (COMMA expression)*? COMMA?)? RPAREN ;
+tuple : LPAREN expressionList RPAREN ;
+list : LBRACKET expressionList RBRACKET ;
+dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? ;
 
 // TODO(matthew-c21) - Determine how to best recursively define tupleIdentifiers.
 tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*? COMMA?)? RPAREN ;
@@ -36,11 +38,17 @@ expression : LPAREN expression RPAREN
            | arg=expression op=(FEED_FIRST | FEED_LAST) func=expression
            | left=expression op=(EQ | NEQ) right=expression
            | func=expression args=tuple
+           // TODO(matthew-c21) - Determine if a special infix syntax is required to avoid ambiguity after removing
+           // dedicated line terminators.
            | left=expression IDENTIFIER right=expression
            | lambda
            | tuple
-           | terminator=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
+           | list
+           | dict
+           | terminal=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
            ;
+
+expressionList : (expression (COMMA expression)*? COMMA?)? ;
 
 /*
  * Lexer Rules
