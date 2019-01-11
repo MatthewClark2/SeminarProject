@@ -1,13 +1,9 @@
 package prj.clark.alchemy.tree;
 
-import org.antlr.v4.runtime.tree.ParseTree;
 import prj.clark.alchemy.AlchemyParser;
-import prj.clark.alchemy.env.*;
-import prj.clark.alchemy.env.*;
 
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.stream.Collectors;
 
 /**
  * This is basically just a sample class for converting the expression nodes of a parse tree into chunks of an AST.
@@ -32,128 +28,6 @@ public class NodeFactory {
     }
 
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
-        return ctx.statement().stream().filter(x -> x.comment() == null).map(this::get).collect(Collectors.toList());
-    }
-
-    public Node get(AlchemyParser.StatementContext ctx) {
-        // Check assignment first since an assignment contains an expression.
-        if (ctx.assignment() != null) {
-            return get(ctx.assignment());
-        } else if (ctx.expression() != null) {
-            return get(ctx.expression());
-        } else {
-            throw new IllegalStateException("Unable to convert statement to node.");
-        }
-    }
-
-    public Node get(AlchemyParser.AssignmentContext ctx) {
-        if (ctx.fnAssignment() != null) {
-            return get(ctx.fnAssignment());
-        } else if (ctx.varAssignment() != null) {
-            return get(ctx.varAssignment());
-        } else {
-            throw new IllegalStateException("Unable to resolve assignment type.");
-        }
-    }
-
-    public Node get(AlchemyParser.VarAssignmentContext ctx) {
-        boolean isConst = ctx.DEFMUT() != null;
-        return new BindingNode(ctx.binding().getText(), get(ctx.expression()), isConst);
-    }
-
-    public Node get(AlchemyParser.FnAssignmentContext ctx) {
-        // Functions may not be re-assigned.
-        return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), false);
-    }
-
-    public Node get(AlchemyParser.ExpressionContext ctx) {
-        // Handle parentheses.
-        if (ctx.LPAREN() != null) {
-            return get(ctx.expression(0));
-        }
-
-        // Logical inversion.
-        if (ctx.NOT() != null) {
-            return new LogicalInversionNode(get(ctx.expression(0)));
-        }
-
-        // Handle binary operators.
-        if (ctx.op != null) {
-            return BINOP_SUPPLIER.get(ctx.op.getText()).apply(get(ctx.left), get(ctx.right));
-        }
-
-        // Handle terminals.
-        if (ctx.infix != null) {
-            return new FunctionApplicationNode(get(ctx.infix), Arrays.asList(get(ctx.left), get(ctx.right)));
-        }
-
-        if (ctx.prefix != null) {
-            return new FunctionApplicationNode(get(ctx.prefix), ctx.args.expression().stream()
-                    .map(this::get)
-                    .collect(Collectors.toList()));
-        }
-
-        if (ctx.primitive() != null) {
-            return get(ctx.primitive());
-        }
-
-        // Handle conditions. Currently ignores elif.
-        if (ctx.conditional() != null) {
-            return get(ctx.conditional());
-        }
-
-        if (ctx.IDENTIFIER() != null) {
-            return new IdentifierNode(ctx.IDENTIFIER().getText());
-        }
-
-        if (ctx.lambda() != null) {
-            return get(ctx.lambda());
-        }
-
-        // Otherwise, we're dealing with a function call, or collection. These aren't supported quite yet.
-        throw new UnsupportedOperationException("Unable to manage " + ctx.getText());
-    }
-
-    public Node get(AlchemyParser.PrimitiveContext ctx) {
-        Data data;
-
-        if (ctx.bool() != null) {
-            data = AlchemyBool.of(ctx.bool().getText());
-        } else if (ctx.FLOAT() != null) {
-            data = AlchemyFloat.of(ctx.FLOAT().getText());
-        } else if (ctx.INT() != null) {
-            data = AlchemyInt.of(ctx.INT().getText());
-        } else if (ctx.STRING() != null) {
-            data = AlchemyString.of(ctx.STRING().getText());
-        } else {
-            throw new IllegalStateException("Illegal primitive.");
-        }
-
-        return new LiteralNode(data);
-    }
-
-    public Node get(AlchemyParser.ConditionalContext ctx) {
-        if (ctx.ELIF() != null) {
-            throw new UnsupportedOperationException("Elifs don't do anything");
-        }
-
-        return new Conditional(get(ctx.statementBody(0)),
-                get(ctx.statementBody(1)),
-                get(ctx.expression(0)));
-    }
-
-    public Node get(AlchemyParser.LambdaContext ctx) {
-        return new FunctionCreationNode(
-                get(ctx.statementBody()),
-                ctx.tupleIdentifier().IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList())
-        );
-    }
-
-    public Node get(AlchemyParser.StatementBodyContext ctx) {
-        List<Node> statements = new ArrayList<>();
-
-        ctx.statement().forEach(x -> statements.add(get(x)));
-
-        return new StatementListNode(statements);
+        return null;
     }
 }
