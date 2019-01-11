@@ -1,4 +1,4 @@
-grammar Alchemy ;  // The language is currently nameless.
+grammar Alchemy ;
 
 @header {
 package prj.clark.lang.impl;
@@ -8,37 +8,22 @@ package prj.clark.lang.impl;
  * Parser Rules
  */
 
-// Components of a file and blocks.
-statement : ((expression | assignment) SEMICOLON | comment);
-statementBody : LBRACE statement* RBRACE ;
-file : statement* ;
+statement : expression | assignment | COMMENT ;
+statementBody : LBRACE line* RBRACE ;
+line : statement STATEMENT_TERMINATOR ;
+file : line* EOF ;
 
-// Type literals.
-bool : (TRUE | FALSE) ;
-string : STRING_DELIMITER content=PRINTABLE_CHARACTER*? STRING_DELIMITER ;
-char : CHAR_DELIMITER content=PRINTABLE_CHARACTER*? CHAR_DELIMITER ;
-primitive : (STRING | FLOAT | INT | BOOL) ;
+// The given regex allows for empty parentheses and trailing commas.
+// This is a duplicate of tupleIdentifier since this definition will not be updated.
+lambda : LPAREN (IDENTIFIER  (COMMA IDENTIFIER)*? COMMA?)? RPAREN statementBody ;
 
-// TODO(matthew-c21) - Delete after testing.
-prim : (CHAR | STRING | FLOAT | INT | BOOL) NEWLINE ;
-prims : prim* ;
+tuple : LPAREN (expression (COMMA expression)*? COMMA?)? RPAREN ;
 
-// Function literal.
-lambda : tupleIdentifier statementBody ;
-
-tuple : LPAREN (expression (COMMA expression)*?)? RPAREN ;
-
-// Comments. These are just discarded at runtime.
-comment : COMMENT_START content=.*? COMMENT_END ;
-
-// Binding semantics for destructuring.
-tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*?)? RPAREN ;
+// TODO(matthew-c21) - Determine how to best recursively define tupleIdentifiers.
+tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*? COMMA?)? RPAREN ;
 binding : (IDENTIFIER | tupleIdentifier) ;
 
-// Assignment semantics.
-fnAssignment : DEFN IDENTIFIER lambda ;
-varAssignment : (DEF | DEFMUT) binding expression ;
-assignment : (fnAssignment | varAssignment) ;
+assignment : binding ASSIGN expression ;
 
 // Defined in descending order of precedence.
 expression : LPAREN expression RPAREN
@@ -47,21 +32,15 @@ expression : LPAREN expression RPAREN
            | left=expression op=(MUL | DIV | MOD) right=expression
            | left=expression op=(PLUS | MINUS) right=expression
            | left=expression op=(LT | LE | GT | GE) right=expression
+           | left=expression op=COLON right=expression
+           | arg=expression op=(FEED_FIRST | FEED_LAST) func=expression
            | left=expression op=(EQ | NEQ) right=expression
-             // Function invocation.
-           | prefix=expression args=tuple
-           | left=expression infix=expression right=expression
-             // Terminals
+           | func=expression args=tuple
+           | left=expression IDENTIFIER right=expression
            | lambda
-           | primitive
-           | conditional
-           | IDENTIFIER
+           | tuple
+           | terminator=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
            ;
-
-expressionList : expression (COMMA expression)* ;
-
-// Flow control.
-conditional : IF expression statementBody (ELIF expression statementBody)*? ELSE statementBody ;
 
 /*
  * Lexer Rules
@@ -88,7 +67,7 @@ BLOCK_COMMENT_START : '/*';
 BLOCK_COMMENT_END : '*/';
 LINE_COMMENT_START : '//' ;
 
-COMMENT : ( BLOCK_COMMENT_START .*? BLOCK_COMMENT_END | LINE_COMMENT_START .*? NEWLINE ) ;
+COMMENT : ( BLOCK_COMMENT_START .*? BLOCK_COMMENT_END | LINE_COMMENT_START .*? (NEWLINE | EOF) ) -> channel(HIDDEN) ;
 
 // Primitive value literals.
 fragment TRUE : 'True' ;
@@ -128,6 +107,8 @@ ASSIGN : '=' ;
 // Keywords
 DEFN : 'defn' ;
 
-NEWLINE : '\n' | '\r' | '\r\n' | '\n\r' ;
+// TODO(matthew-c21) - Newlines actually terminate a statement, but semicolons are easier to work with for the time being.
+STATEMENT_TERMINATOR : ';' ;
+NEWLINE : [\n\r] -> skip ;
 WHITESPACE : [ \t] -> skip ;
 IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
