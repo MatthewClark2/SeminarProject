@@ -7,7 +7,6 @@ import prj.clark.alchemy.env.*;
 import prj.clark.alchemy.err.FunctionInvocationException;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.err.TypeMismatchException;
-import prj.clark.lang.alchemy.env.*;
 
 import java.util.Arrays;
 import java.util.Collections;

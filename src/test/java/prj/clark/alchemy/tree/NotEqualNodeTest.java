@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import prj.clark.alchemy.env.*;
 import prj.clark.alchemy.err.LangException;
-import prj.clark.lang.alchemy.env.*;
 
 public class NotEqualNodeTest {
     private static Data TRUE = LangBool.of(true);

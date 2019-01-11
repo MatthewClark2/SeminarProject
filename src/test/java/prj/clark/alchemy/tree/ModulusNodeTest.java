@@ -6,7 +6,6 @@ import org.junit.Test;
 import prj.clark.alchemy.env.*;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.err.TypeMismatchException;
-import prj.clark.lang.alchemy.env.*;
 
 // Note that resulting values were taken from a Python REPL. If any test inputs are incorrect, they need to be modified.
 public class ModulusNodeTest {
