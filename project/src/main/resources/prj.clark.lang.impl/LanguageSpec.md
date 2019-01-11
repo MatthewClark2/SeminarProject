@@ -192,11 +192,7 @@ Dictionaries are basic associative data structures. Dictionaries are given via t
 
     { key : value, key : value, ... }
     
-You can also define dictionaries using a list of keys and a function to transform keys into values like so:
-
-    { x : f(x) | nums } // Generates a dictionary where each element from nums is associated with the value after applying the function f.
-
-Due to the complexity of determining whether or not an input list terminates, or whether or not a value belongs to an infinite sequence, all dictionaries are fully formed at their time of creation. The standard iterator for a dictionary is over the list of its keys with no guarantee as to their order. There is no syntactic for filtering out entries based on their value.
+Note that dictionaries are fully formed at their time of creation as opposed to lists.
 
 #### Type Compliance
 `Sequenced, Iterable, Indexed, Printable`
