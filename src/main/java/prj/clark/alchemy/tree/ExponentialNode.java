@@ -1,6 +1,6 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.env.LangFloat;
+import prj.clark.alchemy.data.LangFloat;
 
 public class ExponentialNode extends NumericBinaryOperator {
     public ExponentialNode(Node left, Node right) {

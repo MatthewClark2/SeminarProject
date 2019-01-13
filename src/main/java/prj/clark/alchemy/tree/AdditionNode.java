@@ -1,7 +1,7 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.env.LangFloat;
-import prj.clark.alchemy.env.LangInt;
+import prj.clark.alchemy.data.LangFloat;
+import prj.clark.alchemy.data.LangInt;
 
 /**
  * Represents addition.

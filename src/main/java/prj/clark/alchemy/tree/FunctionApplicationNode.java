@@ -1,9 +1,9 @@
 package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.Data;
-import prj.clark.alchemy.env.Function;
-import prj.clark.alchemy.env.RawFunction;
+import prj.clark.alchemy.data.Data;
+import prj.clark.alchemy.data.Function;
+import prj.clark.alchemy.data.RawFunction;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.err.TypeMismatchException;
 

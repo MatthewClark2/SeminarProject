@@ -3,7 +3,7 @@ package prj.clark.alchemy;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.Data;
+import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.tree.AbstractSyntaxTree;

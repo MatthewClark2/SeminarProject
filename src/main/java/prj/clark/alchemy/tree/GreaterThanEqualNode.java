@@ -1,6 +1,6 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.env.LangBool;
+import prj.clark.alchemy.data.LangBool;
 
 public class GreaterThanEqualNode extends NumericBinaryOperator {
 

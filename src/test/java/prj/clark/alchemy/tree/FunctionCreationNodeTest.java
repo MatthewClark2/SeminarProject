@@ -2,7 +2,8 @@ package prj.clark.alchemy.tree;
 
 import org.junit.Assert;
 import org.junit.Test;
-import prj.clark.alchemy.env.*;
+import prj.clark.alchemy.data.*;
+import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.LangException;
 
 import java.util.Arrays;

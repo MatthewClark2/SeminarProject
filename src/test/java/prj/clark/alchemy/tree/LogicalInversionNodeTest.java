@@ -3,10 +3,10 @@ package prj.clark.alchemy.tree;
 import org.junit.Assert;
 import org.junit.Test;
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.Data;
-import prj.clark.alchemy.env.LangBool;
+import prj.clark.alchemy.data.Data;
+import prj.clark.alchemy.data.LangBool;
 import prj.clark.alchemy.err.LangException;
-import prj.clark.alchemy.env.DummyContext;
+import prj.clark.alchemy.data.DummyContext;
 
 public class LogicalInversionNodeTest {
     private static final Data TRUE = LangBool.of(true);

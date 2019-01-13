@@ -1,8 +1,8 @@
 package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.Data;
-import prj.clark.alchemy.env.GeneratedFunction;
+import prj.clark.alchemy.data.Data;
+import prj.clark.alchemy.data.GeneratedFunction;
 import prj.clark.alchemy.err.LangException;
 
 import java.util.List;

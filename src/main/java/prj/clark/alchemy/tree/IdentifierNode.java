@@ -1,7 +1,7 @@
 package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.Data;
+import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.err.NoSuchBindingException;
 

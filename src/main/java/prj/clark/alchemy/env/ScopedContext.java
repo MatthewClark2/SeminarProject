@@ -1,5 +1,9 @@
 package prj.clark.alchemy.env;
 
+import prj.clark.alchemy.data.Data;
+import prj.clark.alchemy.data.Function;
+import prj.clark.alchemy.env.Context;
+import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.IllegalRebindingException;
 
 import java.util.Optional;
