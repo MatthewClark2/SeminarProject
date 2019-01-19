@@ -1,8 +1,10 @@
 package prj.clark.alchemy.data;
 
-public class AlchemyBoolean extends PrimitiveData<Boolean> {
+public class AlchemyBoolean implements Printable {
     private static final Data TRUE;
     private static final Data FALSE;
+
+    private final boolean value;
 
     static {
         TRUE = new AlchemyBoolean(true);
@@ -10,7 +12,7 @@ public class AlchemyBoolean extends PrimitiveData<Boolean> {
     }
 
     private AlchemyBoolean(boolean value) {
-        super(value, PrimitiveType.BOOL);
+        this.value = value;
     }
 
     public static Data of(boolean value) {
@@ -29,5 +31,15 @@ public class AlchemyBoolean extends PrimitiveData<Boolean> {
     public boolean equals(Object o) {
         // We can do this safely since all instances are either TRUE or FALSE.
         return this == o;
+    }
+
+    @Override
+    public boolean toBoolean() {
+        return value;
+    }
+
+    @Override
+    public String print() {
+        return value ? "True" : "False";
     }
 }

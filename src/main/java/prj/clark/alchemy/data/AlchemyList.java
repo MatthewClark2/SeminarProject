@@ -3,33 +3,32 @@ package prj.clark.alchemy.data;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Optional;
 
-public class AlchemyList extends Collection {
+public class AlchemyList implements Sequenced, Sliceable, Printable {
     private final List<Data> data;
-    private final DataType type;
 
     public AlchemyList(List<Data> data) {
-        ensureHomogeneous(data);
-        this.data = new ArrayList<>(data);
-        type = new ListType(data.isEmpty()? EmptyType.get() : data.get(0).getType());
-    }
-
-    private static void ensureHomogeneous(List<Data> data) {
-        if (data.isEmpty()) {
-            return;
-        }
-
-        DataType type = data.get(0).getType();
-        assert data.stream().map(Data::getType).allMatch(type::ofType);
+        this.data = data;
     }
 
     @Override
     public Iterator<Data> iter() {
-        return data.iterator();
+        return null;
     }
 
     @Override
-    public DataType getType() {
-        return type;
+    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
+        return null;
+    }
+
+    @Override
+    public Optional<Data> getIndex(Data index) {
+        return Optional.empty();
+    }
+
+    @Override
+    public String print() {
+        return null;
     }
 }

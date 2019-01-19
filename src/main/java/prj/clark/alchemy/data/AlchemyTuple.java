@@ -1,29 +1,34 @@
 package prj.clark.alchemy.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AlchemyTuple implements Data {
+public class AlchemyTuple implements Sequenced, Indexed, Printable {
     private final List<Data> data;
-    private final DataType type;
 
     public AlchemyTuple(List<Data> data) {
         this.data = data;
-
-        if (data.isEmpty()) {
-            type = EmptyType.get();
-        } else {
-            type = new TupleType(data.stream().map(Data::getType).collect(Collectors.toList()));
-        }
-    }
-
-    @Override
-    public DataType getType() {
-        return type;
     }
 
     public List<Data> getData() {
         return new ArrayList<>(data);
+    }
+
+    @Override
+    public Optional<Data> getIndex(Data index) {
+        return Optional.empty();
+    }
+
+    @Override
+    public String print() {
+        return null;
+    }
+
+    @Override
+    public Iterator<Data> iter() {
+        return null;
     }
 }

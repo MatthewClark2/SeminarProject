@@ -3,31 +3,13 @@ package prj.clark.alchemy.data;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Optional;
 
-public class AlchemyDict extends Collection {
+public class AlchemyDict implements Sequenced, Indexed, Printable {
     private final Map<Data, Data> data;
-    private final DataType type;
 
     public AlchemyDict(Map<Data, Data> data) {
-        ensureHomogeneous(data);
         this.data = new HashMap<>(data);
-        type = new DictType(
-                data.keySet().stream().findFirst().map(Data::getType).orElse(EmptyType.get()),
-                data.values().stream().findFirst().map(Data::getType).orElse(EmptyType.get())
-        );
-    }
-
-    private static void ensureHomogeneous(Map<Data, Data> data) {
-        if (data.isEmpty()) {
-            return;
-        }
-
-        Map.Entry<Data, Data> first = data.entrySet().stream().findFirst().get();
-        DataType key = first.getKey().getType();
-        DataType value = first.getValue().getType();
-
-        assert data.keySet().stream().map(Data::getType).allMatch(key::ofType);
-        assert data.values().stream().map(Data::getType).allMatch(value::ofType);
     }
 
     @Override
@@ -36,7 +18,12 @@ public class AlchemyDict extends Collection {
     }
 
     @Override
-    public DataType getType() {
-        return type;
+    public Optional<Data> getIndex(Data index) {
+        return Optional.empty();
+    }
+
+    @Override
+    public String print() {
+        return null;
     }
 }

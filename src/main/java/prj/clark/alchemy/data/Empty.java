@@ -13,11 +13,6 @@ public class Empty implements Data {
     }
 
     @Override
-    public DataType getType() {
-        return EmptyType.get();
-    }
-
-    @Override
     public String toString() {
         return "nil";
     }

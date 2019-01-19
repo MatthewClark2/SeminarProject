@@ -14,32 +14,28 @@ import java.util.stream.Stream;
  * Instances are assumed to be raw, untyped functions.
  * @see RawFunction
  */
-public class GeneratedFunction implements Function {
+public class GeneratedFunction implements Invokable {
     private final Node functionBody;
     private final Context enclosingContext;
     private final int argCount;
     private final List<String> arguments;
 
     // TODO(matthew-c21) - Consider removing this to an external class.
-    private static class PartiallyAppliedFunction implements Function {
+    private static class PartiallyAppliedFunction implements Invokable {
         private final List<Data> suppliedArguments;
-        private final Function baseFunction;
+        private final Invokable baseFunction;
 
-        public PartiallyAppliedFunction(List<Data> suppliedArguments, Function baseFunction) {
+        public PartiallyAppliedFunction(List<Data> suppliedArguments, Invokable baseFunction) {
             this.suppliedArguments = suppliedArguments;
             this.baseFunction = baseFunction;
         }
 
         @Override
-        public Data apply(List<Data> args) throws LangException {
+        public Data invoke(List<Data> args) {
             // TODO(matthew-c21) - Determine whether stream concatenation or the creation of a new list is faster.
-            return baseFunction.apply(Stream.concat(suppliedArguments.stream(), args.stream()).collect(Collectors.toList()));
+            return baseFunction.invoke(Stream.concat(suppliedArguments.stream(), args.stream()).collect(Collectors.toList()));
         }
 
-        @Override
-        public DataType getType() {
-            return RawFunction.getInstance();
-        }
     }
 
     /**
@@ -57,7 +53,7 @@ public class GeneratedFunction implements Function {
     }
 
     @Override
-    public Data apply(List<Data> args) throws LangException {
+    public Data invoke(List<Data> args) {
         if (args.size() < argCount) {
             // return a partial function.
             return new PartiallyAppliedFunction(args, this);
@@ -74,8 +70,4 @@ public class GeneratedFunction implements Function {
         }
     }
 
-    @Override
-    public DataType getType() {
-        return RawFunction.getInstance();
-    }
 }

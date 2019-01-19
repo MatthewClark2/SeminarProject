@@ -1,15 +1,12 @@
 package prj.clark.alchemy.env;
 
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.Function;
-import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.IllegalRebindingException;
 
 import java.util.Optional;
 
 /**
- * Serves as a disposable wrapper for classes that require their own execution contexts, such as {@link Function}s.
+ * Serves as a disposable wrapper for classes that require their own execution contexts, such as {@link prj.clark.alchemy.data.Invokable}s.
  * Any bindings made through this class do not affect the originally supplied {@link Context}, although changes in the
  * original may be reflected through the wrapper.
  */

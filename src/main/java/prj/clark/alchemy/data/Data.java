@@ -6,9 +6,6 @@ package prj.clark.alchemy.data;
  * fact that underlying data doesn't map very cleanly to how Java handles data.
  */
 public interface Data {
-    // TODO(matthew-c21) - Deprecate and remove this method. Duck typing does it better.
-    DataType getType();
-
     default boolean toBoolean() {
         return false;
     }
