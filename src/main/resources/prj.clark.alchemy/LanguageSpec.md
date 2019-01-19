@@ -28,37 +28,43 @@ All operators are indifferent with regards to the whitespace between themselves 
     + 2
 
 #### Binary Numeric Operators
-All of these operators require that both operands resolve to a numeric type. If either operand is non-numeric, then an exception is thrown.
+All of these operators require that both operands are `Numeric`. If either operand does not match the appropriate type, a `TypeMismatchException` will be thrown.
 
-* `+` - Add two values together
-* `-` - Subtract the second value from the first
-* `*` - Multiply two values together
-* `/` - Divide the first value by the second
-* `^` - Raise the first argument to the power of the second
-* `%` - Perform modular division between the two operands.
+* Add `+` - Add two values together, returning a new `Numeric` value. 
+* Sub `-` - Subtract the second operand from the first, returning a new `Numeric`.
+* Mul `*` - Multiply two values together, returning a `Numeric`. 
+* Div `/` - Divide the first value by the second, returning a `Numeric`.
+* Exp `^` - Raise the first argument to the power of the second, returning a `Numeric`.
+* Mod `%` - Perform modular division between the two operands, returning a `Numeric`.
 
 #### Binary Relational Operators
 Note that none of the relational operators perform any sort of type coercion.
 
-* `==` - equals
-* `<` - less than
-* `<=` - less than or equal to
-* `>` - greater than
-* `>=` - greater than or equal to
-* `!=` - does not equal
+* Eq `==` - determine if two values are equal to one another, returning a `Boolean`.
+* Lt `<` - determine if the second value is less than the first, returning a `Boolean`. 
+* Lte `<=` - determine if the second value is less than or equal to the first, returning a `Boolean`.
+* Gt `>` - determine if the second value is greater than the first, returning a `Boolean`.
+* Gte `>=` - to determine if the second value is greater than or equal to the first, returning a `Boolean`.
+* Neq `!=` - Determine if two operands are not equal, returning a `Boolean`.
+
+Note that the `<`, `<=`, `>`, and `>=` require two `Numeric` operands, and will throw a `TypeMismatchException` if a non-numeric operand is provided.
 
 #### Special Binary Operators
-* Feed-first `>>` - Takes the result of the first operand, and passes it as the first argument to the second operand. If the second operand is not a function, this operation throws an exception.
-* Feed-last `<<` - Takes the result of the first operand, and passes it as the final argument to the second operand. If the second operand is not a function, this operation throws an exception.
-* Access `.` - Attempts to obtain an attribute from a module. If the first operand is not a module or if the second operand isn't an identifier, this operation throws an exception. 
-* Add to stream `:` - Takes a sequence and some element. A new sequence containing the given element at the start or end of the stream will be returned.
+* Feed-first `>>` - Takes the result of the first operand, and passes it as the first argument to the second operand. If the second operand is not a function, this operation throws a `TypeMismatchException`.
+* Feed-last `<<` - Takes the result of the first operand, and passes it as the final argument to the second operand. If the second operand is not a function, this operation throws a `TypeMismatchException`.
+* Access `.` - Attempts to obtain an attribute from a module. If the first operand is not a module or if the second operand isn't an identifier, this structure will result in a syntax error. 
+* Cat `:` - Takes a sequence and some element. A new sequence containing the given element at the start or end of the stream will be returned.
    * `element : sequence` - element is prepended
    * `sequence : element` - element is appended
 
 #### Unary Operators
-* Logical Negation `!` - Coerces a value into a boolean, then negates it.
+* Not `!` - Coerces a value into a boolean, then negates it.
 
 Due to infix notation and the presence of the subtraction operator, numeric negation is done through a function rather than through a dedicated unary operator.
+
+#### Other Operators
+* Apply `()` - attempts to apply the function preceding the parentheses with the values inside the parentheses. If the preceding value is not a function, then a `TypeMismatchException` will be thrown.
+* Index `[]` - takes between two and four arguments. The preceding value must be `Indexed`, and all values inside the brackets must be `Numeric`. If either of these conditions is not met, then a `TypeMismatchException` will be thrown. For more information about how the actual indexing works, see [below](#Lists).
 
 ### Binding
 Binding a value to an identifier is remarkably straightforward: just use a single equals sign. Due to the dynamic duck-typing system, variables declaration and definition is done in a single step.
