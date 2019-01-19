@@ -35,6 +35,6 @@ public class FunctionCreationNodeTest {
         ));
 
         Node n = new FunctionCreationNode(body, Arrays.asList("x", "y", "z"));
-        Assert.assertEquals(LangInt.of(6), ((Function) n.evaluate(new DefaultContext())).apply(Arrays.asList(LangInt.of(1), LangInt.of(2), LangInt.of(3))));
+        Assert.assertEquals(AlchemyInt.of(6), ((Function) n.evaluate(new DefaultContext())).apply(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 }

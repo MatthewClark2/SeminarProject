@@ -28,9 +28,9 @@ public class AdditionNodePrimitiveTest {
 
     @Test
     public void intAddition() throws LangException {
-        Data a = LangInt.of(5);
-        Data b = LangInt.of(5);
-        Data expected = LangInt.of(10);
+        Data a = AlchemyInt.of(5);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyInt.of(10);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -38,9 +38,9 @@ public class AdditionNodePrimitiveTest {
 
     @Test
     public void floatAddition() throws LangException {
-        Data a = LangFloat.of(2.5);
-        Data b = LangFloat.of(-1.25);
-        Data expected = LangFloat.of(1.25);
+        Data a = AlchemyFloat.of(2.5);
+        Data b = AlchemyFloat.of(-1.25);
+        Data expected = AlchemyFloat.of(1.25);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -48,9 +48,9 @@ public class AdditionNodePrimitiveTest {
 
     @Test
     public void intFloatAddition() throws LangException {
-        Data a = LangInt.of(5);
-        Data b = LangFloat.of(10.25);
-        Data expected = LangFloat.of(15.25);
+        Data a = AlchemyInt.of(5);
+        Data b = AlchemyFloat.of(10.25);
+        Data expected = AlchemyFloat.of(15.25);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -58,9 +58,9 @@ public class AdditionNodePrimitiveTest {
 
     @Test
     public void floatIntAddition() throws LangException {
-        Data a = LangFloat.of(10.25);
-        Data b = LangInt.of(5);
-        Data expected = LangFloat.of(15.25);
+        Data a = AlchemyFloat.of(10.25);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyFloat.of(15.25);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -68,8 +68,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringAddition() throws LangException {
-        Data a = LangString.of("hello");
-        Data b = LangString.of("world");
+        Data a = AlchemyString.of("hello");
+        Data b = AlchemyString.of("world");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -77,8 +77,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolAddition() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangBool.of(false);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -86,8 +86,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringIntAddition() throws LangException {
-        Data a = LangString.of("asdfasdf");
-        Data b = LangInt.of(-8);
+        Data a = AlchemyString.of("asdfasdf");
+        Data b = AlchemyInt.of(-8);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -95,8 +95,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intStringAddition() throws LangException {
-        Data a = LangInt.of(-8);
-        Data b = LangString.of("asdfasdf");
+        Data a = AlchemyInt.of(-8);
+        Data b = AlchemyString.of("asdfasdf");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -104,8 +104,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringFloatAddition() throws LangException {
-        Data a = LangString.of("klajsdlksakjh");
-        Data b = LangFloat.of(3.75);
+        Data a = AlchemyString.of("klajsdlksakjh");
+        Data b = AlchemyFloat.of(3.75);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -113,8 +113,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatStringAddition() throws LangException {
-        Data a = LangFloat.of(3.75);
-        Data b = LangString.of("klajsdlksakjh");
+        Data a = AlchemyFloat.of(3.75);
+        Data b = AlchemyString.of("klajsdlksakjh");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -122,8 +122,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolIntAddition() throws LangException {
-        Data a = LangBool.of(false);
-        Data b = LangInt.of(777);
+        Data a = AlchemyBoolean.of(false);
+        Data b = AlchemyInt.of(777);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -131,8 +131,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intBoolAddition() throws LangException {
-        Data a = LangInt.of(777);
-        Data b = LangBool.of(false);
+        Data a = AlchemyInt.of(777);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -140,8 +140,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolFloatAddition() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangFloat.of(123.456);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyFloat.of(123.456);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -149,8 +149,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatBoolAddition() throws LangException {
-        Data a = LangFloat.of(123.456);
-        Data b = LangBool.of(true);
+        Data a = AlchemyFloat.of(123.456);
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -158,8 +158,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolStringAddition() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangString.of("khats");
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyString.of("khats");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -167,8 +167,8 @@ public class AdditionNodePrimitiveTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringBoolAddition() throws LangException {
-        Data a = LangString.of("khats");
-        Data b = LangBool.of(true);
+        Data a = AlchemyString.of("khats");
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);

@@ -42,12 +42,12 @@ public class FunctionApplicationNodeTest {
     @Test
     public void fullApplicationReturnsCorrectValue() throws LangException {
         Node n = init(
-                new LiteralNode(LangInt.of(1)),
-                new LiteralNode(LangInt.of(3)),
-                new LiteralNode(LangInt.of(5))
+                new LiteralNode(AlchemyInt.of(1)),
+                new LiteralNode(AlchemyInt.of(3)),
+                new LiteralNode(AlchemyInt.of(5))
         );
 
-        Assert.assertEquals(LangInt.of(9), n.evaluate(new DummyContext()));
+        Assert.assertEquals(AlchemyInt.of(9), n.evaluate(new DummyContext()));
     }
 
     @Test
@@ -60,10 +60,10 @@ public class FunctionApplicationNodeTest {
     @Test(expected = FunctionInvocationException.class)
     public void excessApplicationFails() throws LangException {
         Node n = init(
-                new LiteralNode(LangInt.of(1)),
-                new LiteralNode(LangInt.of(3)),
-                new LiteralNode(LangInt.of(0)),
-                new LiteralNode(LangInt.of(5))
+                new LiteralNode(AlchemyInt.of(1)),
+                new LiteralNode(AlchemyInt.of(3)),
+                new LiteralNode(AlchemyInt.of(0)),
+                new LiteralNode(AlchemyInt.of(5))
         );
 
         n.evaluate(new DummyContext());
@@ -71,7 +71,7 @@ public class FunctionApplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void nonFunctionThrowsException() throws LangException {
-        Node n = new FunctionApplicationNode(new LiteralNode(LangString.of("")), Collections.emptyList());
+        Node n = new FunctionApplicationNode(new LiteralNode(AlchemyString.of("")), Collections.emptyList());
         n.evaluate(new DummyContext());
     }
 }

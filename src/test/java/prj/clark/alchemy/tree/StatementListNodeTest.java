@@ -51,11 +51,11 @@ public class StatementListNodeTest {
     @Test
     public void finalValueReturned() throws LangException {
         StatementListNode sln = new StatementListNode(Arrays.asList(
-                new LiteralNode(LangBool.of(true)),
-                new LiteralNode(LangInt.of(7)),
-                new LiteralNode(LangString.of("hello"))
+                new LiteralNode(AlchemyBoolean.of(true)),
+                new LiteralNode(AlchemyInt.of(7)),
+                new LiteralNode(AlchemyString.of("hello"))
         ));
 
-        Assert.assertEquals(LangString.of("hello"), sln.evaluate(new DummyContext()));
+        Assert.assertEquals(AlchemyString.of("hello"), sln.evaluate(new DummyContext()));
     }
 }

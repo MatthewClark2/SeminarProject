@@ -4,11 +4,11 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class LangArray extends Collection {
+public class AlchemyList extends Collection {
     private final List<Data> data;
     private final DataType type;
 
-    public LangArray(List<Data> data) {
+    public AlchemyList(List<Data> data) {
         ensureHomogeneous(data);
         this.data = new ArrayList<>(data);
         type = new ListType(data.isEmpty()? EmptyType.get() : data.get(0).getType());

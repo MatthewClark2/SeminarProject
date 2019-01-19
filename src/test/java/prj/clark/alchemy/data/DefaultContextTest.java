@@ -26,56 +26,56 @@ public class DefaultContextTest {
 
     @Test
     public void mayBindValues() {
-        ctx.bindMutably("True", LangBool.of(true));
-        ctx.bindImmutably("name", LangString.of("Matthew"));
+        ctx.bindMutably("True", AlchemyBoolean.of(true));
+        ctx.bindImmutably("name", AlchemyString.of("Matthew"));
     }
 
     @Test(expected = IllegalRebindingException.class)
     public void mayNotRebindImmutableValuesImmutably() {
-        ctx.bindImmutably("name", LangString.of("Matthew"));
-        ctx.bindImmutably("name", LangString.of("Billy"));
+        ctx.bindImmutably("name", AlchemyString.of("Matthew"));
+        ctx.bindImmutably("name", AlchemyString.of("Billy"));
     }
 
     @Test(expected = IllegalRebindingException.class)
     public void mayNotRebindImmutableValuesMutably() {
-        ctx.bindImmutably("name", LangString.of("Matthew"));
-        ctx.bindMutably("name", LangString.of("Billy"));
+        ctx.bindImmutably("name", AlchemyString.of("Matthew"));
+        ctx.bindMutably("name", AlchemyString.of("Billy"));
     }
 
     @Test
     public void mayRebindMutableValuesMutably() {
-        ctx.bindMutably("api_endpoint", LangString.of("www.example.com/my-api"));
-        ctx.bindMutably("api_endpoint", LangString.of("www.example.com/my-new-api"));
+        ctx.bindMutably("api_endpoint", AlchemyString.of("www.example.com/my-api"));
+        ctx.bindMutably("api_endpoint", AlchemyString.of("www.example.com/my-new-api"));
     }
 
     @Test
     public void mayRebindMutableValuesImmutably() {
-        ctx.bindMutably("api_endpoint", LangString.of("www.example.com/my-api"));
-        ctx.bindImmutably("api_endpoint", LangString.of("www.example.com/my-new-api"));
+        ctx.bindMutably("api_endpoint", AlchemyString.of("www.example.com/my-api"));
+        ctx.bindImmutably("api_endpoint", AlchemyString.of("www.example.com/my-new-api"));
     }
 
     @Test
     public void boundValuesAccurate() {
-        ctx.bindMutably("n", LangInt.of(7));
-        ctx.bindImmutably("pi", LangFloat.of(Math.PI));
-        assertEquals(LangInt.of(7), ctx.search("n").get());
-        assertEquals(LangFloat.of(Math.PI), ctx.search("pi").get());
+        ctx.bindMutably("n", AlchemyInt.of(7));
+        ctx.bindImmutably("pi", AlchemyFloat.of(Math.PI));
+        assertEquals(AlchemyInt.of(7), ctx.search("n").get());
+        assertEquals(AlchemyFloat.of(Math.PI), ctx.search("pi").get());
     }
 
     @Test
     public void reBoundValuesAccurate() {
-        ctx.bindMutably("n", LangInt.of(7));
-        ctx.bindImmutably("pi", LangFloat.of(Math.PI));
-        assertEquals(LangInt.of(7), ctx.search("n").get());
-        assertEquals(LangFloat.of(Math.PI), ctx.search("pi").get());
+        ctx.bindMutably("n", AlchemyInt.of(7));
+        ctx.bindImmutably("pi", AlchemyFloat.of(Math.PI));
+        assertEquals(AlchemyInt.of(7), ctx.search("n").get());
+        assertEquals(AlchemyFloat.of(Math.PI), ctx.search("pi").get());
 
-        ctx.bindMutably("n", LangInt.of(8));
-        assertEquals(LangInt.of(8), ctx.search("n").get());
+        ctx.bindMutably("n", AlchemyInt.of(8));
+        assertEquals(AlchemyInt.of(8), ctx.search("n").get());
     }
 
     @Test
     public void mutableBindingsNotBoundImmutably() {
-        ctx.bindMutably("hi", LangString.of("guy"));
+        ctx.bindMutably("hi", AlchemyString.of("guy"));
         assertFalse(ctx.isBoundImmutably("hi"));
     }
 
@@ -86,7 +86,7 @@ public class DefaultContextTest {
 
     @Test
     public void immutableBindingsBoundImmutably() {
-        ctx.bindImmutably("quxx", LangBool.of(true));
+        ctx.bindImmutably("quxx", AlchemyBoolean.of(true));
         assertTrue(ctx.isBoundImmutably("quxx"));
     }
 }

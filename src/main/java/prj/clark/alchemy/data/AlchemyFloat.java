@@ -1,7 +1,7 @@
 package prj.clark.alchemy.data;
 
-public class LangFloat extends PrimitiveData<Double> {
-    private LangFloat(double value) {
+public class AlchemyFloat extends PrimitiveData<Double> {
+    private AlchemyFloat(double value) {
         super(value, PrimitiveType.FLOAT);
     }
 
@@ -14,6 +14,6 @@ public class LangFloat extends PrimitiveData<Double> {
     }
 
     public static Data of(double value) {
-        return new LangFloat(value);
+        return new AlchemyFloat(value);
     }
 }

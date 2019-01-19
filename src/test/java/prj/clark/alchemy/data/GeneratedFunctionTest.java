@@ -68,8 +68,8 @@ public class GeneratedFunctionTest {
         StatementListNode body = new StatementListNode(
                 Collections.singletonList(
                         new AdditionNode(
-                                new LiteralNode(LangString.of("")),
-                                new LiteralNode(LangString.of(""))
+                                new LiteralNode(AlchemyString.of("")),
+                                new LiteralNode(AlchemyString.of(""))
                         )
                 )
         );
@@ -83,14 +83,14 @@ public class GeneratedFunctionTest {
         StatementListNode body = new StatementListNode(
                 Collections.singletonList(
                         new AdditionNode(
-                                new LiteralNode(LangInt.of(5)),
-                                new LiteralNode(LangInt.of(7))
+                                new LiteralNode(AlchemyInt.of(5)),
+                                new LiteralNode(AlchemyInt.of(7))
                         )
                 )
         );
 
         Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        assertEquals(LangInt.of(12), f.apply(Collections.emptyList()));
+        assertEquals(AlchemyInt.of(12), f.apply(Collections.emptyList()));
     }
 
     @Test
@@ -98,18 +98,18 @@ public class GeneratedFunctionTest {
         StatementListNode body = new StatementListNode(
                 Arrays.asList(
                         new AdditionNode(
-                                new LiteralNode(LangInt.of(5)),
-                                new LiteralNode(LangInt.of(7))
+                                new LiteralNode(AlchemyInt.of(5)),
+                                new LiteralNode(AlchemyInt.of(7))
                         ),
                         new SubtractionNode(
-                                new LiteralNode(LangInt.of(12)),
-                                new LiteralNode(LangInt.of(3))
+                                new LiteralNode(AlchemyInt.of(12)),
+                                new LiteralNode(AlchemyInt.of(3))
                         )
                 )
         );
 
         Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        assertEquals(LangInt.of(9), f.apply(Collections.emptyList()));
+        assertEquals(AlchemyInt.of(9), f.apply(Collections.emptyList()));
     }
 
     @Test
@@ -123,7 +123,7 @@ public class GeneratedFunctionTest {
     public void functionCorrectlyBindsSingleParameter() throws LangException {
         StatementListNode body = new StatementListNode(Collections.singletonList(new IdentifierNode("x")));
         Function f = new GeneratedFunction(body, new DefaultContext(), Collections.singletonList("x"));
-        assertEquals(LangBool.of(false), f.apply(Collections.singletonList(LangBool.of(false))));
+        assertEquals(AlchemyBoolean.of(false), f.apply(Collections.singletonList(AlchemyBoolean.of(false))));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class GeneratedFunctionTest {
                 )
         );
         Function f = new GeneratedFunction(body, new DefaultContext(), Arrays.asList("x", "y"));
-        assertEquals(LangInt.of(12), f.apply(Arrays.asList(LangInt.of(6), LangInt.of(6))));
+        assertEquals(AlchemyInt.of(12), f.apply(Arrays.asList(AlchemyInt.of(6), AlchemyInt.of(6))));
     }
 
     private static Function triple() {
@@ -149,30 +149,30 @@ public class GeneratedFunctionTest {
         Function f = triple();
         Data d = f.apply(Collections.emptyList());
         assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(LangInt.of(6), ((Function) d).apply(Arrays.asList(LangInt.of(1), LangInt.of(2), LangInt.of(3))));
+        assertEquals(AlchemyInt.of(6), ((Function) d).apply(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 
     @Test
     public void oneArgumentRequiresTwoMore() throws LangException {
         Function f = triple();
-        Data d = f.apply(Collections.singletonList(LangInt.of(7)));
+        Data d = f.apply(Collections.singletonList(AlchemyInt.of(7)));
         assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(LangInt.of(12), ((Function) d).apply(Arrays.asList(LangInt.of(2), LangInt.of(3))));
+        assertEquals(AlchemyInt.of(12), ((Function) d).apply(Arrays.asList(AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 
     @Test
     public void twoArgumentsRequiresOneMore() throws LangException {
         Function f = triple();
-        Data d = f.apply(Arrays.asList(LangInt.of(11), LangInt.of(-1)));
+        Data d = f.apply(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1)));
         assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(LangInt.of(14), ((Function) d).apply(Collections.singletonList(LangInt.of(4))));
+        assertEquals(AlchemyInt.of(14), ((Function) d).apply(Collections.singletonList(AlchemyInt.of(4))));
     }
 
     @Test
     public void fullApplicationDoesNotReturnPartial() throws LangException {
         Function f = triple();
-        Data d = f.apply(Arrays.asList(LangInt.of(11), LangInt.of(-1), LangInt.of(9)));
+        Data d = f.apply(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1), AlchemyInt.of(9)));
         assertNotEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(LangInt.of(19), d);
+        assertEquals(AlchemyInt.of(19), d);
     }
 }

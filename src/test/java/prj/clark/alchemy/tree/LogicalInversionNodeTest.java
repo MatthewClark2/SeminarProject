@@ -4,13 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.LangBool;
+import prj.clark.alchemy.data.AlchemyBoolean;
 import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.data.DummyContext;
 
 public class LogicalInversionNodeTest {
-    private static final Data TRUE = LangBool.of(true);
-    private static final Data FALSE = LangBool.of(false);
+    private static final Data TRUE = AlchemyBoolean.of(true);
+    private static final Data FALSE = AlchemyBoolean.of(false);
     private static final Context ctx = new DummyContext();
 
     private static Node create(Data d) {

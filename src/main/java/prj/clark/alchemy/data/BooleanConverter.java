@@ -7,21 +7,21 @@ public class BooleanConverter implements Converter {
     @Override
     public Data convert(Data data) {
         if (data == null) {
-            return LangBool.of(false);
+            return AlchemyBoolean.of(false);
         }
 
         if (data.getType().ofType(PrimitiveType.STRING)) {
-            return LangBool.of(! data.toString().isEmpty());
+            return AlchemyBoolean.of(! data.toString().isEmpty());
         } else if (data.getType().ofType(PrimitiveType.FLOAT)) {
-            LangFloat f = (LangFloat) data;
-            return LangBool.of(f.getValue() != 0.0);
+            AlchemyFloat f = (AlchemyFloat) data;
+            return AlchemyBoolean.of(f.getValue() != 0.0);
         } else if (data.getType().ofType(PrimitiveType.INT)) {
-            LangInt i = (LangInt) data;
-            return LangBool.of(i.getValue() != 0);
+            AlchemyInt i = (AlchemyInt) data;
+            return AlchemyBoolean.of(i.getValue() != 0);
         } else if (data.getType().ofType(PrimitiveType.BOOL)) {
             return data;
         } else {
-            return LangBool.of(false);
+            return AlchemyBoolean.of(false);
         }
     }
 }

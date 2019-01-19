@@ -42,14 +42,14 @@ public class AbstractSyntaxTreeTest {
 
     @Test
     public void singleNodeReturnsCorrectly() throws LangException {
-        AbstractSyntaxTree ast = new AbstractSyntaxTree(Collections.singletonList(new LiteralNode(LangBool.of(false))));
-        Assert.assertEquals(LangBool.of(false), ast.execute(new DummyContext()));
+        AbstractSyntaxTree ast = new AbstractSyntaxTree(Collections.singletonList(new LiteralNode(AlchemyBoolean.of(false))));
+        Assert.assertEquals(AlchemyBoolean.of(false), ast.execute(new DummyContext()));
     }
 
     @Test
     public void multiNodeListReturnsCorrectly() throws LangException {
-        AbstractSyntaxTree ast = create(LangBool.of(true), LangBool.of(false), LangString.of("hello"));
-        Assert.assertEquals(LangString.of("hello"), ast.execute(new DummyContext()));
+        AbstractSyntaxTree ast = create(AlchemyBoolean.of(true), AlchemyBoolean.of(false), AlchemyString.of("hello"));
+        Assert.assertEquals(AlchemyString.of("hello"), ast.execute(new DummyContext()));
     }
 
     @Test

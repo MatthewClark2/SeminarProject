@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class LangDict extends Collection {
+public class AlchemyDict extends Collection {
     private final Map<Data, Data> data;
     private final DataType type;
 
-    public LangDict(Map<Data, Data> data) {
+    public AlchemyDict(Map<Data, Data> data) {
         ensureHomogeneous(data);
         this.data = new HashMap<>(data);
         type = new DictType(

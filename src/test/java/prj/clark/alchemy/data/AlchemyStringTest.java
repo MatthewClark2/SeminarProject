@@ -5,11 +5,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 // TODO(matthew-c21) - Add testing for the toString methods.
-public class LangStringTest {
+public class AlchemyStringTest {
     @Test
     public void toStringReturnsCorrectStringValue() {
-        Data s = LangString.of("asdf");
-        Data t = LangString.of("lkjlkhkj");
+        Data s = AlchemyString.of("asdf");
+        Data t = AlchemyString.of("lkjlkhkj");
 
         assertEquals("asdf", s.toString());
         assertEquals("lkjlkhkj", t.toString());
@@ -17,23 +17,23 @@ public class LangStringTest {
 
     @Test
     public void equalValuesEqual() {
-        Data s = LangString.of("hello");
+        Data s = AlchemyString.of("hello");
         // While the call to new is redundant, it does allow for me to ensure that there isn't an underlying bug being
         // hidden by the caching of the string literal.
-        Data t = LangString.of(new String("hello"));
+        Data t = AlchemyString.of(new String("hello"));
         assertEquals(s, t);
     }
 
     @Test
     public void unequalValuesNotEqual() {
-        Data s = LangString.of("hello");
-        Data t = LangString.of("goodbye");
+        Data s = AlchemyString.of("hello");
+        Data t = AlchemyString.of("goodbye");
         assertNotEquals(s, t);
     }
 
     @Test
     public void generatedValuesOfTypeString() {
-        Data s = LangString.of("hello world");
+        Data s = AlchemyString.of("hello world");
         assertEquals(PrimitiveType.STRING, s.getType());
     }
 }

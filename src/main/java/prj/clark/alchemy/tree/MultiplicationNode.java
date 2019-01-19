@@ -1,15 +1,15 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.data.LangFloat;
-import prj.clark.alchemy.data.LangInt;
+import prj.clark.alchemy.data.AlchemyFloat;
+import prj.clark.alchemy.data.AlchemyInt;
 
 public class MultiplicationNode extends NumericBinaryOperator {
     public MultiplicationNode(Node left, Node right) {
         super(left, right, (l, r) -> {
-            if (l instanceof LangFloat || r instanceof LangFloat) {
-                return LangFloat.of(Double.parseDouble(l.toString()) * Double.parseDouble(r.toString()));
+            if (l instanceof AlchemyFloat || r instanceof AlchemyFloat) {
+                return AlchemyFloat.of(Double.parseDouble(l.toString()) * Double.parseDouble(r.toString()));
             } else {
-                return LangInt.of(Long.parseLong(l.toString()) * Long.parseLong(r.toString()));
+                return AlchemyInt.of(Long.parseLong(l.toString()) * Long.parseLong(r.toString()));
             }
         });
     }

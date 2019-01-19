@@ -4,69 +4,69 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class LangBoolTest {
+public class AlchemyBooleanTest {
     @Test
     public void trueStringCreatesTrue() {
-        Data b = LangBool.of("true");
-        assertTrue(((LangBool) b).getValue());
+        Data b = AlchemyBoolean.of("true");
+        assertTrue(((AlchemyBoolean) b).getValue());
     }
 
     @Test
     public void falseStringCreatesFalse() {
-        Data b = LangBool.of("false");
-        assertFalse(((LangBool) b).getValue());
+        Data b = AlchemyBoolean.of("false");
+        assertFalse(((AlchemyBoolean) b).getValue());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void illegalStringThrowsException() {
-        Data b = LangBool.of("garbage");
+        Data b = AlchemyBoolean.of("garbage");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void incorrectCasingThrowsException() {
-        Data b = LangBool.of("True");
+        Data b = AlchemyBoolean.of("True");
     }
 
     @Test
     public void literalTrueIsTrue() {
-        Data b = LangBool.of(true);
-        assertTrue(((LangBool) b).getValue());
+        Data b = AlchemyBoolean.of(true);
+        assertTrue(((AlchemyBoolean) b).getValue());
     }
 
     @Test
     public void literalFalseIsFalse() {
-        Data b = LangBool.of(false);
-        assertFalse(((LangBool) b).getValue());
+        Data b = AlchemyBoolean.of(false);
+        assertFalse(((AlchemyBoolean) b).getValue());
     }
 
     @Test
     public void trueValuesEqual() {
-        Data a = LangBool.of("true");
-        Data b = LangBool.of(true);
+        Data a = AlchemyBoolean.of("true");
+        Data b = AlchemyBoolean.of(true);
         assertEquals(a, b);
     }
 
     @Test
     public void falseValuesEqual() {
-        Data a = LangBool.of("false");
-        Data b = LangBool.of(false);
+        Data a = AlchemyBoolean.of("false");
+        Data b = AlchemyBoolean.of(false);
         assertEquals(a, b);
     }
 
     @Test
     public void trueAndFalseNotEqual() {
-        Data a = LangBool.of(true);
-        Data b = LangBool.of(false);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyBoolean.of(false);
         assertNotEquals(a, b);
 
     }
 
     @Test
     public void generatedValuesOfTypeBool() {
-        Data a = LangBool.of("true");
-        Data b = LangBool.of(true);
-        Data c = LangBool.of("false");
-        Data d = LangBool.of(false);
+        Data a = AlchemyBoolean.of("true");
+        Data b = AlchemyBoolean.of(true);
+        Data c = AlchemyBoolean.of("false");
+        Data d = AlchemyBoolean.of(false);
 
         assertEquals(PrimitiveType.BOOL, a.getType());
         assertEquals(PrimitiveType.BOOL, b.getType());

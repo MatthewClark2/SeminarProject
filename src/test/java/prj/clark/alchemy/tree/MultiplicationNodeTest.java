@@ -22,9 +22,9 @@ public class MultiplicationNodeTest {
 
     @Test
     public void intMultiplication() throws LangException {
-        Data a = LangInt.of(5);
-        Data b = LangInt.of(5);
-        Data expected = LangInt.of(25);
+        Data a = AlchemyInt.of(5);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyInt.of(25);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -32,9 +32,9 @@ public class MultiplicationNodeTest {
 
     @Test
     public void floatMultiplication() throws LangException {
-        Data a = LangFloat.of(2.5);
-        Data b = LangFloat.of(-1.5);
-        Data expected = LangFloat.of(-3.75);
+        Data a = AlchemyFloat.of(2.5);
+        Data b = AlchemyFloat.of(-1.5);
+        Data expected = AlchemyFloat.of(-3.75);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -42,9 +42,9 @@ public class MultiplicationNodeTest {
 
     @Test
     public void intFloatMultiplication() throws LangException {
-        Data a = LangInt.of(5);
-        Data b = LangFloat.of(1.5);
-        Data expected = LangFloat.of(7.5);
+        Data a = AlchemyInt.of(5);
+        Data b = AlchemyFloat.of(1.5);
+        Data expected = AlchemyFloat.of(7.5);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -52,9 +52,9 @@ public class MultiplicationNodeTest {
 
     @Test
     public void floatIntMultiplication() throws LangException {
-        Data a = LangFloat.of(1.5);
-        Data b = LangInt.of(5);
-        Data expected = LangFloat.of(7.5);
+        Data a = AlchemyFloat.of(1.5);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyFloat.of(7.5);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -62,8 +62,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringMultiplication() throws LangException {
-        Data a = LangString.of("hello");
-        Data b = LangString.of("world");
+        Data a = AlchemyString.of("hello");
+        Data b = AlchemyString.of("world");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -71,8 +71,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolMultiplication() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangBool.of(false);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -80,8 +80,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringIntMultiplication() throws LangException {
-        Data a = LangString.of("asdfasdf");
-        Data b = LangInt.of(-8);
+        Data a = AlchemyString.of("asdfasdf");
+        Data b = AlchemyInt.of(-8);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -89,8 +89,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intStringMultiplication() throws LangException {
-        Data a = LangInt.of(-8);
-        Data b = LangString.of("asdfasdf");
+        Data a = AlchemyInt.of(-8);
+        Data b = AlchemyString.of("asdfasdf");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -98,8 +98,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringFloatMultiplication() throws LangException {
-        Data a = LangString.of("klajsdlksakjh");
-        Data b = LangFloat.of(3.75);
+        Data a = AlchemyString.of("klajsdlksakjh");
+        Data b = AlchemyFloat.of(3.75);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -107,8 +107,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatStringMultiplication() throws LangException {
-        Data a = LangFloat.of(3.75);
-        Data b = LangString.of("klajsdlksakjh");
+        Data a = AlchemyFloat.of(3.75);
+        Data b = AlchemyString.of("klajsdlksakjh");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -116,8 +116,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolIntMultiplication() throws LangException {
-        Data a = LangBool.of(false);
-        Data b = LangInt.of(777);
+        Data a = AlchemyBoolean.of(false);
+        Data b = AlchemyInt.of(777);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -125,8 +125,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intBoolMultiplication() throws LangException {
-        Data a = LangInt.of(777);
-        Data b = LangBool.of(false);
+        Data a = AlchemyInt.of(777);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -134,8 +134,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolFloatMultiplication() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangFloat.of(123.456);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyFloat.of(123.456);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -143,8 +143,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatBoolMultiplication() throws LangException {
-        Data a = LangFloat.of(123.456);
-        Data b = LangBool.of(true);
+        Data a = AlchemyFloat.of(123.456);
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -152,8 +152,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolStringMultiplication() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangString.of("khats");
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyString.of("khats");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -161,8 +161,8 @@ public class MultiplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringBoolMultiplication() throws LangException {
-        Data a = LangString.of("khats");
-        Data b = LangBool.of(true);
+        Data a = AlchemyString.of("khats");
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);

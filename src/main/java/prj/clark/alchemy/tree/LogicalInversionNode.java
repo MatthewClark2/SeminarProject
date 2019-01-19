@@ -20,8 +20,8 @@ public class LogicalInversionNode implements Node {
     @Override
     public Data evaluate(Context ctx) throws LangException {
         // TODO(matthew-c21) - Find a good way to cache this value.
-        boolean result = ((LangBool) BOOL_CONVERTER.convert(node.evaluate(ctx))).getValue();
+        boolean result = ((AlchemyBoolean) BOOL_CONVERTER.convert(node.evaluate(ctx))).getValue();
 
-        return LangBool.of(! result);
+        return AlchemyBoolean.of(! result);
     }
 }

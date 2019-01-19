@@ -23,9 +23,9 @@ public class ModulusNodeTest {
 
     @Test
     public void intModulus() throws LangException {
-        Data a = LangInt.of(7);
-        Data b = LangInt.of(5);
-        Data expected = LangInt.of(2);
+        Data a = AlchemyInt.of(7);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyInt.of(2);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -33,9 +33,9 @@ public class ModulusNodeTest {
 
     @Test
     public void floatModulus() throws LangException {
-        Data a = LangFloat.of(2.5);
-        Data b = LangFloat.of(1.75);
-        Data expected = LangFloat.of(0.75);
+        Data a = AlchemyFloat.of(2.5);
+        Data b = AlchemyFloat.of(1.75);
+        Data expected = AlchemyFloat.of(0.75);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -43,9 +43,9 @@ public class ModulusNodeTest {
 
     @Test
     public void intFloatModulus() throws LangException {
-        Data a = LangInt.of(5);
-        Data b = LangFloat.of(12.5);
-        Data expected = LangFloat.of(5);
+        Data a = AlchemyInt.of(5);
+        Data b = AlchemyFloat.of(12.5);
+        Data expected = AlchemyFloat.of(5);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -53,9 +53,9 @@ public class ModulusNodeTest {
 
     @Test
     public void floatIntModulus() throws LangException {
-        Data a = LangFloat.of(10.25);
-        Data b = LangInt.of(5);
-        Data expected = LangFloat.of(0.25);
+        Data a = AlchemyFloat.of(10.25);
+        Data b = AlchemyInt.of(5);
+        Data expected = AlchemyFloat.of(0.25);
 
         Node n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
@@ -63,8 +63,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringModulus() throws LangException {
-        Data a = LangString.of("hello");
-        Data b = LangString.of("world");
+        Data a = AlchemyString.of("hello");
+        Data b = AlchemyString.of("world");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -72,8 +72,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolModulus() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangBool.of(false);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -81,8 +81,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringIntModulus() throws LangException {
-        Data a = LangString.of("asdfasdf");
-        Data b = LangInt.of(-8);
+        Data a = AlchemyString.of("asdfasdf");
+        Data b = AlchemyInt.of(-8);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -90,8 +90,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intStringModulus() throws LangException {
-        Data a = LangInt.of(-8);
-        Data b = LangString.of("asdfasdf");
+        Data a = AlchemyInt.of(-8);
+        Data b = AlchemyString.of("asdfasdf");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -99,8 +99,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringFloatModulus() throws LangException {
-        Data a = LangString.of("klajsdlksakjh");
-        Data b = LangFloat.of(3.75);
+        Data a = AlchemyString.of("klajsdlksakjh");
+        Data b = AlchemyFloat.of(3.75);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -108,8 +108,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatStringModulus() throws LangException {
-        Data a = LangFloat.of(3.75);
-        Data b = LangString.of("klajsdlksakjh");
+        Data a = AlchemyFloat.of(3.75);
+        Data b = AlchemyString.of("klajsdlksakjh");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -117,8 +117,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolIntModulus() throws LangException {
-        Data a = LangBool.of(false);
-        Data b = LangInt.of(777);
+        Data a = AlchemyBoolean.of(false);
+        Data b = AlchemyInt.of(777);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -126,8 +126,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void intBoolModulus() throws LangException {
-        Data a = LangInt.of(777);
-        Data b = LangBool.of(false);
+        Data a = AlchemyInt.of(777);
+        Data b = AlchemyBoolean.of(false);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -135,8 +135,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolFloatModulus() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangFloat.of(123.456);
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyFloat.of(123.456);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -144,8 +144,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void floatBoolModulus() throws LangException {
-        Data a = LangFloat.of(123.456);
-        Data b = LangBool.of(true);
+        Data a = AlchemyFloat.of(123.456);
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -153,8 +153,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void boolStringModulus() throws LangException {
-        Data a = LangBool.of(true);
-        Data b = LangString.of("khats");
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyString.of("khats");
 
         Node n = create(a, b);
         n.evaluate(ctx);
@@ -162,8 +162,8 @@ public class ModulusNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void stringBoolModulus() throws LangException {
-        Data a = LangString.of("khats");
-        Data b = LangBool.of(true);
+        Data a = AlchemyString.of("khats");
+        Data b = AlchemyBoolean.of(true);
 
         Node n = create(a, b);
         n.evaluate(ctx);

@@ -1,15 +1,15 @@
 package prj.clark.alchemy.data;
 
-public class LangBool extends PrimitiveData<Boolean> {
+public class AlchemyBoolean extends PrimitiveData<Boolean> {
     private static final Data TRUE;
     private static final Data FALSE;
 
     static {
-        TRUE = new LangBool(true);
-        FALSE = new LangBool(false);
+        TRUE = new AlchemyBoolean(true);
+        FALSE = new AlchemyBoolean(false);
     }
 
-    private LangBool(boolean value) {
+    private AlchemyBoolean(boolean value) {
         super(value, PrimitiveType.BOOL);
     }
 

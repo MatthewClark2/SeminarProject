@@ -9,11 +9,11 @@ import prj.clark.alchemy.err.LangException;
 import static org.junit.Assert.*;
 
 public class ConditionalTest {
-    private static final Node TRUTHY = new LiteralNode(LangBool.of(true));
-    private static final Node FALSEY = new LiteralNode(LangBool.of(false));
+    private static final Node TRUTHY = new LiteralNode(AlchemyBoolean.of(true));
+    private static final Node FALSEY = new LiteralNode(AlchemyBoolean.of(false));
 
     // Some garbage data to test against.
-    private static final Data RESULT = LangInt.of(3);
+    private static final Data RESULT = AlchemyInt.of(3);
     private static final Node DATA = new LiteralNode(RESULT);
     private static final Node FAILURE = new FailNode();
     private static final Context ctx = new DummyContext();

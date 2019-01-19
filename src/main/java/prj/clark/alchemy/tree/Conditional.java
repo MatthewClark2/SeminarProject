@@ -25,6 +25,6 @@ public class Conditional implements Node {
         // For now, this only works with actual booleans. Later, you'll need to add a casting logic to the Data.
         Data check = condition.evaluate(ctx);
 
-        return ((LangBool) BOOL_CONVERTER.convert(check)).getValue() ? ifTrue.evaluate(ctx) : ifFalse.evaluate(ctx);
+        return ((AlchemyBoolean) BOOL_CONVERTER.convert(check)).getValue() ? ifTrue.evaluate(ctx) : ifFalse.evaluate(ctx);
     }
 }
