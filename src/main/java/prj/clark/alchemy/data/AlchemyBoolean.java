@@ -1,8 +1,8 @@
 package prj.clark.alchemy.data;
 
 public class AlchemyBoolean implements Printable {
-    private static final Data TRUE;
-    private static final Data FALSE;
+    public static final Data TRUE;
+    public static final Data FALSE;
 
     private final boolean value;
 
