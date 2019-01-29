@@ -31,7 +31,7 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
         this.value = value;
     }
 
-    public static Data of(String content) {
+    public static AlchemyString of(String content) {
         return new AlchemyString(content);
     }
 }

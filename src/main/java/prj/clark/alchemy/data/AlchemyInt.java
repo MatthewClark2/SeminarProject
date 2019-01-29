@@ -22,11 +22,11 @@ public class AlchemyInt implements Numeric, Printable {
         iValue = i;
     }
 
-    public static Data of(long value) {
+    public static AlchemyInt of(long value) {
         return new AlchemyInt(value, (double) value);
     }
 
-    public static Data of(String content) {
+    public static AlchemyInt of(String content) {
         try {
             long l = Long.parseLong(content);
             return of(l);

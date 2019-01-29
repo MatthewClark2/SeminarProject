@@ -23,11 +23,11 @@ public class AlchemyFloat implements Numeric, Printable {
         return of(value);
     }
 
-    public static Data of(double value) {
+    public static AlchemyFloat of(double value) {
         return new AlchemyFloat(value, (long) value);
     }
 
-    public static Data of(long value) {
+    public static AlchemyFloat of(long value) {
         return new AlchemyFloat((double) value, value);
     }
 

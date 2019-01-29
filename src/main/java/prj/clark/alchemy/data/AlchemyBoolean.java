@@ -1,8 +1,8 @@
 package prj.clark.alchemy.data;
 
 public class AlchemyBoolean implements Printable {
-    public static final Data TRUE;
-    public static final Data FALSE;
+    public static final AlchemyBoolean TRUE;
+    public static final AlchemyBoolean FALSE;
 
     private final boolean value;
 
@@ -15,11 +15,11 @@ public class AlchemyBoolean implements Printable {
         this.value = value;
     }
 
-    public static Data of(boolean value) {
+    public static AlchemyBoolean of(boolean value) {
         return value ? TRUE : FALSE;
     }
 
-    public static Data of(String content) {
+    public static AlchemyBoolean of(String content) {
         switch (content) {
             case "True": return of(true);
             case "False": return of(false);
