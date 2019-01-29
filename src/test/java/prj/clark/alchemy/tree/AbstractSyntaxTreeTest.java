@@ -28,7 +28,7 @@ public class AbstractSyntaxTreeTest {
         }
 
         @Override
-        public Data evaluate(Context ctx) throws LangException {
+        public Data evaluate(Context ctx) {
             sb.append(".");
             return null;
         }

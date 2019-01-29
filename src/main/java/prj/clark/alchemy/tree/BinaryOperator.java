@@ -2,7 +2,6 @@ package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.err.LangException;
 
 import java.util.function.BiFunction;
 
@@ -18,7 +17,7 @@ public abstract class BinaryOperator implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) throws LangException {
+    public Data evaluate(Context ctx) {
         return op.apply(left.evaluate(ctx), right.evaluate(ctx));
     }
 

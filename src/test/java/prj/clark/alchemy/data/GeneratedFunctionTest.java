@@ -38,7 +38,7 @@ public class GeneratedFunctionTest {
         }
 
         @Override
-        public Data evaluate(Context ctx) throws LangException {
+        public Data evaluate(Context ctx) {
             fail();
             return null;
         }

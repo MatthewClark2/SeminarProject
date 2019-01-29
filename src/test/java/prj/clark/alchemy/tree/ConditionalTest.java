@@ -21,7 +21,7 @@ public class ConditionalTest {
     // The use of the failure node ensures that the extra condition is not evaluated.
     private static class FailNode implements Node {
         @Override
-        public Data evaluate(Context ctx) throws LangException {
+        public Data evaluate(Context ctx) {
             fail();
 
             // Unreachable.

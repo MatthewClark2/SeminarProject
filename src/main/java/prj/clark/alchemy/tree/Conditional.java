@@ -2,7 +2,6 @@ package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.env.Context;
-import prj.clark.alchemy.err.LangException;
 
 public class Conditional implements Node {
     private Node ifTrue;
@@ -16,7 +15,7 @@ public class Conditional implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) throws LangException {
+    public Data evaluate(Context ctx) {
         // For now, this only works with actual booleans. Later, you'll need to add a casting logic to the Data.
         Data check = condition.evaluate(ctx);
 

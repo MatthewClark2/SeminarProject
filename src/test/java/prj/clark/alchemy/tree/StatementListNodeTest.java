@@ -23,7 +23,7 @@ public class StatementListNodeTest {
         }
 
         @Override
-        public Data evaluate(Context ctx) throws LangException {
+        public Data evaluate(Context ctx) {
             try {
                 os.write('.');
             } catch (IOException e) {

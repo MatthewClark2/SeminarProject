@@ -2,7 +2,6 @@ package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.err.LangException;
 
 public class LiteralNode implements Node {
     private Data data;
@@ -12,7 +11,7 @@ public class LiteralNode implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) throws LangException {
+    public Data evaluate(Context ctx) {
         return data;
     }
 }

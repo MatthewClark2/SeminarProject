@@ -1,7 +1,5 @@
 package prj.clark.alchemy.validation;
 
-import prj.clark.alchemy.err.InvalidIdentifierException;
-
 /**
  * Validates identifiers for the currently unnamed language. Follows standard Java conventions.
  */

@@ -3,7 +3,6 @@ package prj.clark.alchemy.tree;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.data.Empty;
-import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.validation.IdentifierValidation;
 
 public class BindingNode implements Node {
@@ -20,7 +19,7 @@ public class BindingNode implements Node {
     }
 
     @Override
-    public Data evaluate(Context ctx) throws LangException {
+    public Data evaluate(Context ctx) {
         if (binds) {
             Data d = body.evaluate(ctx);
             if (isMutableBinding) {

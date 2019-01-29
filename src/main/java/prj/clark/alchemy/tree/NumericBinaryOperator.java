@@ -16,7 +16,7 @@ abstract class NumericBinaryOperator extends BinaryOperator {
     }
 
     @Override
-    public Data evaluate(Context ctx) throws LangException {
+    public Data evaluate(Context ctx) {
         if (! isNumeric(ctx, getLeft()) || ! isNumeric(ctx, getRight())) {
             throw new TypeMismatchException();
         }

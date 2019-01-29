@@ -1,7 +1,6 @@
 package prj.clark.alchemy.validation;
 
 import org.junit.Test;
-import prj.clark.alchemy.err.InvalidIdentifierException;
 
 import static org.junit.Assert.*;
 import static prj.clark.alchemy.validation.IdentifierValidation.*;

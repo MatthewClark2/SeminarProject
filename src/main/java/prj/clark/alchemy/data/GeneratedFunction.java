@@ -2,7 +2,6 @@ package prj.clark.alchemy.data;
 
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.err.FunctionInvocationException;
-import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.tree.Node;
 
 import java.util.List;

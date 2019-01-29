@@ -12,8 +12,6 @@ import prj.clark.alchemy.err.TypeMismatchException;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static org.junit.Assert.*;
-
 public class FunctionApplicationNodeTest {
     private static Function F;
     private static final StatementListNode TRIPLE_ADDITION;
