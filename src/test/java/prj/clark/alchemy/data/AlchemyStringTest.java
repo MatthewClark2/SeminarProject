@@ -16,6 +16,14 @@ public class AlchemyStringTest {
     }
 
     @Test
+    public void ensurePrintAndToStringSame() {
+        AlchemyString s = AlchemyString.of("asdf");
+        AlchemyString t = AlchemyString.of("jlk;");
+        assertEquals(s.toString(), s.print());
+        assertEquals(t.toString(), s.print());
+    }
+
+    @Test
     public void equalValuesEqual() {
         Data s = AlchemyString.of("hello");
         // While the call to new is redundant, it does allow for me to ensure that there isn't an underlying bug being
@@ -29,11 +37,5 @@ public class AlchemyStringTest {
         Data s = AlchemyString.of("hello");
         Data t = AlchemyString.of("goodbye");
         assertNotEquals(s, t);
-    }
-
-    @Test
-    public void generatedValuesOfTypeString() {
-        Data s = AlchemyString.of("hello world");
-        assertEquals(PrimitiveType.STRING, s.getType());
     }
 }

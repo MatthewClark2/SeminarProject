@@ -12,26 +12,29 @@ public class AlchemyFloatTest {
 
     @Test
     public void intStringProducesCorrectValue() {
-        AlchemyFloat f = (AlchemyFloat) AlchemyFloat.of("123");
-        assertEquals((Double) 123.0, f.getValue());
+        AlchemyFloat f = AlchemyFloat.of("123");
+        assertEquals(123.0, f.floatValue(), 0.0);
     }
 
     @Test
     public void floatStringProducesCorrectValue() {
-        AlchemyFloat f = (AlchemyFloat) AlchemyFloat.of("123.5");
-        assertEquals((Double) 123.5, f.getValue());
+        AlchemyFloat f = AlchemyFloat.of("123.5");
+        assertEquals(123.5, f.floatValue(), 0.0);
     }
 
     @Test
     public void fromIntProducesCorrectString() {
-        Data f = AlchemyFloat.of(55);
+        AlchemyFloat f = AlchemyFloat.of(55);
         assertEquals("55.0", f.toString());
+        assertEquals(f.print(), f.toString());
     }
 
     @Test
     public void fromFloatProducesCorrectString() {
-        Data f = AlchemyFloat.of(12.75);
+        AlchemyFloat f = AlchemyFloat.of(12.75);
         assertEquals("12.75", f.toString());
+        assertEquals(f.print(), f.toString());
+
     }
 
     @Test
@@ -46,14 +49,5 @@ public class AlchemyFloatTest {
         Data f = AlchemyFloat.of("123");
         Data g = AlchemyFloat.of(123);
         assertEquals(f, g);
-    }
-
-    @Test
-    public void generatedValuesOfTypeFloat() {
-        Data f = AlchemyFloat.of("12");
-        Data g = AlchemyFloat.of(1.5);
-
-        assertEquals(PrimitiveType.FLOAT, f.getType());
-        assertEquals(PrimitiveType.FLOAT, g.getType());
     }
 }

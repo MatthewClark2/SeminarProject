@@ -23,14 +23,15 @@ public class AlchemyIntTest {
 
     @Test
     public void intStringPreserved() {
-        Data i = AlchemyInt.of("9000000");
-        assertEquals(Long.valueOf(9000000), ((AlchemyInt) i).getValue());
+        AlchemyInt i = AlchemyInt.of("9000000");
+        assertEquals(9000000, i.intValue());
     }
 
     @Test
     public void toStringMethodProducesIntegerString() {
         Data i = AlchemyInt.of(456);
         assertEquals("456", i.toString());
+        assertEquals(i.toString(), ((AlchemyInt) i).print());
     }
 
     @Test
@@ -47,14 +48,5 @@ public class AlchemyIntTest {
         Data j = AlchemyInt.of("56");
 
         assertNotEquals(i, j);
-    }
-
-    @Test
-    public void generatedValuesOfTypeInt() {
-        Data i = AlchemyInt.of(100);
-        Data j = AlchemyInt.of("-35");
-
-        assertEquals(PrimitiveType.INT, i.getType());
-        assertEquals(PrimitiveType.INT, j.getType());
     }
 }

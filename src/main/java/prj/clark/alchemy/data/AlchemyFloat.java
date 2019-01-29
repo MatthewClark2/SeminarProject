@@ -18,7 +18,7 @@ public class AlchemyFloat implements Numeric, Printable {
         fValue = f;
     }
 
-    public static Data of(String content) {
+    public static AlchemyFloat of(String content) {
         double value = Double.parseDouble(content);
         return of(value);
     }
