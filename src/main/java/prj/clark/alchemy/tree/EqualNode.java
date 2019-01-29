@@ -4,7 +4,7 @@ import prj.clark.alchemy.data.AlchemyBoolean;
 
 public class EqualNode extends BinaryOperator {
 
-    public EqualNode(Node left, Node right) {
+    public EqualNode(Valued left, Valued right) {
         super(left, right, (l, r) -> AlchemyBoolean.of(l.equals(r)));
     }
 }

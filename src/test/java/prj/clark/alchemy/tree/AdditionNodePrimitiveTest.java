@@ -10,14 +10,14 @@ import prj.clark.alchemy.err.TypeMismatchException;
 
 /**
  * Tests involving complex data types, such as functions or collections are not handled by this test suite.
- * All tests written in this class work under the assumption that the Lang<i>Type</i>, and terminal {@link Node} classes
+ * All tests written in this class work under the assumption that the Lang<i>Type</i>, and terminal {@link Valued} classes
  * work correctly.
  * {@link LiteralNode}s are used for their simplicity.
  */
 public class AdditionNodePrimitiveTest {
     private Context ctx;
 
-    private static Node create(Data a, Data b) {
+    private static Valued create(Data a, Data b) {
         return new AdditionNode(new LiteralNode(a), new LiteralNode(b));
     }
 
@@ -32,7 +32,7 @@ public class AdditionNodePrimitiveTest {
         Data b = AlchemyInt.of(5);
         Data expected = AlchemyInt.of(10);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -42,7 +42,7 @@ public class AdditionNodePrimitiveTest {
         Data b = AlchemyFloat.of(-1.25);
         Data expected = AlchemyFloat.of(1.25);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -52,7 +52,7 @@ public class AdditionNodePrimitiveTest {
         Data b = AlchemyFloat.of(10.25);
         Data expected = AlchemyFloat.of(15.25);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -62,7 +62,7 @@ public class AdditionNodePrimitiveTest {
         Data b = AlchemyInt.of(5);
         Data expected = AlchemyFloat.of(15.25);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -71,7 +71,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("world");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -80,7 +80,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyBoolean.of(false);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -89,7 +89,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyString.of("asdfasdf");
         Data b = AlchemyInt.of(-8);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -98,7 +98,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyInt.of(-8);
         Data b = AlchemyString.of("asdfasdf");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -107,7 +107,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyString.of("klajsdlksakjh");
         Data b = AlchemyFloat.of(3.75);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -116,7 +116,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyFloat.of(3.75);
         Data b = AlchemyString.of("klajsdlksakjh");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -125,7 +125,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyBoolean.of(false);
         Data b = AlchemyInt.of(777);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -134,7 +134,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyInt.of(777);
         Data b = AlchemyBoolean.of(false);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -143,7 +143,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyFloat.of(123.456);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -152,7 +152,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyFloat.of(123.456);
         Data b = AlchemyBoolean.of(true);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -161,7 +161,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyString.of("khats");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -170,7 +170,7 @@ public class AdditionNodePrimitiveTest {
         Data a = AlchemyString.of("khats");
         Data b = AlchemyBoolean.of(true);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 }

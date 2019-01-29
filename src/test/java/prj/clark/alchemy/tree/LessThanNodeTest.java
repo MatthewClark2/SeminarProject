@@ -12,7 +12,7 @@ public class LessThanNodeTest {
     private static final Data TRUE = AlchemyBoolean.of(true);
     private static final Data FALSE = AlchemyBoolean.of(false);
 
-    private static Node create(Data a, Data b) {
+    private static Valued create(Data a, Data b) {
         return new LessThanNode(new LiteralNode(a), new LiteralNode(b));
     }
 
@@ -20,7 +20,7 @@ public class LessThanNodeTest {
     public void intLTFalse() throws LangException {
         Data a = AlchemyInt.of(5);
         Data b = AlchemyInt.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -29,7 +29,7 @@ public class LessThanNodeTest {
     public void floatLTFalse() throws LangException {
         Data a = AlchemyFloat.of(5);
         Data b = AlchemyFloat.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -38,7 +38,7 @@ public class LessThanNodeTest {
     public void intFloatLTFalse() throws LangException {
         Data a = AlchemyInt.of(5);
         Data b = AlchemyFloat.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -47,7 +47,7 @@ public class LessThanNodeTest {
     public void floatIntLTFalse() throws LangException {
         Data a = AlchemyFloat.of(5);
         Data b = AlchemyInt.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -56,7 +56,7 @@ public class LessThanNodeTest {
     public void intLTTrue() throws LangException {
         Data a = AlchemyInt.of(3);
         Data b = AlchemyInt.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -65,7 +65,7 @@ public class LessThanNodeTest {
     public void floatLTTrue() throws LangException {
         Data a = AlchemyFloat.of(3);
         Data b = AlchemyFloat.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -74,7 +74,7 @@ public class LessThanNodeTest {
     public void intFloatLTTrue() throws LangException {
         Data a = AlchemyInt.of(3);
         Data b = AlchemyFloat.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -83,7 +83,7 @@ public class LessThanNodeTest {
     public void floatIntLTTrue() throws LangException {
         Data a = AlchemyFloat.of(3);
         Data b = AlchemyInt.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -92,7 +92,7 @@ public class LessThanNodeTest {
     public void boolLT() throws LangException {
         Data a = TRUE;
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -101,7 +101,7 @@ public class LessThanNodeTest {
     public void stringLT() throws LangException {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("world");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -110,7 +110,7 @@ public class LessThanNodeTest {
     public void boolStringLT() throws LangException {
         Data a = TRUE;
         Data b = AlchemyString.of("asdf");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -119,7 +119,7 @@ public class LessThanNodeTest {
     public void stringBoolLT() throws LangException {
         Data a = AlchemyString.of("lkasdfhjk");
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -128,7 +128,7 @@ public class LessThanNodeTest {
     public void intBoolLT() throws LangException {
         Data a = AlchemyInt.of(5);
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -137,7 +137,7 @@ public class LessThanNodeTest {
     public void boolIntLT() throws LangException {
         Data a = TRUE;
         Data b = AlchemyInt.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -146,7 +146,7 @@ public class LessThanNodeTest {
     public void floatBoolLT() throws LangException {
         Data a = AlchemyFloat.of(2.5);
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -155,7 +155,7 @@ public class LessThanNodeTest {
     public void boolFloatLT() throws LangException {
         Data a = FALSE;
         Data b = AlchemyFloat.of(2.5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -164,7 +164,7 @@ public class LessThanNodeTest {
     public void intStringLT() throws LangException {
         Data a = AlchemyInt.of(2);
         Data b = AlchemyString.of("yo");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -173,7 +173,7 @@ public class LessThanNodeTest {
     public void stringIntLT() throws LangException {
         Data a = AlchemyString.of("yo");
         Data b = AlchemyInt.of(2);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -182,7 +182,7 @@ public class LessThanNodeTest {
     public void floatStringLT() throws LangException {
         Data a = AlchemyFloat.of(2.5);
         Data b = AlchemyString.of("yo");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -191,7 +191,7 @@ public class LessThanNodeTest {
     public void stringFloatLT() throws LangException {
         Data a = AlchemyString.of("yo");
         Data b = AlchemyFloat.of(2.5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }

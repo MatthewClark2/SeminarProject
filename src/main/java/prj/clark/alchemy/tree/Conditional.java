@@ -3,12 +3,12 @@ package prj.clark.alchemy.tree;
 import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.env.Context;
 
-public class Conditional implements Node {
-    private Node ifTrue;
-    private Node ifFalse;
-    private Node condition;
+public class Conditional extends ReferentiallyTransparentValuedNode {
+    private Valued ifTrue;
+    private Valued ifFalse;
+    private Valued condition;
 
-    public Conditional(Node ifTrue, Node ifFalse, Node condition) {
+    public Conditional(Valued ifTrue, Valued ifFalse, Valued condition) {
         this.ifTrue = ifTrue;
         this.ifFalse = ifFalse;
         this.condition = condition;

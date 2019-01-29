@@ -2,7 +2,7 @@ package prj.clark.alchemy.data;
 
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.err.FunctionInvocationException;
-import prj.clark.alchemy.tree.Node;
+import prj.clark.alchemy.tree.Valued;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * @see RawFunction
  */
 public class GeneratedFunction implements Invokable {
-    private final Node functionBody;
+    private final Valued functionBody;
     private final Context enclosingContext;
     private final int argCount;
     private final List<String> arguments;
@@ -43,7 +43,7 @@ public class GeneratedFunction implements Invokable {
      * @param enclosingContext the surrounding context of the function.
      * @param arguments the names of all bound parameters. The length of this List should be the same as argCount.
      */
-    public GeneratedFunction(Node functionBody, Context enclosingContext, List<String> arguments) {
+    public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments) {
         // TODO(matthew-c21) - Consider taking copies rather than pointers.
         this.functionBody = functionBody;
         this.enclosingContext = enclosingContext;

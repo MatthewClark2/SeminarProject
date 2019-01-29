@@ -4,7 +4,7 @@ import prj.clark.alchemy.data.AlchemyFloat;
 import prj.clark.alchemy.data.AlchemyInt;
 
 public class ModulusNode extends NumericBinaryOperator {
-    public ModulusNode(Node left, Node right) {
+    public ModulusNode(Valued left, Valued right) {
         super(left, right, (l, r) -> {
             if (l instanceof AlchemyFloat || r instanceof AlchemyFloat) {
                 return AlchemyFloat.of(Double.parseDouble(l.toString()) % Double.parseDouble(r.toString()));

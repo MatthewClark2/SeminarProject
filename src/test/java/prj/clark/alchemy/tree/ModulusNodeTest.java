@@ -12,7 +12,7 @@ import prj.clark.alchemy.err.TypeMismatchException;
 public class ModulusNodeTest {
     private Context ctx;
 
-    private static Node create(Data a, Data b) {
+    private static Valued create(Data a, Data b) {
         return new ModulusNode(new LiteralNode(a), new LiteralNode(b));
     }
 
@@ -27,7 +27,7 @@ public class ModulusNodeTest {
         Data b = AlchemyInt.of(5);
         Data expected = AlchemyInt.of(2);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -37,7 +37,7 @@ public class ModulusNodeTest {
         Data b = AlchemyFloat.of(1.75);
         Data expected = AlchemyFloat.of(0.75);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -47,7 +47,7 @@ public class ModulusNodeTest {
         Data b = AlchemyFloat.of(12.5);
         Data expected = AlchemyFloat.of(5);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -57,7 +57,7 @@ public class ModulusNodeTest {
         Data b = AlchemyInt.of(5);
         Data expected = AlchemyFloat.of(0.25);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         Assert.assertEquals(expected, n.evaluate(ctx));
     }
 
@@ -66,7 +66,7 @@ public class ModulusNodeTest {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("world");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -75,7 +75,7 @@ public class ModulusNodeTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyBoolean.of(false);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -84,7 +84,7 @@ public class ModulusNodeTest {
         Data a = AlchemyString.of("asdfasdf");
         Data b = AlchemyInt.of(-8);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -93,7 +93,7 @@ public class ModulusNodeTest {
         Data a = AlchemyInt.of(-8);
         Data b = AlchemyString.of("asdfasdf");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -102,7 +102,7 @@ public class ModulusNodeTest {
         Data a = AlchemyString.of("klajsdlksakjh");
         Data b = AlchemyFloat.of(3.75);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -111,7 +111,7 @@ public class ModulusNodeTest {
         Data a = AlchemyFloat.of(3.75);
         Data b = AlchemyString.of("klajsdlksakjh");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -120,7 +120,7 @@ public class ModulusNodeTest {
         Data a = AlchemyBoolean.of(false);
         Data b = AlchemyInt.of(777);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -129,7 +129,7 @@ public class ModulusNodeTest {
         Data a = AlchemyInt.of(777);
         Data b = AlchemyBoolean.of(false);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -138,7 +138,7 @@ public class ModulusNodeTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyFloat.of(123.456);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -147,7 +147,7 @@ public class ModulusNodeTest {
         Data a = AlchemyFloat.of(123.456);
         Data b = AlchemyBoolean.of(true);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -156,7 +156,7 @@ public class ModulusNodeTest {
         Data a = AlchemyBoolean.of(true);
         Data b = AlchemyString.of("khats");
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 
@@ -165,7 +165,7 @@ public class ModulusNodeTest {
         Data a = AlchemyString.of("khats");
         Data b = AlchemyBoolean.of(true);
 
-        Node n = create(a, b);
+        Valued n = create(a, b);
         n.evaluate(ctx);
     }
 }

@@ -11,7 +11,7 @@ import prj.clark.alchemy.data.AlchemyInt;
  * solution, it does avoid a ton of casting and runtime type checking.
  */
 public class AdditionNode extends NumericBinaryOperator {
-    public AdditionNode(Node left, Node right) {
+    public AdditionNode(Valued left, Valued right) {
         super(left, right, (l, r) -> {
             if (l instanceof AlchemyFloat || r instanceof AlchemyFloat) {
                 return AlchemyFloat.of(Double.parseDouble(l.toString()) + Double.parseDouble(r.toString()));

@@ -10,7 +10,7 @@ import java.util.function.BiFunction;
  * It does not cover a solid chunk of the actual language.
  */
 public class NodeFactory {
-    private static final Map<String, BiFunction<Node, Node, Node>> BINOP_SUPPLIER = new HashMap<>();
+    private static final Map<String, BiFunction<Valued, Valued, Valued>> BINOP_SUPPLIER = new HashMap<>();
 
     static {
         BINOP_SUPPLIER.put("^", ExponentialNode::new);
@@ -27,7 +27,7 @@ public class NodeFactory {
         BINOP_SUPPLIER.put("!=", NotEqualNode::new);
     }
 
-    public List<Node> getAll(AlchemyParser.FileContext ctx) {
+    public List<Valued> getAll(AlchemyParser.FileContext ctx) {
         return null;
     }
 }

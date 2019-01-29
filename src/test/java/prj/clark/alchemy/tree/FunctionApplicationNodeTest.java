@@ -33,13 +33,13 @@ public class FunctionApplicationNodeTest {
         F = new GeneratedFunction(TRIPLE_ADDITION, new DefaultContext(), Arrays.asList("x", "y", "z"));
     }
 
-    private static Node init(Node... args) {
+    private static Valued init(Valued... args) {
         return new FunctionApplicationNode(new LiteralNode(F), Arrays.asList(args));
     }
 
     @Test
     public void fullApplicationReturnsCorrectValue() throws LangException {
-        Node n = init(
+        Valued n = init(
                 new LiteralNode(AlchemyInt.of(1)),
                 new LiteralNode(AlchemyInt.of(3)),
                 new LiteralNode(AlchemyInt.of(5))
@@ -50,14 +50,14 @@ public class FunctionApplicationNodeTest {
 
     @Test
     public void emptyApplicationReturnsPartialFunction() throws LangException {
-        Node n = init();
+        Valued n = init();
         Data d = n.evaluate(new DummyContext());
         assertEquals(RawFunction.getInstance(), d.getType());
     }
 
     @Test(expected = FunctionInvocationException.class)
     public void excessApplicationFails() throws LangException {
-        Node n = init(
+        Valued n = init(
                 new LiteralNode(AlchemyInt.of(1)),
                 new LiteralNode(AlchemyInt.of(3)),
                 new LiteralNode(AlchemyInt.of(0)),
@@ -69,7 +69,7 @@ public class FunctionApplicationNodeTest {
 
     @Test(expected = TypeMismatchException.class)
     public void nonFunctionThrowsException() throws LangException {
-        Node n = new FunctionApplicationNode(new LiteralNode(AlchemyString.of("")), Collections.emptyList());
+        Valued n = new FunctionApplicationNode(new LiteralNode(AlchemyString.of("")), Collections.emptyList());
         n.evaluate(new DummyContext());
     }
 }

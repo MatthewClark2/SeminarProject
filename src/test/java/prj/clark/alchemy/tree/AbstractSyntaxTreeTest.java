@@ -20,7 +20,7 @@ public class AbstractSyntaxTreeTest {
         return new AbstractSyntaxTree(Arrays.stream(datum).map(LiteralNode::new).collect(Collectors.toList()));
     }
 
-    private class PrintNode implements Node {
+    private class PrintNode implements Valued {
         private StringBuilder sb;
 
         private PrintNode(StringBuilder sb) {

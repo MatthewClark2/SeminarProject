@@ -8,12 +8,12 @@ import prj.clark.alchemy.err.TypeMismatchException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionApplicationNode implements Node {
+public class FunctionApplicationNode extends ReferentiallyTransparentValuedNode {
     // This node should either be an identifier that resolves to a function, or a literal that resolves to a function.
-    private final Node function;
-    private final List<Node> appliedArguments;
+    private final Valued function;
+    private final List<Valued> appliedArguments;
 
-    public FunctionApplicationNode(Node function, List<Node> appliedArguments) {
+    public FunctionApplicationNode(Valued function, List<Valued> appliedArguments) {
         this.function = function;
         this.appliedArguments = appliedArguments;
     }
@@ -28,7 +28,7 @@ public class FunctionApplicationNode implements Node {
 
         List<Data> args = new ArrayList<>();
 
-        for (Node n : appliedArguments) {
+        for (Valued n : appliedArguments) {
             args.add(n.evaluate(ctx));
         }
 

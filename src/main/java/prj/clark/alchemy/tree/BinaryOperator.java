@@ -5,12 +5,12 @@ import prj.clark.alchemy.data.Data;
 
 import java.util.function.BiFunction;
 
-public abstract class BinaryOperator implements Node {
-    private Node left;
-    private Node right;
+public abstract class BinaryOperator extends ReferentiallyTransparentValuedNode {
+    private Valued left;
+    private Valued right;
     private BiFunction<Data, Data, Data> op;
 
-    protected BinaryOperator(Node left, Node right, BiFunction<Data, Data, Data> op) {
+    protected BinaryOperator(Valued left, Valued right, BiFunction<Data, Data, Data> op) {
         this.left = left;
         this.right = right;
         this.op = op;
@@ -21,11 +21,11 @@ public abstract class BinaryOperator implements Node {
         return op.apply(left.evaluate(ctx), right.evaluate(ctx));
     }
 
-    protected Node getLeft() {
+    protected Valued getLeft() {
         return left;
     }
 
-    protected Node getRight() {
+    protected Valued getRight() {
         return right;
     }
 }

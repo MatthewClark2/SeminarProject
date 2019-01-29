@@ -5,11 +5,10 @@ import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.err.TypeMismatchException;
 
-import java.lang.reflect.Type;
 import java.util.function.BiFunction;
 
 abstract class NumericBinaryOperator extends BinaryOperator {
-    protected NumericBinaryOperator(Node left, Node right, BiFunction<Data, Data, Data> op) {
+    protected NumericBinaryOperator(Valued left, Valued right, BiFunction<Data, Data, Data> op) {
         super(left, right, op);
     }
 

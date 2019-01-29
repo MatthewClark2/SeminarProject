@@ -4,7 +4,7 @@ import prj.clark.alchemy.data.AlchemyBoolean;
 
 public class NotEqualNode extends BinaryOperator {
 
-    public NotEqualNode(Node left, Node right) {
+    public NotEqualNode(Valued left, Valued right) {
         super(left, right, (l, r) -> AlchemyBoolean.of(! l.equals(r)));
     }
 }

@@ -11,7 +11,7 @@ public class NotEqualNodeTest {
     private static Data FALSE = AlchemyBoolean.of(false);
     private Context ctx = new DummyContext();
 
-    private static Node create(Data a, Data b) {
+    private static Valued create(Data a, Data b) {
         return new NotEqualNode(new LiteralNode(a), new LiteralNode(b));
     }
 
@@ -19,7 +19,7 @@ public class NotEqualNodeTest {
     public void intEqual() throws LangException {
         Data a = AlchemyInt.of(12);
         Data b = AlchemyInt.of(12);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -28,7 +28,7 @@ public class NotEqualNodeTest {
     public void intNotEqual() throws LangException {
         Data a = AlchemyInt.of(12);
         Data b = AlchemyInt.of(119);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -37,7 +37,7 @@ public class NotEqualNodeTest {
     public void floatEqual() throws LangException {
         Data a = AlchemyFloat.of(12.3);
         Data b = AlchemyFloat.of(12.3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -46,21 +46,21 @@ public class NotEqualNodeTest {
     public void floatNotEqual() throws LangException {
         Data a = AlchemyFloat.of(12.3);
         Data b = AlchemyFloat.of(-12.3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 
     @Test
     public void boolEqual() throws LangException {
-        Node n = create(TRUE, TRUE);
+        Valued n = create(TRUE, TRUE);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
 
     @Test
     public void boolNotEqual() throws LangException {
-        Node n = create(TRUE, FALSE);
+        Valued n = create(TRUE, FALSE);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -69,7 +69,7 @@ public class NotEqualNodeTest {
     public void stringEqual() throws LangException {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("hello");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -78,7 +78,7 @@ public class NotEqualNodeTest {
     public void stringNotEqual() throws LangException {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("goodbye");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -87,7 +87,7 @@ public class NotEqualNodeTest {
     public void intFloatNotEqual() throws LangException {
         Data a = AlchemyInt.of(12);
         Data b = AlchemyFloat.of(12);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -96,7 +96,7 @@ public class NotEqualNodeTest {
     public void intStringNotEqual() throws LangException {
         Data a = AlchemyInt.of(12);
         Data b = AlchemyString.of("12");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -104,7 +104,7 @@ public class NotEqualNodeTest {
     @Test
     public void intBoolNotEqual() throws LangException {
         Data a = AlchemyInt.of(17);
-        Node n = create(a, TRUE);
+        Valued n = create(a, TRUE);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -113,7 +113,7 @@ public class NotEqualNodeTest {
     public void floatIntNotEqual() throws LangException {
         Data a = AlchemyFloat.of(12);
         Data b = AlchemyInt.of(12);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -122,7 +122,7 @@ public class NotEqualNodeTest {
     public void floatStringNotEqual() throws LangException {
         Data a = AlchemyFloat.of(21.2);
         Data b = AlchemyString.of("21.2");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -130,14 +130,14 @@ public class NotEqualNodeTest {
     @Test
     public void floatBoolNotEqual() throws LangException {
         Data a = AlchemyFloat.of(0.5);
-        Node n = create(a, TRUE);
+        Valued n = create(a, TRUE);
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 
     @Test
     public void boolIntNotEqual() throws LangException {
         Data a = AlchemyInt.of(17);
-        Node n = create(TRUE, a);
+        Valued n = create(TRUE, a);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -145,14 +145,14 @@ public class NotEqualNodeTest {
     @Test
     public void boolFloatNotEqual() throws LangException {
         Data a = AlchemyFloat.of(0.5);
-        Node n = create(TRUE, a);
+        Valued n = create(TRUE, a);
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 
     @Test
     public void boolStringNotEqual() throws LangException {
         Data a = AlchemyString.of("false");
-        Node n = create(TRUE, a);
+        Valued n = create(TRUE, a);
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 
@@ -160,7 +160,7 @@ public class NotEqualNodeTest {
     public void stringIntNotEqual() throws LangException {
         Data a = AlchemyString.of("12");
         Data b = AlchemyInt.of(12);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -169,7 +169,7 @@ public class NotEqualNodeTest {
     public void stringFloatNotEqual() throws LangException {
         Data a = AlchemyString.of("21.2");
         Data b = AlchemyFloat.of(21.2);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
@@ -177,7 +177,7 @@ public class NotEqualNodeTest {
     @Test
     public void stringBoolNotEqual() throws LangException {
         Data a = AlchemyString.of("false");
-        Node n = create(a, TRUE);
+        Valued n = create(a, TRUE);
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 }

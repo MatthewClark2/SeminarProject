@@ -4,7 +4,7 @@ import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.err.NoSuchBindingException;
 
-public class IdentifierNode implements Node {
+public class IdentifierNode extends ReferentiallyTransparentValuedNode {
     private final String identifier;
 
     public IdentifierNode(String identifier) {

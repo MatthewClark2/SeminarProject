@@ -4,7 +4,7 @@ import prj.clark.alchemy.data.AlchemyBoolean;
 
 public class GreaterThanNode extends NumericBinaryOperator {
 
-    public GreaterThanNode(Node left, Node right) {
+    public GreaterThanNode(Valued left, Valued right) {
         super(left, right, (l, r) ->
                 AlchemyBoolean.of(Double.parseDouble(l.toString()) > Double.parseDouble(r.toString())));
     }

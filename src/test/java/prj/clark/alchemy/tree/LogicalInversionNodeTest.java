@@ -13,19 +13,19 @@ public class LogicalInversionNodeTest {
     private static final Data FALSE = AlchemyBoolean.of(false);
     private static final Context ctx = new DummyContext();
 
-    private static Node create(Data d) {
+    private static Valued create(Data d) {
         return new LogicalInversionNode(new LiteralNode(d));
     }
 
     @Test
     public void convertFalse() throws LangException {
-        Node n = create(FALSE);
+        Valued n = create(FALSE);
         Assert.assertEquals(TRUE, n.evaluate(ctx));
     }
 
     @Test
     public void convertTrue() throws LangException {
-        Node n = create(TRUE);
+        Valued n = create(TRUE);
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
 }

@@ -9,10 +9,10 @@ import java.util.List;
 
 public class AbstractSyntaxTree {
     // Contains all top-level statements directly. The AST object itself is effectively the root of the tree.
-    private List<Node> nodes;
+    private List<Valued> nodes;
 
     // TODO(matthew-c21) - Add constructors that allow for an easier time building the tree without a ton of extra steps.
-    public AbstractSyntaxTree(List<Node> nodes) {
+    public AbstractSyntaxTree(List<Valued> nodes) {
         this.nodes = nodes;
     }
 
@@ -28,7 +28,7 @@ public class AbstractSyntaxTree {
     public Data execute(Context ctx) throws LangException {
         Data d = Empty.get();
 
-        for (Node n : nodes) {
+        for (Valued n : nodes) {
             d = n.evaluate(ctx);
         }
 

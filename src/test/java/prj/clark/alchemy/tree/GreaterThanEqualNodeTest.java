@@ -12,7 +12,7 @@ public class GreaterThanEqualNodeTest {
     private static final Data TRUE = AlchemyBoolean.of(true);
     private static final Data FALSE = AlchemyBoolean.of(false);
 
-    private static Node create(Data a, Data b) {
+    private static Valued create(Data a, Data b) {
         return new GreaterThanEqualNode(new LiteralNode(a), new LiteralNode(b));
     }
 
@@ -21,8 +21,8 @@ public class GreaterThanEqualNodeTest {
         Data a = AlchemyInt.of(5);
         Data b = AlchemyInt.of(3);
         Data c = AlchemyInt.of(3);
-        Node n = create(a, b);
-        Node o = create(b, c);
+        Valued n = create(a, b);
+        Valued o = create(b, c);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
         Assert.assertEquals(TRUE, o.evaluate(ctx));
@@ -33,8 +33,8 @@ public class GreaterThanEqualNodeTest {
         Data a = AlchemyFloat.of(5);
         Data b = AlchemyFloat.of(3);
         Data c = AlchemyFloat.of(3);
-        Node n = create(a, b);
-        Node o = create(b, c);
+        Valued n = create(a, b);
+        Valued o = create(b, c);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
         Assert.assertEquals(TRUE, o.evaluate(ctx));
@@ -45,8 +45,8 @@ public class GreaterThanEqualNodeTest {
         Data a = AlchemyInt.of(5);
         Data b = AlchemyFloat.of(3);
         Data c = AlchemyFloat.of(3);
-        Node n = create(a, b);
-        Node o = create(b, c);
+        Valued n = create(a, b);
+        Valued o = create(b, c);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
         Assert.assertEquals(TRUE, o.evaluate(ctx));
@@ -57,8 +57,8 @@ public class GreaterThanEqualNodeTest {
         Data a = AlchemyFloat.of(5);
         Data b = AlchemyInt.of(3);
         Data c = AlchemyInt.of(3);
-        Node n = create(a, b);
-        Node o = create(b, c);
+        Valued n = create(a, b);
+        Valued o = create(b, c);
 
         Assert.assertEquals(TRUE, n.evaluate(ctx));
         Assert.assertEquals(TRUE, o.evaluate(ctx));
@@ -68,7 +68,7 @@ public class GreaterThanEqualNodeTest {
     public void intGTEFalse() throws LangException {
         Data a = AlchemyInt.of(3);
         Data b = AlchemyInt.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -77,7 +77,7 @@ public class GreaterThanEqualNodeTest {
     public void floatGTEFalse() throws LangException {
         Data a = AlchemyFloat.of(3);
         Data b = AlchemyFloat.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -86,7 +86,7 @@ public class GreaterThanEqualNodeTest {
     public void intFloatGTEFalse() throws LangException {
         Data a = AlchemyInt.of(3);
         Data b = AlchemyFloat.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -95,7 +95,7 @@ public class GreaterThanEqualNodeTest {
     public void floatIntGTEFalse() throws LangException {
         Data a = AlchemyFloat.of(3);
         Data b = AlchemyInt.of(5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         Assert.assertEquals(FALSE, n.evaluate(ctx));
     }
@@ -104,7 +104,7 @@ public class GreaterThanEqualNodeTest {
     public void boolGTE() throws LangException {
         Data a = TRUE;
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -113,7 +113,7 @@ public class GreaterThanEqualNodeTest {
     public void stringGTE() throws LangException {
         Data a = AlchemyString.of("hello");
         Data b = AlchemyString.of("world");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -122,7 +122,7 @@ public class GreaterThanEqualNodeTest {
     public void boolStringGTE() throws LangException {
         Data a = TRUE;
         Data b = AlchemyString.of("asdf");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -131,7 +131,7 @@ public class GreaterThanEqualNodeTest {
     public void stringBoolGTE() throws LangException {
         Data a = AlchemyString.of("lkasdfhjk");
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -140,7 +140,7 @@ public class GreaterThanEqualNodeTest {
     public void intBoolGTE() throws LangException {
         Data a = AlchemyInt.of(5);
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -149,7 +149,7 @@ public class GreaterThanEqualNodeTest {
     public void boolIntGTE() throws LangException {
         Data a = TRUE;
         Data b = AlchemyInt.of(3);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -158,7 +158,7 @@ public class GreaterThanEqualNodeTest {
     public void floatBoolGTE() throws LangException {
         Data a = AlchemyFloat.of(2.5);
         Data b = FALSE;
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -167,7 +167,7 @@ public class GreaterThanEqualNodeTest {
     public void boolFloatGTE() throws LangException {
         Data a = FALSE;
         Data b = AlchemyFloat.of(2.5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -176,7 +176,7 @@ public class GreaterThanEqualNodeTest {
     public void intStringGTE() throws LangException {
         Data a = AlchemyInt.of(2);
         Data b = AlchemyString.of("yo");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -185,7 +185,7 @@ public class GreaterThanEqualNodeTest {
     public void stringIntGTE() throws LangException {
         Data a = AlchemyString.of("yo");
         Data b = AlchemyInt.of(2);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -194,7 +194,7 @@ public class GreaterThanEqualNodeTest {
     public void floatStringGTE() throws LangException {
         Data a = AlchemyFloat.of(2.5);
         Data b = AlchemyString.of("yo");
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }
@@ -203,7 +203,7 @@ public class GreaterThanEqualNodeTest {
     public void stringFloatGTE() throws LangException {
         Data a = AlchemyString.of("yo");
         Data b = AlchemyFloat.of(2.5);
-        Node n = create(a, b);
+        Valued n = create(a, b);
 
         n.evaluate(ctx);
     }

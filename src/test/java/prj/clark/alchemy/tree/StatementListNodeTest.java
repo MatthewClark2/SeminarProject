@@ -15,7 +15,7 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 
 public class StatementListNodeTest {
-    private static class PrintNode implements Node {
+    private static class PrintNode implements Valued {
         private OutputStream os;
 
         private PrintNode(OutputStream os) {

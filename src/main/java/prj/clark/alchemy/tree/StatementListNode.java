@@ -6,18 +6,18 @@ import prj.clark.alchemy.data.Empty;
 
 import java.util.List;
 
-public class StatementListNode implements Node {
+public class StatementListNode extends ReferentiallyTransparentValuedNode {
 
-    private final List<Node> statements;
+    private final List<Valued> statements;
 
-    public StatementListNode(List<Node> statements) {
+    public StatementListNode(List<Valued> statements) {
         this.statements = statements;
     }
 
     @Override
     public Data evaluate(Context ctx) {
         Data d = Empty.get();
-        for (Node n : statements) {
+        for (Valued n : statements) {
             d = n.evaluate(ctx);
         }
 

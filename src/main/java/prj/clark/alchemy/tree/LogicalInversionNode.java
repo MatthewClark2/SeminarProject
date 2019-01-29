@@ -3,10 +3,10 @@ package prj.clark.alchemy.tree;
 import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.env.Context;
 
-public class LogicalInversionNode implements Node {
-    private Node node;
+public class LogicalInversionNode extends ReferentiallyTransparentValuedNode {
+    private Valued node;
 
-    public LogicalInversionNode(Node node) {
+    public LogicalInversionNode(Valued node) {
         this.node = node;
     }
 

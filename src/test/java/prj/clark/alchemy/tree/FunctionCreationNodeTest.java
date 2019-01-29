@@ -12,13 +12,13 @@ import java.util.Collections;
 public class FunctionCreationNodeTest {
     @Test
     public void generatedValueOfCorrectType() throws LangException {
-        Node n = new FunctionCreationNode(new StatementListNode(Collections.emptyList()), Collections.emptyList());
+        Valued n = new FunctionCreationNode(new StatementListNode(Collections.emptyList()), Collections.emptyList());
         Assert.assertEquals(RawFunction.getInstance(), n.evaluate(new DummyContext()).getType());
     }
 
     @Test
     public void generatedEmptyFunctionWorksCorrectly() throws LangException {
-        Node n = new FunctionCreationNode(new StatementListNode(Collections.emptyList()), Collections.emptyList());
+        Valued n = new FunctionCreationNode(new StatementListNode(Collections.emptyList()), Collections.emptyList());
         Assert.assertEquals(Empty.get(), ((Function) n.evaluate(new DummyContext())).apply(Collections.emptyList()));
     }
 
@@ -34,7 +34,7 @@ public class FunctionCreationNodeTest {
                 )
         ));
 
-        Node n = new FunctionCreationNode(body, Arrays.asList("x", "y", "z"));
+        Valued n = new FunctionCreationNode(body, Arrays.asList("x", "y", "z"));
         Assert.assertEquals(AlchemyInt.of(6), ((Function) n.evaluate(new DefaultContext())).apply(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 }
