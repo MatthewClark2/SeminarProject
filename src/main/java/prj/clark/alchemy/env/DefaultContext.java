@@ -1,14 +1,12 @@
 package prj.clark.alchemy.env;
 
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.err.IllegalRebindingException;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static prj.clark.alchemy.validation.IdentifierValidation.isUnboundIdentifier;
 import static prj.clark.alchemy.validation.IdentifierValidation.validate;
 
 public class DefaultContext implements Context {
@@ -52,10 +50,6 @@ public class DefaultContext implements Context {
 
     @Override
     public Optional<Data> search(String identifier) {
-        if (isUnboundIdentifier(identifier)) {
-            return Optional.empty();
-        }
-
         if (immutableBindings.get(MODULE).containsKey(identifier)) {
             return Optional.of(immutableBindings.get(MODULE).get(identifier));
         }

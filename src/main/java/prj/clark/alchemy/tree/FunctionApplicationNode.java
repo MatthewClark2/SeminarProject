@@ -1,5 +1,6 @@
 package prj.clark.alchemy.tree;
 
+import prj.clark.alchemy.data.Invokable;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.err.TypeMismatchException;
@@ -21,7 +22,7 @@ public class FunctionApplicationNode implements Node {
     public Data evaluate(Context ctx) {
         Data f = function.evaluate(ctx);
 
-        if (! f.getType().ofType(RawFunction.getInstance())) {
+        if (! (f instanceof Invokable)) {
             throw new TypeMismatchException();
         }
 
@@ -31,6 +32,6 @@ public class FunctionApplicationNode implements Node {
             args.add(n.evaluate(ctx));
         }
 
-        return ((Function) f).apply(args);
+        return ((Invokable) f).invoke(args);
     }
 }

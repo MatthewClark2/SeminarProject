@@ -1,10 +1,17 @@
 package prj.clark.alchemy.validation;
 
+import prj.clark.alchemy.err.LangException;
+
 /**
  * Validates identifiers for the currently unnamed language. Follows standard Java conventions.
  */
 public class IdentifierValidation {
-    private static final String UNBOUND = "_";
+    // TODO(matthew-c21) - Either deprecate or move this class.
+    public static class InvalidIdentifierException extends LangException {
+        public InvalidIdentifierException(String msg) {
+            super(msg);
+        }
+    }
 
     public static void validate(String identifier) {
         if (identifier == null || identifier.isEmpty()) {
@@ -20,9 +27,5 @@ public class IdentifierValidation {
                 throw new InvalidIdentifierException(identifier);
             }
         }
-    }
-
-    public static boolean isUnboundIdentifier(String identifier) {
-        return UNBOUND.equals(identifier);
     }
 }
