@@ -62,25 +62,12 @@ public class AlchemyBooleanTest {
     }
 
     @Test
-    public void generatedValuesOfTypeBool() {
-        Data a = AlchemyBoolean.of("True");
-        Data b = AlchemyBoolean.of(true);
-        Data c = AlchemyBoolean.of("False");
-        Data d = AlchemyBoolean.of(false);
-
-        assertTrue(a instanceof AlchemyBoolean);
-        assertTrue(b instanceof AlchemyBoolean);
-        assertTrue(c instanceof AlchemyBoolean);
-        assertTrue(d instanceof AlchemyBoolean);
-    }
-
-    @Test
     public void trueToString() {
-        assertEquals("True", AlchemyBoolean.TRUE.toString());
+        assertEquals("True", AlchemyBoolean.TRUE.print());
     }
 
     @Test
     public void falseToString() {
-        assertEquals("False", AlchemyBoolean.FALSE.toString());
+        assertEquals("False", AlchemyBoolean.FALSE.print());
     }
 }
