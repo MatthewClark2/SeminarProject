@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class AlchemyString implements Sequenced, Sliceable, Printable {
+public class AlchemyString implements Sequenced<AlchemyCharacter>, Sliceable, Printable {
     private final String value;
     // TODO(matthew-c21) - Update to use an AlchemyList of AlchemyChars.
     private final List<AlchemyCharacter> chars;
@@ -27,8 +27,8 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
     // Implement these using an AlchemyList.
 
     @Override
-    public Iterator<Data> iter() {
-        return null;
+    public Iterator<AlchemyCharacter> iter() {
+        return chars.iterator();
     }
 
     @Override

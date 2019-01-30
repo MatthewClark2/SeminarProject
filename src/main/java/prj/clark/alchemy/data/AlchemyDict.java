@@ -13,7 +13,7 @@ public class AlchemyDict implements Sequenced, Indexed, Printable {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator iter() {
         return null;
     }
 

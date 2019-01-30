@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class AlchemyTuple implements Sequenced, Indexed, Printable {
     private final List<Data> data;
@@ -28,7 +27,7 @@ public class AlchemyTuple implements Sequenced, Indexed, Printable {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator iter() {
         return null;
     }
 }

@@ -1,7 +1,6 @@
 package prj.clark.alchemy.data;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 
@@ -13,7 +12,7 @@ public class AlchemyList implements Sequenced, Sliceable, Printable {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator iter() {
         return null;
     }
 
