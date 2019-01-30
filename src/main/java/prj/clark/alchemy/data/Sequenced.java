@@ -8,6 +8,7 @@ import java.util.Iterator;
  *
  * Produced iterators should NOT implement any mutating operations available to {@link Iterator}.
  */
+// Consider making this a generic type.
 public interface Sequenced extends Data {
     /**
      * Produce a new iterator that doesn't allow for deletion of underlying members.
