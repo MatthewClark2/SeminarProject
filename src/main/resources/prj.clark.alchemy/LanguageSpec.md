@@ -222,10 +222,8 @@ Named functions are mostly just syntactic sugar for assigning a lambda to a regu
 Function application can either be done with the traditional parenthetical notation, or with a specialized infix notation.
 
     f(1, 2)  // is the same as
-    1 f 2
+    1 `f` 2
     
-Note that infix notation requires that the infixed function is given as an identifier, not as an intermediate expression. Infix notation may not be spread across multiple lines, while parenthetical notation can be.
-
 If a function receives too many arguments, then an exception is thrown. If a function does not receive enough arguments to be applied fully, then it will be partially applied, and the partially applied function will be returned as a result.
 
 #### The 'with' Block
