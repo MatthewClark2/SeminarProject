@@ -46,8 +46,10 @@ expression : LPAREN expression RPAREN
            | tuple
            | list
            | dict
-           | terminal=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
            | cond=expression QUESTION true=expression COLON false=expression
+           | expression OR expression
+           | expression AND expression
+           | terminal=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
            ;
 
 expressionList : (expression (COMMA expression)*? COMMA?)? ;
@@ -112,6 +114,8 @@ FEED_FIRST : '>>' ;
 FEED_LAST : '<<' ;
 ACCESS : '.' ;
 NOT : '!' ;
+OR : 'or' ;
+AND : 'and' ;
 
 // Assignment
 ASSIGN : '=' ;
