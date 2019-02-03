@@ -36,4 +36,9 @@ public class AlchemyBoolean implements Printable {
     public String print() {
         return value ? "True" : "False";
     }
+
+    @Override
+    public String toString() {
+        return print();
+    }
 }
