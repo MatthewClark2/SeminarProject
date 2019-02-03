@@ -36,6 +36,12 @@ All of these operators require that both operands are `Numeric`. If either opera
 * Exp `^` - Raise the first argument to the power of the second, returning a `Numeric`.
 * Mod `%` - Perform modular division between the two operands, returning a `Numeric`.
 
+#### Binary Logical Operators
+These operators always return booleans directly, and do not have inherent failure conditions.
+
+* `or` - logical or
+* `and` - logical and
+
 #### Binary Relational Operators
 Note that none of the relational operators perform any sort of type coercion.
 
