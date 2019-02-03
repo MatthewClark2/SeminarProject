@@ -24,6 +24,31 @@ public class AlchemyString implements Sequenced<AlchemyCharacter>, Sliceable, Pr
         return value;
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof AlchemyString) {
+            AlchemyString s = (AlchemyString) o;
+            return s.value.equals(this.value);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean toBoolean() {
+        return !value.isEmpty();
+    }
+
     // Implement these using an AlchemyList.
 
     @Override
