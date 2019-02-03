@@ -58,7 +58,7 @@ public class AlchemyFloatTest {
 
     @Test
     public void unequalValuesDoNotShareHash() {
-        assertEquals(AlchemyFloat.of(12.25).hashCode(), AlchemyFloat.of("12.5").hashCode());
+        assertNotEquals(AlchemyFloat.of(12.25).hashCode(), AlchemyFloat.of("12.5").hashCode());
     }
 
     @Test
