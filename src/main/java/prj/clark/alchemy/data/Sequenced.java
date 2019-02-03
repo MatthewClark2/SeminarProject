@@ -8,11 +8,10 @@ import java.util.Iterator;
  *
  * Produced iterators should NOT implement any mutating operations available to {@link Iterator}.
  */
-// TODO(matthew-c21) - Determine whether or not generics in this instance are a mistake.
-public interface Sequenced<T extends Data> extends Data {
+public interface Sequenced extends Data {
     /**
      * Produce a new iterator that doesn't allow for deletion of underlying members.
      * @return a new iterator.
      */
-    Iterator<T> iter();
+    Iterator<Data> iter();
 }

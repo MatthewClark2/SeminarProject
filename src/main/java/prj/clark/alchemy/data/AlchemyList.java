@@ -15,7 +15,7 @@ public class AlchemyList implements Sequenced, Sliceable, Printable {
     }
 
     @Override
-    public Iterator iter() {
+    public Iterator<Data> iter() {
         return data.iterator();
     }
 
