@@ -8,18 +8,21 @@ package prj.clark.alchemy;
  * Parser Rules
  */
 
-statement : expression | assignment | COMMENT ;
-statementBody : LBRACE line* RBRACE ;
-line : statement STATEMENT_TERMINATOR ;
-file : line* EOF ;
+statement : functionDeclaration | expression | assignment | COMMENT ;
+statementBody : LBRACE statement* RBRACE ;
+file : statement* EOF ;
 
 // The given regex allows for empty parentheses and trailing commas.
 // This is a duplicate of tupleIdentifier since this definition will not be updated.
-lambda : LPAREN (IDENTIFIER  (COMMA IDENTIFIER)*? COMMA?)? RPAREN statementBody ;
+lambda : LPAREN (IDENTIFIER  (COMMA IDENTIFIER)*? COMMA?)? RPAREN statementBody withBlock? ;
+
+functionDeclaration : DEFN IDENTIFIER lambda ;
+
+withBlock : (WITH tupleIdentifier AS tuple | WITH IDENTIFIER AS expression) ;
 
 tuple : LPAREN expressionList RPAREN ;
 list : LBRACKET expressionList RBRACKET ;
-dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? ;
+dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? RBRACE ;
 
 // TODO(matthew-c21) - Determine how to best recursively define tupleIdentifiers.
 tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*? COMMA?)? RPAREN ;
@@ -38,14 +41,13 @@ expression : LPAREN expression RPAREN
            | arg=expression op=(FEED_FIRST | FEED_LAST) func=expression
            | left=expression op=(EQ | NEQ) right=expression
            | func=expression args=tuple
-           // TODO(matthew-c21) - Determine if a special infix syntax is required to avoid ambiguity after removing
-           // dedicated line terminators.
-           | left=expression IDENTIFIER right=expression
+           | left=expression TICK infix=expression TICK right=expression
            | lambda
            | tuple
            | list
            | dict
            | terminal=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
+           | cond=expression QUESTION true=expression COLON false=expression
            ;
 
 expressionList : (expression (COMMA expression)*? COMMA?)? ;
@@ -69,6 +71,8 @@ BAR : '|' ;
 RANGE : '..' ;
 COLON : ':' ;
 COMMA : ',' ;
+QUESTION : '?' ;
+TICK : '`' ;
 
 // Comments
 BLOCK_COMMENT_START : '/*';
@@ -114,9 +118,13 @@ ASSIGN : '=' ;
 
 // Keywords
 DEFN : 'defn' ;
+IMPORT : 'import' ;
+WITH : 'with' ;
+AS : 'as' ;
+IMPORTALL : 'importall' ;
 
 // TODO(matthew-c21) - Newlines actually terminate a statement, but semicolons are easier to work with for the time being.
-STATEMENT_TERMINATOR : ';' ;
+// STATEMENT_TERMINATOR : ';' ;
 NEWLINE : [\n\r] -> skip ;
 WHITESPACE : [ \t] -> skip ;
 IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
