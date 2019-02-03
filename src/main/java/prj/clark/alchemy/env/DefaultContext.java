@@ -27,7 +27,7 @@ public class DefaultContext implements Context {
     }
 
     @Override
-    public void bindMutably(String identifier, Data d) {
+    public void bind(String identifier, Data d) {
         // TODO(matthew-c21) - Decide on whether or not another level of abstraction would be useful here to avoid
         // direct validation.
         if (immutableBindings.get(MODULE).containsKey(identifier)) {
@@ -36,16 +36,6 @@ public class DefaultContext implements Context {
 
         validate(identifier);
         mutableBindings.get(MODULE).put(identifier, d);
-    }
-
-    @Override
-    public void bindImmutably(String identifier, Data d) {
-        if (immutableBindings.get(MODULE).containsKey(identifier)) {
-            throw new IllegalRebindingException();
-        }
-
-        validate(identifier);
-        immutableBindings.get(MODULE).put(identifier, d);
     }
 
     @Override
@@ -59,10 +49,5 @@ public class DefaultContext implements Context {
         }
 
         return Optional.empty();
-    }
-
-    @Override
-    public boolean isBoundImmutably(String identifier) {
-        return immutableBindings.get(MODULE).containsKey(identifier);
     }
 }

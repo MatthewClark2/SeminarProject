@@ -11,7 +11,6 @@ import java.util.stream.Stream;
 /**
  * Used for functions that are created at runtime. This class should conform to the automatic currying in the language.
  * Instances are assumed to be raw, untyped functions.
- * @see RawFunction
  */
 public class GeneratedFunction implements Invokable {
     private final Valued functionBody;
@@ -62,7 +61,7 @@ public class GeneratedFunction implements Invokable {
             // Apply the function using the given function body.
             // TODO(matthew-c21) - Create the new scoped context here so that it can be discarded after use.
             for (int i = 0; i < args.size(); ++i) {
-                enclosingContext.bindMutably(arguments.get(i), args.get(i));
+                enclosingContext.bind(arguments.get(i), args.get(i));
             }
 
             return functionBody.evaluate(enclosingContext);

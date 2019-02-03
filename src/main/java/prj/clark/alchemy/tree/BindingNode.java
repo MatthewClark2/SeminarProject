@@ -17,11 +17,7 @@ public class BindingNode extends ReferentiallyTransparentValuedNode {
     @Override
     public Data evaluate(Context ctx) {
         Data d = body.evaluate(ctx);
-        if (isMutableBinding) {
-            ctx.bindMutably(identifier, d);
-        } else {
-            ctx.bindImmutably(identifier, d);
-        }
+        ctx.bind(identifier, d);
 
         // TODO(matthew-c21) - Ensure that this is the correct return value.
         return d;

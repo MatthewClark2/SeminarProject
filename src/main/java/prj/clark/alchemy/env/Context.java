@@ -17,18 +17,9 @@ public interface Context {
      * value immutably.
      * @param identifier the identifier being bound.
      * @param d the value being bound to the given identifier.
-     * @throws IllegalRebindingException if the given identifier is already bound immutably.
+     * @throws IllegalRebindingException if the given identifier is already used as an import.
      */
-    void bindMutably(String identifier, Data d);
-
-    /**
-     * Bind a value to a given identifier. This binding will fail if the given identifier is already bound to another
-     * value immutably. The identifier will not be able to be bound again within the same {@link Context}.
-     * @param identifier the identifier being bound.
-     * @param d the value being bound to the given identifier.
-     * @throws IllegalRebindingException if the given identifier is already bound immutably.
-     */
-    void bindImmutably(String identifier, Data d);
+    void bind(String identifier, Data d);
 
     /**
      * Determine if a given identifier has been bound within the current {@link Context}.
@@ -36,12 +27,4 @@ public interface Context {
      * @return an {@link Optional} containing the result of the search.
      */
     Optional<Data> search(String identifier);
-
-    /**
-     * Determine if a given identifier is already bound immutably. This method also works as a soft check to see whether
-     * or not an invocation to either binding method using the given identifier will work.
-     * @param identifier the identifier being checked against.
-     * @return false if the identifier is either bound mutably, or not bound at all, and true otherwise.
-     */
-    boolean isBoundImmutably(String identifier);
 }

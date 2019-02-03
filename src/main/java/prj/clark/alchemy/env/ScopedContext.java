@@ -24,26 +24,8 @@ public class ScopedContext implements Context {
     }
 
     @Override
-    public void bindMutably(String identifier, Data d) {
-        if (isBoundImmutably(identifier)) {
-            throw new IllegalRebindingException();
-        }
-
-        current.bindMutably(identifier, d);
-    }
-
-    @Override
-    public void bindImmutably(String identifier, Data d) {
-        if (isBoundImmutably(identifier)) {
-            throw new IllegalRebindingException();
-        }
-
-        current.bindImmutably(identifier, d);
-    }
-
-    @Override
-    public boolean isBoundImmutably(String identifier) {
-        return current.isBoundImmutably(identifier) || original.isBoundImmutably(identifier);
+    public void bind(String identifier, Data d) {
+        current.bind(identifier, d);
     }
 
     @Override

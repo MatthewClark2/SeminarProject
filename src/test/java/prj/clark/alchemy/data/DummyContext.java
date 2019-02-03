@@ -10,18 +10,8 @@ import java.util.Optional;
  */
 public class DummyContext implements Context {
     @Override
-    public void bindMutably(String identifier, Data d) {
+    public void bind(String identifier, Data d) {
 
-    }
-
-    @Override
-    public void bindImmutably(String identifier, Data d) {
-
-    }
-
-    @Override
-    public boolean isBoundImmutably(String identifier) {
-        return false;
     }
 
     @Override
