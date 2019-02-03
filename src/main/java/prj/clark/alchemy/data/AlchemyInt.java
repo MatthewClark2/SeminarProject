@@ -59,4 +59,28 @@ public class AlchemyInt implements Numeric, Printable {
     public String print() {
         return biValue.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Numeric) {
+            return ((Numeric) o).arbitraryIntValue().equals(biValue);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean toBoolean() {
+        return iValue != 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) iValue;
+    }
+
+    @Override
+    public String toString() {
+        return print();
+    }
 }
