@@ -14,8 +14,8 @@ public class AlchemyCharacterTest {
     @Test
     public void equalValuesEqual() {
         // AlchemyCharacters cannot be produced with strings, so we have to use hex integers to use unicode.
-        AlchemyCharacter ch1 = AlchemyCharacter.of(0xD83EDD14);  // Thinking face
-        AlchemyCharacter ch2 = AlchemyCharacter.of(0xD83EDD14);
+        AlchemyCharacter ch1 = AlchemyCharacter.of(0x1F914);  // Thinking face
+        AlchemyCharacter ch2 = AlchemyCharacter.of(0x1F914);
 
         assertEquals(ch1, ch2);
     }
@@ -46,7 +46,7 @@ public class AlchemyCharacterTest {
 
     @Test
     public void printAndToStringEquivalent() {
-        AlchemyCharacter ch = AlchemyCharacter.of(0xD83CDF80);
+        AlchemyCharacter ch = AlchemyCharacter.of(0x1F380);
         assertEquals(ch.toString(), ch.print());
     }
 
