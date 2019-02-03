@@ -4,7 +4,6 @@ All operations are considered to be strongly typed according to the attributes o
 
 * `Numeric` for data that may be represented as an integer or floating point number.
 * `Sequenced` for data that may be iterated over in a determinant, linear order. All sequenced data is inherently iterable.
-* `Iterable` for data that may produce an iterator over other data. Not all iterable data is necessarily sequenced.
 * `HoldsAttribute` for data that contains other data.
 * `Indexed` for data that may be indexed directly.
 * `Sliceable` for data that may use slice notation for indexing.
@@ -64,7 +63,7 @@ Due to infix notation and the presence of the subtraction operator, numeric nega
 
 #### Other Operators
 * Apply `()` - attempts to apply the function preceding the parentheses with the values inside the parentheses. If the preceding value is not a function, then a `TypeMismatchException` will be thrown.
-* Index `[]` - takes between two and four arguments. The preceding value must be `Indexed`, and all values inside the brackets must be `Numeric`. If either of these conditions is not met, then a `TypeMismatchException` will be thrown. For more information about how the actual indexing works, see [below](#Lists).
+* Index `[]` - takes between two and four arguments. The preceding value must be `Indexed`, and all values inside the brackets must resolve to integers. If either of these conditions is not met, then a `TypeMismatchException` will be thrown. For more information about how the actual indexing works, see [below](#Lists).
 
 ### Binding
 Binding a value to an identifier is remarkably straightforward: just use a single equals sign. Due to the dynamic duck-typing system, variables declaration and definition is done in a single step.
@@ -108,7 +107,7 @@ Tuples are the primary means of returning multiple values out of a function, and
 Tuples are the only way to utilize tuple binding. 
 
 #### Type Compliance
-`Sequenced, Iterable, Indexed, Printable`
+`Sequenced, Indexed, Printable`
 
 ### Lists
 Lists are the primary sequence type, representing a collection of ordered data. The standard syntax for creating a list literal is:
@@ -124,8 +123,6 @@ Barring the standard set of functions for dealing with and manipulating lists, y
     
     nums[1:3] // Yield the second and third numbers as a smaller list.
     
-    nums[::-1] // Standard Python syntax for reversing a list as valid Alchemy syntax.
-    
 The slice syntax comes down to three arguments, all optional, delimited by colons.
 * The first dictates the starting index. If the second and third arguments are omitted, then this is taken to represent a single element.
 * The second dictates the ending index, non-inclusive. This value should be greater than the first argument unless you want an empty slice.
@@ -139,7 +136,7 @@ Ranges are an easy way to define a series of integers starting from one value an
 The first and second values are the literal first and second values of the list. The second value minus the first is the interval for the range. The default value for the first argument is 0. The default value for the second argument is whatever the first argument is plus 1. The default final argument is positive infinity. The common use of range literals is to create infinite series to serve as the basis of more complicated iterative sequences.
 
 #### Type Compliance
-`Sequenced, Iterable, Indexed, Sliceable, Printable`
+`Sequenced, Indexed, Sliceable, Printable`
 
 ### Numeric Types
 Numbers are, by default, either 64 bit signed integers or 64 bit floating point decimals. Numeric literals may be written:
@@ -184,12 +181,12 @@ Escape sequences available in strings and characters include:
 
 Since strings are just lists of characters, you can make a string equivalent like so:
 
-    [\h, \e, \l, \l, \o]
+    ['h', 'e', 'l', 'l', 'o']
     
 This list will not print as a normal string, but any produced iterators will be identical.
 
 #### Type Compliance
-Strings - `Sequenced, Iterable, Indexed, Sliceable, Printable`
+Strings - `Sequenced, Indexed, Sliceable, Printable`
 
 Characters - `Printable`
 
@@ -201,7 +198,7 @@ Dictionaries are basic associative data structures. Dictionaries are given via t
 Note that dictionaries are fully formed at their time of creation as opposed to lists.
 
 #### Type Compliance
-`Sequenced, Iterable, Indexed, Printable`
+`Sequenced, Indexed, Printable`
 
 ### Functions
 #### Lambdas
@@ -313,10 +310,10 @@ You may import any attribute from a module, although non-module attributes may n
     // You can also import multiple attributes in a single line.
     from bar.barlib2 import (helpera, helperb)
     
-    // Note that using from ... import on modules is not legal.
-    from bar import barlib2           // Illegal!
+    // Note that using from ... import on modules is legal.
+    from bar import barlib2           // Legal!
     
-Using `importall` is identical to using `import`, though it isn't recommended for standard use.
+Using `importall` is nearly identical to using `import`, though it isn't recommended for standard use. By default, attributes beginning with an underscore aren't included when generating a module. However, using `importall` forces these attributes to be included as well.
 
 
 ## TODO
