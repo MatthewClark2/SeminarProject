@@ -53,6 +53,37 @@ public class AlchemyFloat implements Numeric, Printable {
 
     @Override
     public String print() {
-        return null;
+        StringBuilder sb = new StringBuilder(bfValue.toString());
+
+        if (!sb.toString().contains(".")) {
+            sb.append(".0");
+        }
+
+        return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Numeric) {
+            return ((Numeric) o).arbitraryFloatValue().equals(bfValue);
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean toBoolean() {
+        return fValue != 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(fValue);
+    }
+
+    @Override
+    public String toString() {
+        return print();
+    }
+
 }
