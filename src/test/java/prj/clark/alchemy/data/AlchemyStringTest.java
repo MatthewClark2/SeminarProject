@@ -25,7 +25,7 @@ public class AlchemyStringTest {
         AlchemyString s = AlchemyString.of("asdf");
         AlchemyString t = AlchemyString.of("jlk;");
         assertEquals(s.toString(), s.print());
-        assertEquals(t.toString(), s.print());
+        assertEquals(t.toString(), t.print());
     }
 
     @Test
