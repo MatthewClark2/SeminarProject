@@ -91,7 +91,7 @@ public class AlchemyListTest {
 
         Data[] slice = new Data[]{data[0], data[2], data[4]};
 
-        Iterator i = list.slice(0, 5, 1).iter();
+        Iterator i = list.slice(0, 5, 2).iter();
 
         for (Data d : slice) {
             assertEquals(d, i.next());

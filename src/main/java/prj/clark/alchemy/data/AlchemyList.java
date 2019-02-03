@@ -22,7 +22,15 @@ public class AlchemyList implements Sequenced, Sliceable, Printable {
     @Override
     public Sequenced slice(long start, long end, long n) {
         // TODO(matthew-c21) - Implement using a lazy sequence.
-        return null;
+        List<Data> part = new ArrayList<>();
+
+        // TODO(matthew-c21) - Check for thrown exceptions.
+        for (long i = start; i < end && i < data.size(); i += n) {
+            // This cast is safe since i is always less than the size of data.
+            part.add(data.get((int) i));
+        }
+
+        return new AlchemyList(part);
     }
 
     @Override
