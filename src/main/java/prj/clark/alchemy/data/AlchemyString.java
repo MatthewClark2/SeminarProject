@@ -57,7 +57,7 @@ public class AlchemyString implements Sequenced<AlchemyCharacter>, Sliceable, Pr
     }
 
     @Override
-    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
+    public Sequenced slice(long start, long end, long n) {
         return null;
     }
 

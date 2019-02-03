@@ -75,7 +75,7 @@ public class AlchemyListTest {
 
         Data[] slice = new Data[]{data[1], data[2], data[3]};
 
-        Iterator i = list.slice(AlchemyInt.of(1), AlchemyInt.of(4), AlchemyInt.of(1)).iter();
+        Iterator i = list.slice(1, 4, 1).iter();
 
         for (Data d : slice) {
             assertEquals(d, i.next());
@@ -91,7 +91,7 @@ public class AlchemyListTest {
 
         Data[] slice = new Data[]{data[0], data[2], data[4]};
 
-        Iterator i = list.slice(AlchemyInt.of(0), AlchemyInt.of(5), AlchemyInt.of(1)).iter();
+        Iterator i = list.slice(0, 5, 1).iter();
 
         for (Data d : slice) {
             assertEquals(d, i.next());
