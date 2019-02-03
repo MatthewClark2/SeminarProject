@@ -64,6 +64,7 @@ Due to infix notation and the presence of the subtraction operator, numeric nega
 #### Other Operators
 * Apply `()` - attempts to apply the function preceding the parentheses with the values inside the parentheses. If the preceding value is not a function, then a `TypeMismatchException` will be thrown.
 * Index `[]` - takes between two and four arguments. The preceding value must be `Indexed`, and all values inside the brackets must resolve to integers. If either of these conditions is not met, then a `TypeMismatchException` will be thrown. For more information about how the actual indexing works, see [below](#Lists).
+* Ternary `condition ? value if true : value if false` - basic conditional code execution. The initial expression is reduced to a boolean, and then one of the two cases will be executed and returned. Note that the unevaluated portion of code will not be executed at all.
 
 ### Binding
 Binding a value to an identifier is remarkably straightforward: just use a single equals sign. Due to the dynamic duck-typing system, variables declaration and definition is done in a single step.
