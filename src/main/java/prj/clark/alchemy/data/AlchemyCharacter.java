@@ -33,6 +33,16 @@ public class AlchemyCharacter implements Printable {
     }
 
     @Override
+    public String toString() {
+        return print();
+    }
+
+    @Override
+    public int hashCode() {
+        return codePoint;
+    }
+
+    @Override
     public boolean toBoolean() {
         return true;
     }
