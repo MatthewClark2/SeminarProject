@@ -29,9 +29,9 @@ public class AlchemyIntTest {
 
     @Test
     public void toStringMethodProducesIntegerString() {
-        Data i = AlchemyInt.of(456);
+        AlchemyInt i = AlchemyInt.of(456);
         assertEquals("456", i.toString());
-        assertEquals(i.toString(), ((AlchemyInt) i).print());
+        assertEquals(i.toString(), i.print());
     }
 
     @Test
@@ -48,5 +48,33 @@ public class AlchemyIntTest {
         Data j = AlchemyInt.of("56");
 
         assertNotEquals(i, j);
+    }
+
+    @Test
+    public void equalValuesShareHash() {
+        assertEquals(AlchemyInt.of(7).hashCode(), AlchemyInt.of("7").hashCode());
+    }
+
+    @Test
+    public void unequalValuesDoNotShareHash() {
+        assertNotEquals(AlchemyInt.of(11).hashCode(), AlchemyInt.of(-11).hashCode());
+    }
+
+    @Test
+    public void toStringBehavesCorrectly() {
+        assertEquals("-16", AlchemyInt.of(-16).toString());
+    }
+
+    @Test
+    public void toStringAndPrintIdentical() {
+        Printable p = AlchemyInt.of(100);
+        assertEquals(p.toString(), p.print());
+    }
+
+    @Test
+    public void truthinessIsCorrect() {
+        assertTrue(AlchemyInt.of(1).toBoolean());
+        assertTrue(AlchemyInt.of(-1).toBoolean());
+        assertFalse(AlchemyInt.of(0).toBoolean());
     }
 }

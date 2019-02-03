@@ -70,4 +70,38 @@ public class AlchemyBooleanTest {
     public void falseToString() {
         assertEquals("False", AlchemyBoolean.FALSE.print());
     }
+
+    @Test
+    public void equivalentValuesShareHash() {
+        assertEquals(AlchemyBoolean.of(true).hashCode(), AlchemyBoolean.of(true).hashCode());
+    }
+
+    @Test
+    public void unequalValuesDoNotShareHash() {
+        assertNotEquals(AlchemyBoolean.of(false).hashCode(), AlchemyBoolean.of(true).hashCode());
+    }
+
+    @Test
+    public void toStringBehavesCorrectly() {
+        Data a = AlchemyBoolean.of(true);
+        Data b = AlchemyBoolean.of(false);
+
+        assertEquals("True", a.toString());
+        assertEquals("False", b.toString());
+    }
+
+    @Test
+    public void toStringAndPrintIdentical() {
+        Printable a = AlchemyBoolean.of(true);
+        Printable b = AlchemyBoolean.of(false);
+
+        assertEquals(a.toString(), a.print());
+        assertEquals(b.toString(), b.print());
+    }
+
+    @Test
+    public void truthinessIsCorrect() {
+        assertTrue(AlchemyBoolean.TRUE.toBoolean());
+        assertFalse(AlchemyBoolean.FALSE.toBoolean());
+    }
 }

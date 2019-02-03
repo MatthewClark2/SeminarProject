@@ -50,4 +50,31 @@ public class AlchemyFloatTest {
         Data g = AlchemyFloat.of(123);
         assertEquals(f, g);
     }
+
+    @Test
+    public void equalValuesShareHash() {
+        assertEquals(AlchemyFloat.of(12.5).hashCode(), AlchemyFloat.of("12.5").hashCode());
+    }
+
+    @Test
+    public void unequalValuesDoNotShareHash() {
+        assertEquals(AlchemyFloat.of(12.25).hashCode(), AlchemyFloat.of("12.5").hashCode());
+    }
+
+    @Test
+    public void toStringBehavesCorrectly() {
+        assertEquals("2.5", AlchemyFloat.of(2.5).toString());
+    }
+
+    @Test
+    public void printAndToStringEquivalent() {
+        assertEquals(AlchemyFloat.of(12.5).toString(), AlchemyFloat.of("12.5").print());
+    }
+
+    @Test
+    public void truthinessIsCorrect() {
+        assertTrue(AlchemyFloat.of(1).toBoolean());
+        assertTrue(AlchemyFloat.of(-1).toBoolean());
+        assertFalse(AlchemyFloat.of(0).toBoolean());
+    }
 }

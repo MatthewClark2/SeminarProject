@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-// TODO(matthew-c21) - Add testing for the toString methods.
 public class AlchemyStringTest {
     @Test
     public void toStringReturnsCorrectStringValue() {
@@ -13,6 +12,12 @@ public class AlchemyStringTest {
 
         assertEquals("asdf", s.toString());
         assertEquals("lkjlkhkj", t.toString());
+    }
+
+    @Test
+    public void toStringBehavesCorrectly() {
+        Data s = AlchemyString.of("123");
+        assertEquals("123", s.toString());
     }
 
     @Test
@@ -37,5 +42,21 @@ public class AlchemyStringTest {
         Data s = AlchemyString.of("hello");
         Data t = AlchemyString.of("goodbye");
         assertNotEquals(s, t);
+    }
+
+    @Test
+    public void equalValuesShareHash() {
+        assertEquals(AlchemyString.of("hello").hashCode(), AlchemyString.of("hello").hashCode());
+    }
+
+    @Test
+    public void unqualValuesDoNotShareHash() {
+        assertNotEquals(AlchemyString.of("abc").hashCode(), AlchemyString.of("xyzasdf").hashCode());
+    }
+
+    @Test
+    public void truthinessIsCorrect() {
+        assertTrue(AlchemyString.of("a").toBoolean());
+        assertFalse(AlchemyString.of("").toBoolean());
     }
 }
