@@ -32,13 +32,13 @@ binding : (IDENTIFIER | tupleIdentifier) ;
 assignment : binding ASSIGN expression ;
 
 // Defined in descending order of precedence.
+// TODO(matthew-c21) - Test to ensure that precendence is correctly followed.
 expression : LPAREN expression RPAREN
            | NOT expression
            | left=expression op=POW right=expression
            | left=expression op=(MUL | DIV | MOD) right=expression
            | left=expression op=(PLUS | MINUS) right=expression
            | left=expression op=(LT | LE | GT | GE) right=expression
-           | left=expression op=COLON right=expression
            | arg=expression op=(FEED_FIRST | FEED_LAST) func=expression
            | left=expression op=(EQ | NEQ) right=expression
            | func=expression args=tuple
@@ -50,8 +50,8 @@ expression : LPAREN expression RPAREN
            | range
            | dict
            | cond=expression QUESTION true=expression COLON false=expression
-           | expression OR expression
-           | expression AND expression
+           | left=expression op=OR right=expression
+           | left=expression op=AND right=expression
            | terminal=(CHAR | STRING | FLOAT | INT | BOOL | IDENTIFIER)
            ;
 
