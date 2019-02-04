@@ -26,8 +26,7 @@ slice : LBRACKET (start=expression? COLON)? (end=expression? COLON)? skip=expres
 range : LBRACKET (start=expression (COMMA second=expression)?)? RANGE (end=expression)? RBRACKET ;
 dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? RBRACE ;
 
-// TODO(matthew-c21) - Determine how to best recursively define tupleIdentifiers.
-tupleIdentifier : LPAREN (IDENTIFIER (COMMA IDENTIFIER)*? COMMA?)? RPAREN ;
+tupleIdentifier : LPAREN ((IDENTIFIER | tupleIdentifier) (COMMA (IDENTIFIER | tupleIdentifier))*? COMMA?)? RPAREN ;
 binding : (IDENTIFIER | tupleIdentifier) ;
 
 assignment : binding ASSIGN expression ;
