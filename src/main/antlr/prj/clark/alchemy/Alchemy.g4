@@ -64,6 +64,8 @@ expressionList : (expression (COMMA expression)*? COMMA?)? ;
 fragment IDENTIFIER_START : [a-zA-Z_] ;
 fragment IDENTIFIER_PART : [a-zA-Z_0-9?] ;
 fragment DIGIT : [0-9] ;
+// TODO(matthew-c21) - Strings and comments can span multiple lines. Fix that.
+fragment CONTENT : .*? ;
 
 // Offset values.
 LPAREN : '(' ;
@@ -84,7 +86,7 @@ BLOCK_COMMENT_START : '/*';
 BLOCK_COMMENT_END : '*/';
 LINE_COMMENT_START : '//' ;
 
-COMMENT : ( BLOCK_COMMENT_START .*? BLOCK_COMMENT_END | LINE_COMMENT_START .*? (NEWLINE | EOF) ) -> channel(HIDDEN) ;
+COMMENT : ( BLOCK_COMMENT_START CONTENT BLOCK_COMMENT_END | LINE_COMMENT_START CONTENT (NEWLINE | EOF) ) -> channel(HIDDEN) ;
 
 // Primitive value literals.
 fragment TRUE : 'True' ;
@@ -95,10 +97,10 @@ FLOAT  : DIGIT+ '.' DIGIT+ ;
 INT : DIGIT+ ;
 
 STRING_DELIMITER : '"' ;
-STRING : STRING_DELIMITER .*? STRING_DELIMITER ;
+STRING : STRING_DELIMITER CONTENT STRING_DELIMITER ;
 
 CHAR_DELIMITER : '\'' ;
-CHAR : CHAR_DELIMITER .*? CHAR_DELIMITER ;
+CHAR : CHAR_DELIMITER CONTENT CHAR_DELIMITER ;
 
 // Operators
 PLUS : '+' ;
