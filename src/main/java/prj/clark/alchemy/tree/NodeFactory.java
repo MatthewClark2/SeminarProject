@@ -1,9 +1,11 @@
 package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.AlchemyParser;
+import prj.clark.alchemy.data.*;
 
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * This is basically just a sample class for converting the expression nodes of a parse tree into chunks of an AST.
@@ -25,58 +27,169 @@ public class NodeFactory {
         BINOP_SUPPLIER.put(">=", GreaterThanEqualNode::new);
         BINOP_SUPPLIER.put("==", EqualNode::new);
         BINOP_SUPPLIER.put("!=", NotEqualNode::new);
-        // TODO(matthew-c21) - Add feed, access, or, and and.
+        // TODO(matthew-c21) - Add feed, access, or, and, and add-to-stream.
     }
 
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
+        return ctx.statement().
+                stream()
+                .map(this::get)
+                .collect(Collectors.toList());
+    }
+
+    private Node get(AlchemyParser.FunctionDeclarationContext ctx) {
+        return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), false);
+    }
+
+    private Node get(AlchemyParser.AssignmentContext ctx) {
+        if (ctx.binding().tupleIdentifier() != null) {
+            throw new UnsupportedOperationException("Cannot support multiple bindings at this time.");
+        }
+
+        return new BindingNode(ctx.binding().IDENTIFIER().getText(), get(ctx.expression()), true);
+    }
+
+    private Node get(AlchemyParser.StatementContext ctx) {
+        if (ctx.assignment() != null) {
+            return get(ctx.assignment());
+        }
+
+        if (ctx.functionDeclaration() != null) {
+            return get(ctx.functionDeclaration());
+        }
+
+        if (ctx.expression() != null) {
+            return get(ctx.expression());
+        }
+
+        throw new UnsupportedOperationException("Encountered unrecognized statement format.\n" + ctx.getText());
+    }
+
+    private Valued get(AlchemyParser.DictContext ctx) {
+        // TODO(matthew-c21) - Determine how dictionaries are to be formed during runtime.
         return null;
     }
 
-    public Node get(AlchemyParser.LineContext ctx) {
+    private Valued get(AlchemyParser.ChrContext ctx) {
+        // TODO(matthew-c21) - Fix this after AlchemyCharacter has a legitimate String constructor.
+        return new LiteralNode(AlchemyCharacter.of(0));
+    }
+
+    private Valued get(AlchemyParser.StrContext ctx) {
+        return new LiteralNode(AlchemyString.of(ctx.content.getText()));
+    }
+
+    private Valued get(AlchemyParser.ExpressionContext ctx) {
+        if (ctx.nested != null) {
+            return get(ctx.expression(0));
+        }
+
+        if (ctx.inverse != null) {
+            return new LogicalInversionNode(get(ctx.expression(0)));
+        }
+
+        if (ctx.op != null) {
+            return BINOP_SUPPLIER.get(ctx.op.getText()).apply(get(ctx.left), get(ctx.right));
+        }
+
+        if (ctx.func != null) {
+            return new FunctionApplicationNode(
+                    get(ctx.func),
+                    ctx.tuple().expressionList().expression()
+                            .stream()
+                            .map(this::get).collect(Collectors.toList()));
+        }
+
+        if (ctx.infix != null) {
+            return new FunctionApplicationNode(
+                    get(ctx.infix),
+                    Arrays.asList(get(ctx.left), get(ctx.right)));
+        }
+
+        if (ctx.lambda() != null) {
+            return get(ctx.lambda());
+        }
+
+        if (ctx.tuple() != null) {
+            return get(ctx.tuple());
+        }
+
+        if (ctx.list() != null) {
+            return get(ctx.list());
+        }
+
+        if (ctx.range() != null) {
+            return get(ctx.range());
+        }
+
+        if (ctx.dict() != null) {
+            return get(ctx.dict());
+        }
+
+        // TODO(matthew-c21) - Add slice.
+
+        if (ctx.cond != null) {
+            return new Conditional(get(ctx.ifTrue), get(ctx.ifFalse), get(ctx.cond));
+        }
+
+        if (ctx.chr() != null) {
+            return get(ctx.chr());
+        }
+
+        if (ctx.str() != null) {
+            return get(ctx.str());
+        }
+
+        if (ctx.terminal != null) {
+            if (ctx.IDENTIFIER() != null) {
+                return new IdentifierNode(ctx.IDENTIFIER().getText());
+            }
+
+            if (ctx.FLOAT() != null) {
+                return new LiteralNode(AlchemyFloat.of(ctx.FLOAT().getText()));
+            } else if (ctx.INT() != null) {
+                return new LiteralNode(AlchemyInt.of(ctx.INT().getText()));
+            } else if (ctx.BOOL() != null) {
+                return new LiteralNode(AlchemyBoolean.of(ctx.BOOL().getText()));
+            }else {
+                throw new IllegalStateException("Could not resolve \"" + ctx.terminal.getText() + "\" to a value.");
+            }
+        }
+
+        throw new UnsupportedOperationException("Unable to parse \"" + ctx.getText() + "\" to an expression.");
+    }
+
+    private Valued get(AlchemyParser.RangeContext ctx) {
+        // TODO(matthew-c21) - Create a RangeSequence, and wrap it as a literal.
         return null;
     }
 
-    public Node get(AlchemyParser.AssignmentContext ctx) {
+    private Valued get(AlchemyParser.LambdaContext ctx) {
+        // TODO(matthew-c21) - Add an injectible set of bindings utilizing the with block.
         return null;
     }
 
-    public Node get(AlchemyParser.BindingContext ctx) {
-        return null;
+    private Valued get(AlchemyParser.ListContext ctx) {
+        // TODO(matthew-c21) - Determine how Lists are generated at runtime.
+        List<Data> l = ctx.expressionList().expression()
+                .stream()
+                .map(this::get)
+                .map(x -> x.evaluate(null))
+                .collect(Collectors.toList());
+
+
+        return new LiteralNode(new AlchemyList(l));
     }
 
-    public Node get(AlchemyParser.DictContext ctx) {
-        return null;
-    }
+    private Valued get(AlchemyParser.TupleContext ctx) {
+        // TODO(matthew-c21) - Determine how Tuples are generated at runtime.
+        List<Data> l = ctx.expressionList().expression()
+                .stream()
+                .map(this::get)
+                .map(x -> x.evaluate(null))
+                .collect(Collectors.toList());
 
-    public Node get(AlchemyParser.ExpressionContext ctx) {
-        return null;
-    }
 
-    public Node get(AlchemyParser.ExpressionListContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.LambdaContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.ListContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.StatementContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.StatementBodyContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.TupleContext ctx) {
-        return null;
-    }
-
-    public Node get(AlchemyParser.TupleIdentifierContext ctx) {
-        return null;
+        return new LiteralNode(new AlchemyTuple(l));
     }
 }
