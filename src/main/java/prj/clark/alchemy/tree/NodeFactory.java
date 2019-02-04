@@ -31,4 +31,52 @@ public class NodeFactory {
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
         return null;
     }
+
+    public Node get(AlchemyParser.LineContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.AssignmentContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.BindingContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.DictContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.ExpressionContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.ExpressionListContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.LambdaContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.ListContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.StatementContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.StatementBodyContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.TupleContext ctx) {
+        return null;
+    }
+
+    public Node get(AlchemyParser.TupleIdentifierContext ctx) {
+        return null;
+    }
 }
