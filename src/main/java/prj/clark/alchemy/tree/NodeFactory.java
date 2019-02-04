@@ -28,7 +28,7 @@ public class NodeFactory {
         // TODO(matthew-c21) - Add feed, access, or, and and.
     }
 
-    public List<Valued> getAll(AlchemyParser.FileContext ctx) {
+    public List<Node> getAll(AlchemyParser.FileContext ctx) {
         return null;
     }
 }
