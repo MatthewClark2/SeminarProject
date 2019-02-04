@@ -22,6 +22,8 @@ withBlock : (WITH tupleIdentifier AS tuple | WITH IDENTIFIER AS expression) ;
 
 tuple : LPAREN expressionList RPAREN ;
 list : LBRACKET expressionList RBRACKET ;
+slice : LBRACKET (start=expression? COLON)? (end=expression? COLON)? skip=expression RBRACKET;
+range : LBRACKET (start=expression (COMMA second=expression)?)? RANGE (end=expression)? RBRACKET ;
 dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? RBRACE ;
 
 // TODO(matthew-c21) - Determine how to best recursively define tupleIdentifiers.
@@ -45,6 +47,8 @@ expression : LPAREN expression RPAREN
            | lambda
            | tuple
            | list
+           | expression slice
+           | range
            | dict
            | cond=expression QUESTION true=expression COLON false=expression
            | expression OR expression
@@ -127,8 +131,6 @@ WITH : 'with' ;
 AS : 'as' ;
 IMPORTALL : 'importall' ;
 
-// TODO(matthew-c21) - Newlines actually terminate a statement, but semicolons are easier to work with for the time being.
-// STATEMENT_TERMINATOR : ';' ;
 NEWLINE : [\n\r] -> skip ;
 WHITESPACE : [ \t] -> skip ;
 IDENTIFIER : IDENTIFIER_START (IDENTIFIER_PART)* ;
