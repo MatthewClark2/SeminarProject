@@ -2,6 +2,7 @@ package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.data.AlchemyFloat;
 import prj.clark.alchemy.data.AlchemyInt;
+import prj.clark.alchemy.data.Numeric;
 
 /**
  * Represents addition.
@@ -13,10 +14,12 @@ import prj.clark.alchemy.data.AlchemyInt;
 public class AdditionNode extends NumericBinaryOperator {
     public AdditionNode(Valued left, Valued right) {
         super(left, right, (l, r) -> {
-            if (l instanceof AlchemyFloat || r instanceof AlchemyFloat) {
-                return AlchemyFloat.of(Double.parseDouble(l.toString()) + Double.parseDouble(r.toString()));
+            Numeric a = (Numeric) l;
+            Numeric b = (Numeric) r;
+            if (a.isInteger() && b.isInteger()) {
+                return AlchemyInt.of(a.intValue() + b.intValue());
             } else {
-                return AlchemyInt.of(Long.parseLong(l.toString()) + Long.parseLong(r.toString()));
+                return AlchemyFloat.of(a.floatValue() + b.floatValue());
             }
         });
     }

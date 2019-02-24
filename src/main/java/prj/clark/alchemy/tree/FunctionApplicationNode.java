@@ -8,7 +8,7 @@ import prj.clark.alchemy.err.TypeMismatchException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionApplicationNode extends ReferentiallyTransparentValuedNode {
+public class FunctionApplicationNode implements Valued {
     // This node should either be an identifier that resolves to a function, or a literal that resolves to a function.
     private final Valued function;
     private final List<Valued> appliedArguments;
@@ -33,5 +33,12 @@ public class FunctionApplicationNode extends ReferentiallyTransparentValuedNode 
         }
 
         return ((Invokable) f).invoke(args);
+    }
+
+    @Override
+    public void execute(Context ctx) {
+        // Functions shouldn't mutate external state. However, since the language does not distinguish between mutating
+        // and non-mutating functions, both types need to be executed in order to have reliable behavior.
+        evaluate(ctx);
     }
 }
