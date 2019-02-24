@@ -6,11 +6,11 @@ import java.util.stream.Collectors;
 
 public class AlchemyString implements Sequenced, Sliceable, Printable {
     private final String value;
-    private final AlchemyList chars;
+    private final EagerAlchemyList chars;
 
     private AlchemyString(String value) {
         this.value = value;
-        chars = new AlchemyList(value.codePoints().mapToObj(AlchemyCharacter::of).collect(Collectors.toList()));
+        chars = new EagerAlchemyList(value.codePoints().mapToObj(AlchemyCharacter::of).collect(Collectors.toList()));
     }
 
     public static AlchemyString of(String content) {
@@ -47,7 +47,7 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
         return !value.isEmpty();
     }
 
-    // Implement these using an AlchemyList.
+    // Implement these using an EagerAlchemyList.
 
     @Override
     public Iterator<Data> iter() {

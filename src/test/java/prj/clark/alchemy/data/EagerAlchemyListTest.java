@@ -8,8 +8,8 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class AlchemyListTest {
-    private AlchemyList list;
+public class EagerAlchemyListTest {
+    private EagerAlchemyList list;
 
     // Easy use factory methods.
     private static Data f64(double d) {
@@ -34,7 +34,7 @@ public class AlchemyListTest {
     }
 
     private void init(Data... ds) {
-        list = new AlchemyList(Arrays.asList(ds));
+        list = new EagerAlchemyList(Arrays.asList(ds));
     }
 
     @Test
@@ -55,7 +55,7 @@ public class AlchemyListTest {
         Data[] data = new Data[]{i64(1), i64(2), i64(3)};
         init(data);
 
-        AlchemyList list2 = new AlchemyList(Arrays.asList(i64(1), i64(2), i64(3)));
+        EagerAlchemyList list2 = new EagerAlchemyList(Arrays.asList(i64(1), i64(2), i64(3)));
         assertEquals(list.hashCode(), list2.hashCode());
     }
 
@@ -64,7 +64,7 @@ public class AlchemyListTest {
         Data[] data = new Data[]{i64(1), i64(2), i64(3)};
         init(data);
 
-        AlchemyList list2 = new AlchemyList(Arrays.asList(i64(2), i64(2), i64(3)));
+        EagerAlchemyList list2 = new EagerAlchemyList(Arrays.asList(i64(2), i64(2), i64(3)));
         assertNotEquals(list.hashCode(), list2.hashCode());
     }
 

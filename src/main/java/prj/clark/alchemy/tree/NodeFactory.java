@@ -178,7 +178,7 @@ public class NodeFactory {
                 .collect(Collectors.toList());
 
 
-        return new LiteralNode(new AlchemyList(l));
+        return new LiteralNode(new EagerAlchemyList(l));
     }
 
     private Valued get(AlchemyParser.TupleContext ctx) {
