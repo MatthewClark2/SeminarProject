@@ -77,4 +77,11 @@ public class AlchemyIntTest {
         assertTrue(AlchemyInt.of(-1).toBoolean());
         assertFalse(AlchemyInt.of(0).toBoolean());
     }
+
+    @Test
+    public void intsAreInts() {
+        assertTrue(AlchemyInt.of(1).isInteger());
+        assertTrue(AlchemyInt.of(-1).isInteger());
+        assertTrue(AlchemyInt.of(0).isInteger());
+    }
 }

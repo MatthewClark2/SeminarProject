@@ -52,6 +52,11 @@ public class AlchemyFloat implements Numeric, Printable {
     }
 
     @Override
+    public boolean isInteger() {
+        return false;
+    }
+
+    @Override
     public String print() {
         StringBuilder sb = new StringBuilder(bfValue.toString());
 

@@ -13,4 +13,5 @@ public interface Numeric extends Data {
     BigInteger arbitraryIntValue();
     long intValue();
     double floatValue();
+    boolean isInteger();
 }

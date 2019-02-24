@@ -77,4 +77,13 @@ public class AlchemyFloatTest {
         assertTrue(AlchemyFloat.of(-1).toBoolean());
         assertFalse(AlchemyFloat.of(0).toBoolean());
     }
+
+    @Test
+    public void floatsAreNotInts() {
+        assertFalse(AlchemyFloat.of(1).isInteger());
+        assertFalse(AlchemyFloat.of(-1).isInteger());
+        assertFalse(AlchemyFloat.of(0).isInteger());
+        assertFalse(AlchemyFloat.of(2.5).isInteger());
+        assertFalse(AlchemyFloat.of(-1.75).isInteger());
+    }
 }

@@ -56,6 +56,11 @@ public class AlchemyInt implements Numeric, Printable {
     }
 
     @Override
+    public boolean isInteger() {
+        return true;
+    }
+
+    @Override
     public String print() {
         return biValue.toString();
     }
