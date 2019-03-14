@@ -1,9 +1,6 @@
 package prj.clark.alchemy;
 
-import prj.clark.alchemy.data.AlchemyFloat;
-import prj.clark.alchemy.data.AlchemyInt;
-import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.Sequenced;
+import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.tree.LiteralNode;
 import prj.clark.alchemy.tree.Valued;
 
@@ -38,6 +35,10 @@ public class TestUtils {
 
     public static Valued f64(double d) {
         return new LiteralNode(AlchemyFloat.of(d));
+    }
+
+    public static Valued bool(boolean b) {
+        return new LiteralNode(AlchemyBoolean.of(b));
     }
 
 }
