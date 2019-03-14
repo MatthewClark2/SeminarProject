@@ -11,6 +11,7 @@ import prj.clark.alchemy.tree.NodeFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This is just a rough version of the actual interpreter.
@@ -18,11 +19,11 @@ import java.nio.file.Path;
 public class Interpreter {
     private static NodeFactory factory = new NodeFactory();
 
-    public Data run(Path filename) throws IOException {
+    public static Data run(Path filename) throws IOException {
         return run(Files.readAllLines(filename).stream().reduce((l, r) -> l + "\n" + r).orElseThrow(() -> new RuntimeException("I'm not sure what happened.")));
     }
 
-    public Data run(String content) {
+    public static Data run(String content) {
         Context ctx = new DefaultContext();
         ANTLRInputStream is = new ANTLRInputStream(content);
         AlchemyLexer lexer = new AlchemyLexer(is);
@@ -31,5 +32,11 @@ public class Interpreter {
         AlchemyParser.FileContext fileContext = parser.file();
         AbstractSyntaxTree ast = new AbstractSyntaxTree(factory.getAll(fileContext));
         return ast.execute(ctx);
+    }
+
+    public static void main(String[] args) throws IOException {
+        for (String arg : args) {
+            System.out.println("Result of " + arg + " is " + run(Paths.get(arg)));
+        }
     }
 }
