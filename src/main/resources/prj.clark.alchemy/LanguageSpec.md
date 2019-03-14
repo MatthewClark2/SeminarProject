@@ -58,7 +58,7 @@ Note that the `<`, `<=`, `>`, and `>=` require two `Numeric` operands, and will 
 * Feed-first `>>` - Takes the result of the first operand, and passes it as the first argument to the second operand. If the second operand is not a function, this operation throws a `TypeMismatchException`.
 * Feed-last `<<` - Takes the result of the first operand, and passes it as the final argument to the second operand. If the second operand is not a function, this operation throws a `TypeMismatchException`.
 * Access `.` - Attempts to obtain an attribute from a module. If the first operand is not a module or if the second operand isn't an identifier, this structure will result in a syntax error. 
-* Cat `:` - Takes a sequence and some element. A new sequence containing the given element at the start or end of the stream will be returned.
+* Cat `:` - Takes a sequence and some element. A new sequence containing the given element at the start or end of the stream will be returned. If both arguments are sequences, the second sequence will be added as an element at the end of the first sequence.
    * `element : sequence` - element is prepended
    * `sequence : element` - element is appended
 

@@ -41,4 +41,12 @@ public class FunctionApplicationNode implements Valued {
         // and non-mutating functions, both types need to be executed in order to have reliable behavior.
         evaluate(ctx);
     }
+
+    /**
+     * This method is used by the feed operators since they modify the given arguments for an applied function.
+     * @return a copy of the list containing the supplied arguments.
+     */
+    List<Valued> getAppliedArguments() {
+        return new ArrayList<>(appliedArguments);
+    }
 }

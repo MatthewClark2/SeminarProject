@@ -10,11 +10,11 @@ import java.util.List;
  * Yields a {@link GeneratedFunction} when evaluated.
  */
 // TODO(matthew-c21) - Update the name to be more along the lines of FunctionLiteral.
-public class FunctionCreationNode extends ReferentiallyTransparentValuedNode {
+public class FunctionLiteralNode extends ReferentiallyTransparentValuedNode {
     private final Valued body;
     private final List<String> parameters;
 
-    public FunctionCreationNode(Valued body, List<String> parameters) {
+    public FunctionLiteralNode(Valued body, List<String> parameters) {
         this.body = body;
         this.parameters = parameters;
 
