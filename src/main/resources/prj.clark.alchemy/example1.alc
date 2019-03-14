@@ -1,0 +1,9 @@
+// This program finds the average slope between two points for the function f(x).
+defn f(x) {
+    x^2 + 2*x + 1
+}
+
+p1 = f(0)
+p2 = f(1)
+
+m = (p2 - p1) / (1 - 0)

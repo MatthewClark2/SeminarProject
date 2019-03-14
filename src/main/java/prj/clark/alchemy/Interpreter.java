@@ -14,13 +14,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * This is just a rough version of the actual interpreter.
+ * This is just a rough version of the actual interpreter. Currently, all files are just ran as scripts, meaning that no
+ * main method is required.
  */
 public class Interpreter {
     private static NodeFactory factory = new NodeFactory();
 
     public static Data run(Path filename) throws IOException {
-        return run(Files.readAllLines(filename).stream().reduce((l, r) -> l + "\n" + r).orElseThrow(() -> new RuntimeException("I'm not sure what happened.")));
+        return run(
+                Files.readAllLines(filename).stream()
+                        .reduce((l, r) -> l + "\n" + r)
+                        .orElseThrow(() -> new RuntimeException("I'm not sure what happened.")));
     }
 
     public static Data run(String content) {
