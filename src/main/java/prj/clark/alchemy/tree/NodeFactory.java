@@ -174,26 +174,10 @@ public class NodeFactory {
     }
 
     private Valued get(AlchemyParser.ListContext ctx) {
-        // TODO(matthew-c21) - Determine how Lists are generated at runtime.
-        List<Data> l = ctx.expressionList().expression()
-                .stream()
-                .map(this::get)
-                .map(x -> x.evaluate(null))
-                .collect(Collectors.toList());
-
-
-        return new LiteralNode(new EagerAlchemyList(l));
+        return new ListLiteralNode(ctx.expressionList().expression().stream().map(this::get).collect(Collectors.toList()));
     }
 
     private Valued get(AlchemyParser.TupleContext ctx) {
-        // TODO(matthew-c21) - Determine how Tuples are generated at runtime.
-        List<Data> l = ctx.expressionList().expression()
-                .stream()
-                .map(this::get)
-                .map(x -> x.evaluate(null))
-                .collect(Collectors.toList());
-
-
-        return new LiteralNode(new AlchemyTuple(l));
+        return new TupleLiteralNode(ctx.expressionList().expression().stream().map(this::get).collect(Collectors.toList()));
     }
 }
