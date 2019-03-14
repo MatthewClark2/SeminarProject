@@ -1,7 +1,11 @@
 package prj.clark.alchemy;
 
+import prj.clark.alchemy.data.AlchemyFloat;
+import prj.clark.alchemy.data.AlchemyInt;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.data.Sequenced;
+import prj.clark.alchemy.tree.LiteralNode;
+import prj.clark.alchemy.tree.Valued;
 
 import java.util.Iterator;
 
@@ -27,4 +31,13 @@ public class TestUtils {
             assertEquals(aIter.next(), bIter.next());
         }
     }
+
+    public static Valued i64(long l) {
+        return new LiteralNode(AlchemyInt.of(l));
+    }
+
+    public static Valued f64(double d) {
+        return new LiteralNode(AlchemyFloat.of(d));
+    }
+
 }

@@ -5,16 +5,10 @@ import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.err.TypeMismatchException;
 
 import static org.junit.Assert.*;
+import static prj.clark.alchemy.TestUtils.i64;
+import static prj.clark.alchemy.TestUtils.f64;
 
 public class AdditionNodeTest {
-    private static Valued i64(long l) {
-        return new LiteralNode(AlchemyInt.of(l));
-    }
-
-    private static Valued f64(double d) {
-        return new LiteralNode(AlchemyFloat.of(d));
-    }
-
     private static Data add(Valued a, Valued b) {
         return new AdditionNode(a, b).evaluate(null);
     }
