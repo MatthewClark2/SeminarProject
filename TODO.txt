@@ -1,0 +1,17 @@
+* Unit tests
+    * Unique binops, ==, !=
+    * Tuple
+    * Statementlistnode
+    * Literal creation
+    * Function application & creation
+* Add dictionaries
+* Add slices in their full glory.
+* Add information to thrown exceptions.
+* Add information to bindings.
+* Add different binding types to BindingNode
+* Update the REPL.
+* Add functionality to just read and execute files by looking for a main method, or by running in script mode.
+* Add modules.
+* Add imports
+* Add `with` block.
+
