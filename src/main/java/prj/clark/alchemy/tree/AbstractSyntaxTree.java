@@ -1,20 +1,18 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.data.AlchemyTuple;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.err.LangException;
 
-import java.util.Collections;
 import java.util.List;
 
 public class AbstractSyntaxTree {
     // Contains all top-level statements directly. The AST object itself is effectively the root of the tree.
-    private List<Node> nodes;
+    private StatementListNode body;
 
     // TODO(matthew-c21) - Add constructors that allow for an easier time building the tree without a ton of extra steps.
     public AbstractSyntaxTree(List<Node> nodes) {
-        this.nodes = nodes;
+        body = new StatementListNode(nodes);
     }
 
     /**
@@ -27,16 +25,6 @@ public class AbstractSyntaxTree {
      * @throws LangException should any node in the tree fail.
      */
     public Data execute(Context ctx) throws LangException {
-        Data d = new AlchemyTuple(Collections.emptyList());
-
-        for (Node n : nodes) {
-            if (n instanceof Valued) {
-                d = ((Valued) n).evaluate(ctx);
-            } else {
-                n.execute(ctx);
-            }
-        }
-
-        return d;
+        return body.evaluate(ctx);
     }
 }
