@@ -27,7 +27,9 @@ public class NodeFactory {
         BINOP_SUPPLIER.put(">=", GreaterThanEqualNode::new);
         BINOP_SUPPLIER.put("==", EqualNode::new);
         BINOP_SUPPLIER.put("!=", NotEqualNode::new);
-        // TODO(matthew-c21) - Add feed, access, or, and, and add-to-stream.
+        BINOP_SUPPLIER.put("<<", FeedLastNode::new);
+        BINOP_SUPPLIER.put(">>", FeedFirstNode::new);
+        BINOP_SUPPLIER.put(":", ConcatenationNode::new);
     }
 
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
