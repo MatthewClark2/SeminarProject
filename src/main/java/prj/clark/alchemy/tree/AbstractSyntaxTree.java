@@ -1,10 +1,11 @@
 package prj.clark.alchemy.tree;
 
+import prj.clark.alchemy.data.AlchemyTuple;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.Empty;
 import prj.clark.alchemy.err.LangException;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AbstractSyntaxTree {
@@ -26,7 +27,7 @@ public class AbstractSyntaxTree {
      * @throws LangException should any node in the tree fail.
      */
     public Data execute(Context ctx) throws LangException {
-        Data d = Empty.get();
+        Data d = new AlchemyTuple(Collections.emptyList());
 
         for (Valued n : nodes) {
             d = n.evaluate(ctx);

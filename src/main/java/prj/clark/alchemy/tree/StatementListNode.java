@@ -3,7 +3,6 @@ package prj.clark.alchemy.tree;
 import prj.clark.alchemy.data.AlchemyTuple;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.Empty;
 
 import java.util.Collections;
 import java.util.List;
