@@ -1,5 +1,6 @@
 package prj.clark.alchemy.tree;
 
+import org.antlr.v4.runtime.tree.ParseTree;
 import prj.clark.alchemy.AlchemyParser;
 import prj.clark.alchemy.data.*;
 
@@ -155,7 +156,7 @@ public class NodeFactory {
                 return new LiteralNode(AlchemyInt.of(ctx.INT().getText()));
             } else if (ctx.BOOL() != null) {
                 return new LiteralNode(AlchemyBoolean.of(ctx.BOOL().getText()));
-            }else {
+            } else {
                 throw new IllegalStateException("Could not resolve \"" + ctx.terminal.getText() + "\" to a value.");
             }
         }
@@ -170,7 +171,11 @@ public class NodeFactory {
 
     private Valued get(AlchemyParser.LambdaContext ctx) {
         // TODO(matthew-c21) - Add an injectible set of bindings utilizing the with block.
-        return null;
+        return new FunctionLiteralNode(get(ctx.statementBody()), ctx.IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList()));
+    }
+
+    public Valued get(AlchemyParser.StatementBodyContext ctx) {
+        return new StatementListNode(ctx.statement().stream().map(this::get).collect(Collectors.toList()));
     }
 
     private Valued get(AlchemyParser.ListContext ctx) {

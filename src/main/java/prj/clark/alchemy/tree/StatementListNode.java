@@ -1,26 +1,39 @@
 package prj.clark.alchemy.tree;
 
+import prj.clark.alchemy.data.AlchemyTuple;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.data.Empty;
 
+import java.util.Collections;
 import java.util.List;
 
-public class StatementListNode extends ReferentiallyTransparentValuedNode {
+public class StatementListNode implements Valued {
 
-    private final List<Valued> statements;
+    private final List<Node> statements;
 
-    public StatementListNode(List<Valued> statements) {
+    public StatementListNode(List<Node> statements) {
         this.statements = statements;
     }
 
     @Override
     public Data evaluate(Context ctx) {
-        Data d = Empty.get();
-        for (Valued n : statements) {
-            d = n.evaluate(ctx);
+        Data d = new AlchemyTuple(Collections.emptyList());
+        for (Node n : statements) {
+            if (n instanceof Valued) {
+                d = ((Valued) n).evaluate(ctx);
+            } else {
+                n.execute(ctx);
+            }
         }
 
         return d;
+    }
+
+    @Override
+    public void execute(Context ctx) {
+        for (Node n : statements) {
+            n.execute(ctx);
+        }
     }
 }
