@@ -1,37 +1,35 @@
 // This file is to check for basic syntax rules. Once the parser is complete, no errors should appear.
 // Note that this file is subject to change.
 
-from core.strings import strcat;
-import core.utils.empty;
+from core.strings import strcat
+import core.utils.empty
 
 defn sumAll(nums) {
-  reduce(add, nums);
+  reduce(add, nums)
 }
 
 defn zip(collA, collB) {
-  if(empty(collA) or empty(collB),
-    [],
-    (head(collA), head(collB)) : zip(tail(collA), tail(collB))
-  );
+  empty(collA) or empty(collB) ?
+    []
+    : (head(collA), head(collB)) : zip(tail(collA), tail(collB))
 }
 
 defn enumerate(coll) {
-  zip([..], coll);
+  zip([..], coll)
 }
 
 defn sayHello(name) {
-  strcat(["Hello, ", name]);
+  strcat(["Hello, ", name])
 }
 
 defn main(args) {
-  grades = map(parseInt, args);
-  print(sumAll(grades));
+  grades = map(parseInt, args)
+  print(sumAll(grades))
 
   starStudents = grades
   >> filter((x) { x > 90 })
   >> sort
   >> take(5)
-  ;
 
-  True and False ;
+  True and False
 }

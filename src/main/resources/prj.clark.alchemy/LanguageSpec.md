@@ -72,6 +72,8 @@ Due to infix notation and the presence of the subtraction operator, numeric nega
 * Index `[]` - takes between two and four arguments. The preceding value must be `Indexed`, and all values inside the brackets must resolve to integers. If either of these conditions is not met, then a `TypeMismatchException` will be thrown. For more information about how the actual indexing works, see [below](#Lists).
 * Ternary `condition ? value if true : value if false` - basic conditional code execution. The initial expression is reduced to a boolean, and then one of the two cases will be executed and returned. Note that the unevaluated portion of code will not be executed at all.
 
+An example of a ternary expression would be `true ? 5 : 0`. The colon in a ternary has a higher precedence that a colon in the embedded expressions. For example, `False ? 1:[2, 3] : 4` returns `[2, 3, 4]`, not `4`.
+
 ### Binding
 Binding a value to an identifier is remarkably straightforward: just use a single equals sign. Due to the dynamic duck-typing system, variables declaration and definition is done in a single step.
 
@@ -85,6 +87,8 @@ Note that bindings aren't constant within the scope in which they were created. 
     import module
     module.foo = 8    // Illegal!
     module = "hello"  // Illegal!
+
+Functions defined using the `defn` keyword are also immutable. However, lambdas assigned to a variable are mutably bound.
 
 #### Identifiers
 Identifiers may begin with any alphabetic character, or an underscore. The body of an identifier may be composed of any alphanumeric character, an underscore, or a mix thereof. All other characters are considered to be illegal.
@@ -103,7 +107,7 @@ Comments can either be written over a region or to the end of the line.
     
     /* This is a multi-line comment. */
     
-Comments are discarded at parse time, meaning that they can be included in the middle of other expressions for documentation or explanatory purposes.
+Comments are discarded at parse time, and they can be included in the middle of other expressions for documentation or explanatory purposes.
 
 ## Data
 ### Tuples
@@ -301,15 +305,15 @@ You have the ability to import files individually, or as a group. Files may even
     
     import foo as f     // Identical to the first import, but aliases the foo module as simply f.
     
-You may import any attribute from a module, although non-module attributes may not be imported directly. As an example, assume that the `barlib2.ext` from earlier has attributes `helpera` and `helperb`.
+You may import any attribute from a module, although non-module attributes may also be imported directly. As an example, assume that the `barlib2.ext` from earlier has attributes `helpera` and `helperb`.
 
     import bar.barlib1                // Legal!
 
     import bar.barlib2                // Legal!
     barlib2.helperfn                  // Legal!
 
-    // Individual definitions cannot be imported directly.
-    import bar.barlib2.helpera        // Illegal!
+    // Individual definitions can be imported directly.
+    import bar.barlib2.helpera        // Legal!
     from bar.barlib2 import helpera   // Legal!
     
     // You can also import multiple attributes in a single line.
@@ -319,7 +323,6 @@ You may import any attribute from a module, although non-module attributes may n
     from bar import barlib2           // Legal!
     
 Using `importall` is nearly identical to using `import`, though it isn't recommended for standard use. By default, attributes beginning with an underscore aren't included when generating a module. However, using `importall` forces these attributes to be included as well.
-
 
 ## TODO
 * Devise rough style guidelines
