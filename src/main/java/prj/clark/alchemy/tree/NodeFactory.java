@@ -30,6 +30,8 @@ public class NodeFactory {
         BINOP_SUPPLIER.put("<<", FeedLastNode::new);
         BINOP_SUPPLIER.put(">>", FeedFirstNode::new);
         BINOP_SUPPLIER.put(":", ConcatenationNode::new);
+        BINOP_SUPPLIER.put("and", AndNode::new);
+        BINOP_SUPPLIER.put("or", OrNode::new);
     }
 
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
