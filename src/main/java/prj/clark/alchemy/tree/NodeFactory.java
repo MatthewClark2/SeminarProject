@@ -134,12 +134,17 @@ public class NodeFactory {
         if (ctx.slice() != null) {
             SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.slice().expression(0)));
 
+            if (ctx.slice().start == null && ctx.slice().end == null) {
+                // There are no colons, and this is just a list access.
+                return new ListAccessNode(get(ctx.slice().expression(0)), get(ctx.slice().skip));
+            }
+            
             if (ctx.slice().start != null) {
                 snb.setStart(get(ctx.slice().start));
             }
 
-            if (ctx.slice().stop != null) {
-                snb.setStart(get(ctx.slice().stop));
+            if (ctx.slice().end != null) {
+                snb.setStart(get(ctx.slice().end));
             }
 
             if (ctx.slice().skip != null) {
