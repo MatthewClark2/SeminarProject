@@ -32,6 +32,6 @@ public class ListAccessNodeTest {
     @Test(expected = TypeMismatchException.class)
     public void illegalIndexingValue() {
         Valued list = lst(i64(1), i64(3), i64(5), i64(7), i64(11));
-        new ListAccessNode(list, str("Hello, world!"));
+        new ListAccessNode(list, str("Hello, world!")).evaluate(null);
     }
 }
