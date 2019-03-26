@@ -9,29 +9,29 @@ public class AlchemyRange implements AlchemyList {
     private static final long INFINITE_LENGTH = -1;
 
     private Numeric start;
-    private Numeric stop;
     private Numeric skip;
+    private Numeric stop;
     private boolean isFloat;
     private long n;
 
     public static class AlchemyRangeBuilder {
-        private Numeric start;
+        private Numeric first;
+        private Numeric second;
         private Numeric stop;
-        private Numeric skip;
 
         public AlchemyRangeBuilder() {
-            start = AlchemyInt.of(0);
+            first = AlchemyInt.of(0);
+            second = AlchemyInt.of(1);
             stop = AlchemyFloat.of(Double.POSITIVE_INFINITY);
-            skip = AlchemyInt.of(1);
         }
 
-        public AlchemyRangeBuilder setSkip(Numeric skip) {
-            this.skip = skip;
+        public AlchemyRangeBuilder setFirst(Numeric first) {
+            this.first = first;
             return this;
         }
 
-        public AlchemyRangeBuilder setStart(Numeric start) {
-            this.start = start;
+        public AlchemyRangeBuilder setSecond(Numeric second) {
+            this.second = second;
             return this;
         }
 
@@ -41,8 +41,8 @@ public class AlchemyRange implements AlchemyList {
         }
 
         public AlchemyRange build() {
-            boolean isFloat = ! (start.isInteger() && skip.isInteger());
-            return new AlchemyRange(start, stop, skip, isFloat);
+            boolean isFloat = ! (first.isInteger() && second.isInteger());
+            return new AlchemyRange(first, second, stop, isFloat);
         }
     }
 
@@ -78,14 +78,25 @@ public class AlchemyRange implements AlchemyList {
         }
     }
 
-    private AlchemyRange(Numeric start, Numeric stop, Numeric skip, boolean isFloat) {
-        this.start = start;
+    private AlchemyRange(Numeric first, Numeric second, Numeric stop, boolean isFloat) {
+        this.start = first;
         this.stop = stop;
-        this.skip = skip;
+        this.skip = isFloat ?
+                AlchemyFloat.of(second.floatValue() - first.floatValue())
+                : AlchemyInt.of(second.intValue() - first.intValue());
+
         this.isFloat = isFloat;
-        this.n = stop.floatValue() == Double.POSITIVE_INFINITY ?
-                INFINITE_LENGTH
-                : ((long) Math.ceil((stop.floatValue() - start.floatValue()) / skip.floatValue()));
+
+        // Determine the number of elements in the range.
+        if (second.floatValue() - first.floatValue() <= 0) {
+            this.n = 0;
+        } else if (stop.floatValue() == Double.POSITIVE_INFINITY) {
+            this.n = INFINITE_LENGTH;
+        } else {
+            this.n = stop.floatValue() == Double.POSITIVE_INFINITY ?
+                    INFINITE_LENGTH
+                    : ((long) Math.ceil((stop.floatValue() - start.floatValue()) / skip.floatValue()));
+        }
     }
 
     @Override
