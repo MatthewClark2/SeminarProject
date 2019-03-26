@@ -2,6 +2,7 @@ package prj.clark.alchemy.data;
 
 import org.junit.Before;
 import org.junit.Test;
+import prj.clark.alchemy.err.TypeMismatchException;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -103,7 +104,7 @@ public class AlchemySliceTest {
         assertFalse(it.hasNext());
     }
 
-    @Test
+    @Test(expected = TypeMismatchException.class)
     public void floatStartThrowsException() {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStart(AlchemyFloat.of(2.75))
@@ -113,7 +114,7 @@ public class AlchemySliceTest {
         it.next();
     }
 
-    @Test
+    @Test(expected = TypeMismatchException.class)
     public void floatStopThrowsException() {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStop(AlchemyFloat.of(2.75))
@@ -123,7 +124,7 @@ public class AlchemySliceTest {
         it.next();
     }
 
-    @Test
+    @Test(expected = TypeMismatchException.class)
     public void floatSkipThrowsException() {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setSkip(AlchemyFloat.of(2.75))
