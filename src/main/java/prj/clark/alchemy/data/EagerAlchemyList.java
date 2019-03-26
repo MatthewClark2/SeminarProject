@@ -20,28 +20,20 @@ public class EagerAlchemyList implements AlchemyList {
     }
 
     @Override
-    public Sequenced slice(long start, long end, long n) {
-        // TODO(matthew-c21) - Implement using a lazy sequence.
-        List<Data> part = new ArrayList<>();
-
-        // TODO(matthew-c21) - Check for thrown exceptions.
-        for (long i = start; i < end && i < data.size(); i += n) {
-            // This cast is safe since i is always less than the size of data.
-            part.add(data.get((int) i));
-        }
-
-        return new EagerAlchemyList(part);
+    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
+        // Use a lambda to wrap the production of a SliceIterator.
+        return () -> new SliceIterator(start, end, n, this);
     }
 
     @Override
     public Optional<Data> getIndex(Data index) {
         // TODO(matthew-c21) - Fix thrown exceptions.
         // We specifically check for an AlchemyInt to avoid being able to use floats on accident.
-        if (! (index instanceof AlchemyInt)) {
+        if (!(index instanceof Numeric) || !((Numeric) index).isInteger()) {
             throw new TypeMismatchException();
         }
 
-        int i = (int) (((Numeric) data).intValue());
+        int i = (int) (((Numeric) index).intValue());
 
         if (i < 0) {
             throw new IllegalArgumentException();

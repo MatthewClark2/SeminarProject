@@ -16,5 +16,5 @@ public interface Sliceable extends Indexed, Data {
      * @return a sequence containing the collected elements.
      */
      // TODO(matthew-c21) @throws
-    Sequenced slice(long start, long end, long n);
+    Sequenced slice(Numeric start, Numeric end, Numeric n);
 }

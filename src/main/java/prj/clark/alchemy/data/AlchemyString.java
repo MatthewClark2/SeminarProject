@@ -55,7 +55,7 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
     }
 
     @Override
-    public Sequenced slice(long start, long end, long n) {
+    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
         return chars.slice(start, end, n);
     }
 
