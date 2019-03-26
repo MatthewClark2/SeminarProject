@@ -131,7 +131,23 @@ public class NodeFactory {
             return get(ctx.dict());
         }
 
-        // TODO(matthew-c21) - Add slice.
+        if (ctx.slice() != null) {
+            SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.slice().expression(0)));
+
+            if (ctx.slice().start != null) {
+                snb.setStart(get(ctx.slice().start));
+            }
+
+            if (ctx.slice().stop != null) {
+                snb.setStart(get(ctx.slice().stop));
+            }
+
+            if (ctx.slice().skip != null) {
+                snb.setStart(get(ctx.slice().skip));
+            }
+
+            return snb.build();
+        }
 
         if (ctx.cond != null) {
             return new Conditional(get(ctx.ifTrue), get(ctx.ifFalse), get(ctx.cond));
