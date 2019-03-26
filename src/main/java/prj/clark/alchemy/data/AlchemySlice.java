@@ -48,6 +48,11 @@ public class AlchemySlice implements AlchemyList {
     }
 
     private AlchemySlice(Sliceable coll, Numeric start, Numeric stop, Numeric skip) {
+        // All three should be integers. However, stop can also be infinity, which may only be represented in floating point.
+        if (!start.isInteger() || (stop.floatValue() != Double.POSITIVE_INFINITY && !stop.isInteger()) || !skip.isInteger()) {
+            throw new TypeMismatchException();
+        }
+
         this.coll = coll;
         this.start = start;
         this.stop = stop;
@@ -100,17 +105,10 @@ public class AlchemySlice implements AlchemyList {
 
         Numeric ind = (Numeric) index;
 
-        if (n != INFINITE_LENGTH && (ind.intValue() >= n || ind.intValue() < stop.intValue())) {
+        if (n != INFINITE_LENGTH && (ind.intValue() >= n || ind.intValue() >= stop.intValue())) {
             return Optional.empty();
         }
 
-        Iterator<Data> it = iter();
-        long i = ind.intValue();
-        Data d = null;
-        while (i < stop.intValue() && it.hasNext()) {
-            d = it.next();
-        }
-
-        return Optional.of(d);
+        return coll.getIndex(AlchemyInt.of(start.intValue() + ind.intValue() * skip.intValue()));
     }
 }

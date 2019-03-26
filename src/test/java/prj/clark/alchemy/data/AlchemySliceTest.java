@@ -52,7 +52,7 @@ public class AlchemySliceTest {
                 .build()
                 .iter();
 
-        for (int i = 0; i <= 5; i += 2) {
+        for (int i = 0; i < rawData.size(); i += 2) {
             assertEquals(rawData.get(i), it.next());
         }
 
