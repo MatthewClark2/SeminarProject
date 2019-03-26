@@ -138,7 +138,7 @@ public class NodeFactory {
                 // There are no colons, and this is just a list access.
                 return new ListAccessNode(get(ctx.slice().expression(0)), get(ctx.slice().skip));
             }
-            
+
             if (ctx.slice().start != null) {
                 snb.setStart(get(ctx.slice().start));
             }
