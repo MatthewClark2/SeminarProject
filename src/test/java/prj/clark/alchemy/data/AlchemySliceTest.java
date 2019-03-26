@@ -164,4 +164,10 @@ public class AlchemySliceTest {
         // Would otherwise align with rawData[8].
         assertFalse(slice.getIndex(AlchemyInt.of(4)).isPresent());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void negativeIndexThrowsException() {
+        AlchemySlice slice = new AlchemySlice.AlchemySliceBuilder(exactData).build();
+        slice.getIndex(AlchemyInt.of(-1));
+    }
 }

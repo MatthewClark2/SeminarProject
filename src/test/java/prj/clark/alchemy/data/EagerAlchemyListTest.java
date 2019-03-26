@@ -113,4 +113,11 @@ public class EagerAlchemyListTest {
         init(data);
         assertEquals(list.toString(), list.print());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void negativeIndexThrowsException() {
+        Data[] data = new Data[]{i64(1), i64(2), i64(3), i64(4), i64(5)};
+        init(data);
+        list.getIndex(AlchemyInt.of(-1));
+    }
 }
