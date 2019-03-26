@@ -1,19 +1,12 @@
 package prj.clark.alchemy.data;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 // TODO(matthew-c21) - Modify this to be the only implementation of Numeric.
 public class AlchemyFloat implements Numeric, Printable {
     // This wastes space for the sake of quickly changing between integer and floating point representations.
-    private final BigDecimal bfValue;
-    private final BigInteger biValue;
     private final long iValue;
     private final double fValue;
 
     private AlchemyFloat(double f, long i) {
-        bfValue = new BigDecimal(f);
-        biValue = new BigInteger("" + i);
         iValue = i;
         fValue = f;
     }
@@ -29,16 +22,6 @@ public class AlchemyFloat implements Numeric, Printable {
 
     public static AlchemyFloat of(long value) {
         return new AlchemyFloat((double) value, value);
-    }
-
-    @Override
-    public BigDecimal arbitraryFloatValue() {
-        return bfValue;
-    }
-
-    @Override
-    public BigInteger arbitraryIntValue() {
-        return biValue;
     }
 
     @Override
@@ -58,7 +41,9 @@ public class AlchemyFloat implements Numeric, Printable {
 
     @Override
     public String print() {
-        StringBuilder sb = new StringBuilder(bfValue.toString());
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(fValue);
 
         if (!sb.toString().contains(".")) {
             sb.append(".0");
@@ -70,7 +55,7 @@ public class AlchemyFloat implements Numeric, Printable {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Numeric) {
-            return ((Numeric) o).arbitraryFloatValue().equals(bfValue);
+            return ((Numeric) o).floatValue() == (fValue);
         }
 
         return false;

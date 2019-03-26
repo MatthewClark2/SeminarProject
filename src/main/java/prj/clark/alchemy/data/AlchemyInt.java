@@ -1,8 +1,5 @@
 package prj.clark.alchemy.data;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 /**
  * Contains information for integer values. This may be altered in the future
  * to default to arbitrary precision, or there may be several implementations
@@ -10,14 +7,10 @@ import java.math.BigInteger;
  */
 // TODO(matthew-c21) - Determine whether or not both implementations are required.
 public class AlchemyInt implements Numeric, Printable {
-    private final BigDecimal bfValue;
-    private final BigInteger biValue;
     private final double fValue;
     private final long iValue;
 
     private AlchemyInt(long i, double f) {
-        bfValue = new BigDecimal(f);
-        biValue = new BigInteger("" + i);
         fValue = f;
         iValue = i;
     }
@@ -33,16 +26,6 @@ public class AlchemyInt implements Numeric, Printable {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e);
         }
-    }
-
-    @Override
-    public BigDecimal arbitraryFloatValue() {
-        return bfValue;
-    }
-
-    @Override
-    public BigInteger arbitraryIntValue() {
-        return biValue;
     }
 
     @Override
@@ -62,13 +45,13 @@ public class AlchemyInt implements Numeric, Printable {
 
     @Override
     public String print() {
-        return biValue.toString();
+        return "" + iValue;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o instanceof Numeric) {
-            return ((Numeric) o).arbitraryIntValue().equals(biValue);
+            return ((Numeric) o).intValue() == (iValue);
         }
 
         return false;
