@@ -182,6 +182,8 @@ public class AlchemyRangeTest {
             assertEquals(AlchemyInt.of(i++), d);
             assertTrue(i <= 5);
         }
+
+        assertEquals(i, 5);
     }
 
     @Test
@@ -194,6 +196,8 @@ public class AlchemyRangeTest {
             assertEquals(AlchemyInt.of(i++), d);
             assertTrue(i <= 1);
         }
+
+        assertEquals(i, 1);
     }
 
     @Test
