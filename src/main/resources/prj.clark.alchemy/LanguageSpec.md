@@ -240,7 +240,7 @@ If a function receives too many arguments, then an exception is thrown. If a fun
 #### The 'with' Block
 After the body of a function, you can add an optional `with` block, which is just a way to cache values into their own variables. The third lambda from earlier can be re-written as
 
-    (x) { y ^ z / y } with (y, z) as (f(x), (g(x)))
+    (x) { y ^ z / y } with y = f(x), z = g(x)
     
 Both forms behave exactly the same, although you can't control the timing or order of the calculation of y and z in the second example. As a result, `y` and `z` may not be defined in terms of one another when using a `with` block.
 
