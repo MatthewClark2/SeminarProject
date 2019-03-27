@@ -48,33 +48,21 @@ public class AlchemyRange implements AlchemyList {
 
     private static class AlchemyRangeIterator implements Iterator<Data> {
         private final AlchemyRange range;
-        private Numeric index;
+        private long index;
 
         AlchemyRangeIterator(AlchemyRange range) {
             this.range = range;
-            this.index = range.start;
+            this.index = 0;
         }
 
         @Override
         public boolean hasNext() {
-            if (range.isFloat) {
-                return index.floatValue() < range.stop.floatValue();
-            }
-
-            return index.intValue() < range.stop.floatValue();
+            return range.n != INFINITE_LENGTH && index < range.n;
         }
 
         @Override
         public Data next() {
-            Data d = range.getIndex(index).get();
-
-            if (range.isFloat) {
-                index = AlchemyFloat.of(index.floatValue() + range.skip.floatValue());
-            } else {
-                index = AlchemyInt.of(index.intValue() + range.skip.intValue());
-            }
-
-            return d;
+            return range.getIndex(AlchemyInt.of(index++)).get();
         }
     }
 
