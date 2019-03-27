@@ -89,7 +89,19 @@ public class AlchemyRange implements AlchemyList {
 
     @Override
     public String print() {
-        return null;
+        StringBuilder sb = new StringBuilder("[");
+
+        Iterator<Data> it = iterator();
+        while (it.hasNext()) {
+            sb.append(it.next());
+
+            if (it.hasNext()) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append("]");
+        return sb.toString();
     }
 
     @Override
@@ -114,7 +126,7 @@ public class AlchemyRange implements AlchemyList {
             throw new IllegalArgumentException();
         }
 
-        if (i.intValue() >= n && n != INFINITE_LENGTH) {
+        if (i.intValue() < 0 || (i.intValue() >= n && n != INFINITE_LENGTH)) {
             return Optional.empty();
         }
 
@@ -124,5 +136,10 @@ public class AlchemyRange implements AlchemyList {
                 : AlchemyInt.of(start.intValue() + skip.intValue() * i.intValue());
 
         return Optional.of(d);
+    }
+
+    @Override
+    public String toString() {
+        return print();
     }
 }

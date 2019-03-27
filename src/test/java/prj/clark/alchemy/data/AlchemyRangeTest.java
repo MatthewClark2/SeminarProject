@@ -80,7 +80,7 @@ public class AlchemyRangeTest {
     @Test
     public void printBehavesCorrectly() {
         init(0, 1, 10);
-        assertEquals("[1, 2, 3, 4, 5, 6, 7, 8, 9]", range.print());
+        assertEquals("[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]", range.print());
 
         init(-5, -4, 1);
         assertEquals("[-5, -4, -3, -2, -1, 0]", range.print());
