@@ -45,21 +45,6 @@ public class EagerAlchemyList implements AlchemyList {
     }
 
     @Override
-    public String print() {
-        StringBuilder sb = new StringBuilder("[");
-
-        for (int i = 0; i < data.size() - 1; ++i) {
-            sb.append(data.get(i));
-            sb.append(", ");
-        }
-
-        sb.append(data.get(data.size() - 1));
-        sb.append("]");
-
-        return sb.toString();
-    }
-
-    @Override
     public String toString() {
         return print();
     }

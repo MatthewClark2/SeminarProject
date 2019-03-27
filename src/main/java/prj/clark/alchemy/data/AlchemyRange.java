@@ -88,23 +88,6 @@ public class AlchemyRange implements AlchemyList {
     }
 
     @Override
-    public String print() {
-        StringBuilder sb = new StringBuilder("[");
-
-        Iterator<Data> it = iterator();
-        while (it.hasNext()) {
-            sb.append(it.next());
-
-            if (it.hasNext()) {
-                sb.append(", ");
-            }
-        }
-
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Override
     public Iterator<Data> iterator() {
         return new AlchemyRangeIterator(this);
     }
