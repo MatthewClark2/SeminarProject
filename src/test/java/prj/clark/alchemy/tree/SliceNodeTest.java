@@ -37,7 +37,7 @@ public class SliceNodeTest {
 
     @Test
     public void defaultIteratesOverListAsGiven() {
-        Iterator<Data> it = ((Sequenced) (new SliceNode.SliceNodeBuilder(new LiteralNode(exactData)).build().evaluate(null))).iter();
+        Iterator<Data> it = ((Sequenced) (new SliceNode.SliceNodeBuilder(new LiteralNode(exactData)).build().evaluate(null))).iterator();
 
         for (Data d : rawData) {
             assertEquals(d, it.next());
@@ -52,7 +52,7 @@ public class SliceNodeTest {
                 .setSkip(new LiteralNode(AlchemyInt.of(2)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         for (int i = 0; i < rawData.size(); i += 2) {
             assertEquals(rawData.get(i), it.next());
@@ -67,7 +67,7 @@ public class SliceNodeTest {
                 .setStart(new LiteralNode(AlchemyInt.of(2)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         for (int i = 2; i < rawData.size(); ++i) {
             assertEquals(rawData.get(i), it.next());
@@ -82,7 +82,7 @@ public class SliceNodeTest {
                 .setStop(new LiteralNode(AlchemyInt.of(3)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         for (int i = 0; i < 3; ++i) {
             assertEquals(rawData.get(i), it.next());
@@ -100,7 +100,7 @@ public class SliceNodeTest {
                 .setSkip(new LiteralNode(AlchemyInt.of(3)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         for (int i = 2; i < 9; i += 3) {
             assertEquals(rawData.get(i), it.next());
@@ -115,7 +115,7 @@ public class SliceNodeTest {
                 .setStart(new LiteralNode(AlchemyFloat.of(1.25)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         it.next();
     }
@@ -126,7 +126,7 @@ public class SliceNodeTest {
                 .setStop(new LiteralNode(AlchemyFloat.of(0.625)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         it.next();
     }
@@ -137,7 +137,7 @@ public class SliceNodeTest {
                 .setSkip(new LiteralNode(AlchemyFloat.of(17.5)))
                 .build()
                 .evaluate(null))
-                .iter();
+                .iterator();
 
         it.next();
     }

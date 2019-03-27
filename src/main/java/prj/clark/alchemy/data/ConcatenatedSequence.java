@@ -12,7 +12,7 @@ public class ConcatenatedSequence implements Sequenced {
         private boolean yieldedInitialValue = false;
 
         ConcatenationIterator(Data initialValue, Sequenced source) {
-            this.source = source.iter();
+            this.source = source.iterator();
         }
 
         @Override
@@ -38,7 +38,7 @@ public class ConcatenatedSequence implements Sequenced {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator<Data> iterator() {
         return new ConcatenationIterator(initialValue, source);
     }
 }

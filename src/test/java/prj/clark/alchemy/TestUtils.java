@@ -39,8 +39,8 @@ public class TestUtils {
      * @param b the second sequence.
      */
     public static void compareSequences(Sequenced a, Sequenced b) {
-        Iterator<Data> aIter = a.iter();
-        Iterator<Data> bIter = b.iter();
+        Iterator<Data> aIter = a.iterator();
+        Iterator<Data> bIter = b.iterator();
 
         while (aIter.hasNext() || bIter.hasNext()) {
             assertEquals(aIter.next(), bIter.next());

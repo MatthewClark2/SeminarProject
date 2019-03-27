@@ -93,7 +93,7 @@ public class AlchemyRange implements AlchemyList {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator<Data> iterator() {
         return new AlchemyRangeIterator(this);
     }
 

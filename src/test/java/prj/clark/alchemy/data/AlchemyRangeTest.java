@@ -3,7 +3,6 @@ package prj.clark.alchemy.data;
 import org.junit.Test;
 import prj.clark.alchemy.err.TypeMismatchException;
 
-import java.lang.reflect.Type;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
@@ -40,7 +39,7 @@ public class AlchemyRangeTest {
             data[i] = d;
         }
 
-        Iterator<Data> it = range.iter();
+        Iterator<Data> it = range.iterator();
 
         for (Data d : data) {
             assertEquals(d, it.next());
@@ -62,7 +61,7 @@ public class AlchemyRangeTest {
             data[i] = d;
         }
 
-        Iterator<Data> it = range.iter();
+        Iterator<Data> it = range.iterator();
 
         for (Data d : data) {
             Data actual = it.next();
@@ -100,7 +99,7 @@ public class AlchemyRangeTest {
     public void sliceBehavesCorrectly() {
         init(0, 1, Double.POSITIVE_INFINITY);
 
-        Iterator<Data> it = range.slice(AlchemyInt.of(1), AlchemyInt.of(500), AlchemyInt.of(3)).iter();
+        Iterator<Data> it = range.slice(AlchemyInt.of(1), AlchemyInt.of(500), AlchemyInt.of(3)).iterator();
         for (long i = 1; i < 500; i += 3) {
             assertEquals(AlchemyInt.of(i), it.next());
         }
@@ -143,7 +142,7 @@ public class AlchemyRangeTest {
             data[(int)j] = d;
         }
 
-        Iterator<Data> it = range.iter();
+        Iterator<Data> it = range.iterator();
 
         for (Data d : data) {
             assertEquals(d, it.next());
@@ -155,7 +154,7 @@ public class AlchemyRangeTest {
     @Test
     public void stopLessThanStartYieldsNoElements() {
         init(1, 0, 5);
-        Iterator<Data> it = range.iter();
+        Iterator<Data> it = range.iterator();
         assertFalse(it.hasNext());
     }
 
@@ -173,7 +172,7 @@ public class AlchemyRangeTest {
             data[i] = d;
         }
 
-        Iterator<Data> it = range.iter();
+        Iterator<Data> it = range.iterator();
 
         for (Data d : data) {
             assertEquals(d, it.next());

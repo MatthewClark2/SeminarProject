@@ -42,7 +42,7 @@ public class EagerAlchemyListTest {
         Data[] data = new Data[]{i64(12), str("asfd")};
         init(data);
 
-        Iterator i = list.iter();
+        Iterator i = list.iterator();
         for (Data d : data) {
             assertEquals(d, i.next());
         }
@@ -75,7 +75,7 @@ public class EagerAlchemyListTest {
 
         Data[] slice = new Data[]{data[1], data[2], data[3]};
 
-        Iterator i = list.slice(AlchemyInt.of(1), AlchemyInt.of(4), AlchemyInt.of(1)).iter();
+        Iterator i = list.slice(AlchemyInt.of(1), AlchemyInt.of(4), AlchemyInt.of(1)).iterator();
 
         for (Data d : slice) {
                 assertEquals(d, i.next());
@@ -91,7 +91,7 @@ public class EagerAlchemyListTest {
 
         Data[] slice = new Data[]{data[0], data[2], data[4]};
 
-        Iterator i = list.slice(AlchemyInt.of(0), AlchemyInt.of(5), AlchemyInt.of(2)).iter();
+        Iterator i = list.slice(AlchemyInt.of(0), AlchemyInt.of(5), AlchemyInt.of(2)).iterator();
 
         for (Data d : slice) {
             assertEquals(d, i.next());

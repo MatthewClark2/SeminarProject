@@ -8,10 +8,10 @@ import java.util.Iterator;
  *
  * Produced iterators should NOT implement any mutating operations available to {@link Iterator}.
  */
-public interface Sequenced extends Data {
+public interface Sequenced extends Data, Iterable<Data> {
     /**
      * Produce a new iterator that doesn't allow for deletion of underlying members.
      * @return a new iterator.
      */
-    Iterator<Data> iter();
+    Iterator<Data> iterator();
 }

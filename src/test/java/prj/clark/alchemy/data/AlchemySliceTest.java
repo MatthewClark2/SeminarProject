@@ -36,7 +36,7 @@ public class AlchemySliceTest {
 
     @Test
     public void defaultIteratesOverListAsGiven() {
-        Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData).build().iter();
+        Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData).build().iterator();
 
         for (Data d : rawData) {
             assertEquals(d, it.next());
@@ -50,7 +50,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setSkip(AlchemyInt.of(2))
                 .build()
-                .iter();
+                .iterator();
 
         for (int i = 0; i < rawData.size(); i += 2) {
             assertEquals(rawData.get(i), it.next());
@@ -64,7 +64,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStart(AlchemyInt.of(2))
                 .build()
-                .iter();
+                .iterator();
 
         for (int i = 2; i < rawData.size(); ++i) {
             assertEquals(rawData.get(i), it.next());
@@ -78,7 +78,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStop(AlchemyInt.of(3))
                 .build()
-                .iter();
+                .iterator();
 
         for (int i = 0; i < 3; ++i) {
             assertEquals(rawData.get(i), it.next());
@@ -95,7 +95,7 @@ public class AlchemySliceTest {
                 .setStop(AlchemyInt.of(9))
                 .setSkip(AlchemyInt.of(3))
                 .build()
-                .iter();
+                .iterator();
 
         for (int i = 2; i < 9; i += 3) {
             assertEquals(rawData.get(i), it.next());
@@ -109,7 +109,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStart(AlchemyFloat.of(2.75))
                 .build()
-                .iter();
+                .iterator();
 
         it.next();
     }
@@ -119,7 +119,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setStop(AlchemyFloat.of(2.75))
                 .build()
-                .iter();
+                .iterator();
 
         it.next();
     }
@@ -129,7 +129,7 @@ public class AlchemySliceTest {
         Iterator<Data> it = new AlchemySlice.AlchemySliceBuilder(exactData)
                 .setSkip(AlchemyFloat.of(2.75))
                 .build()
-                .iter();
+                .iterator();
 
         it.next();
     }

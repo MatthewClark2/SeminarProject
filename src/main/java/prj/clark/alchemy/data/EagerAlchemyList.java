@@ -15,7 +15,7 @@ public class EagerAlchemyList implements AlchemyList {
     }
 
     @Override
-    public Iterator<Data> iter() {
+    public Iterator<Data> iterator() {
         return data.iterator();
     }
 
@@ -67,8 +67,8 @@ public class EagerAlchemyList implements AlchemyList {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Sequenced) {
-            Iterator a = ((Sequenced) o).iter();
-            for (Iterator i = iter(); i.hasNext() && a.hasNext();) {
+            Iterator a = ((Sequenced) o).iterator();
+            for (Iterator i = iterator(); i.hasNext() && a.hasNext();) {
                 if (! a.next().equals(i.next())) {
                     return false;
                 }

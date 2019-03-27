@@ -50,8 +50,8 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
     // Implement these using an EagerAlchemyList.
 
     @Override
-    public Iterator<Data> iter() {
-        return chars.iter();
+    public Iterator<Data> iterator() {
+        return chars.iterator();
     }
 
     @Override
