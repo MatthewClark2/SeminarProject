@@ -19,12 +19,6 @@ public class AlchemyRange implements AlchemyList {
         private Numeric second;
         private Numeric stop;
 
-        public AlchemyRangeBuilder() {
-            first = AlchemyInt.of(0);
-            second = AlchemyInt.of(1);
-            stop = AlchemyFloat.of(Double.POSITIVE_INFINITY);
-        }
-
         public AlchemyRangeBuilder setFirst(Numeric first) {
             this.first = first;
             return this;
@@ -41,6 +35,24 @@ public class AlchemyRange implements AlchemyList {
         }
 
         public AlchemyRange build() {
+            // These checks are done just before construction to simplify the logic of making sure that the second
+            // value is set correctly.
+            if (first == null) {
+                first = AlchemyInt.of(0);
+            }
+
+            if (second == null) {
+                if (first.isInteger()) {
+                    second = AlchemyInt.of(first.intValue() + 1);
+                } else {
+                    second = AlchemyFloat.of(first.floatValue() + 1);
+                }
+            }
+
+            if (stop == null) {
+                stop = AlchemyFloat.of(Double.POSITIVE_INFINITY);
+            }
+
             boolean isFloat = ! (first.isInteger() && second.isInteger());
             return new AlchemyRange(first, second, stop, isFloat);
         }
