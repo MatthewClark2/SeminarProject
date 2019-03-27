@@ -123,7 +123,7 @@ public class AlchemyRange implements AlchemyList {
         Numeric i = (Numeric) index;
 
         if (! i.isInteger()) {
-            throw new IllegalArgumentException();
+            throw new TypeMismatchException();
         }
 
         if (i.intValue() < 0 || (i.intValue() >= n && n != INFINITE_LENGTH)) {
