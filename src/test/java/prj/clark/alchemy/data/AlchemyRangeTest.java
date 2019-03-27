@@ -52,7 +52,7 @@ public class AlchemyRangeTest {
     public void toTwentiesEven() {
         init(0, 2, 21);
 
-        int N = 10;
+        int N = 11;
         Data[] data = new Data[N];
 
         for (int i = 0; i < N; ++i) {
@@ -161,13 +161,12 @@ public class AlchemyRangeTest {
     @Test
     public void negativeRange() {
         init(-10, -8, 1);
-        init(0, 2, 21);
 
         int N = 6;
         Data[] data = new Data[N];
 
-        for (int i = 0; i <= N; ++i) {
-            Data d = AlchemyInt.of(-10-2*i);
+        for (int i = 0; i < N; ++i) {
+            Data d = AlchemyInt.of(-10+2*i);
             assertEquals(d, range.getIndex(AlchemyInt.of(i)).get());
             data[i] = d;
         }
