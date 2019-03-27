@@ -86,15 +86,6 @@ public class AlchemyRangeTest {
         assertEquals("[-5, -4, -3, -2, -1, 0]", range.print());
     }
 
-    //@Test
-    public void infiniteRangeHoldsAtLeast2e64Elements() {
-        init(0.0, 1, Double.POSITIVE_INFINITY);
-
-        for (long i = 0; i < Long.MAX_VALUE; ++i) {
-            assertEquals(AlchemyInt.of(i), range.getIndex(AlchemyInt.of(i)).get());
-        }
-    }
-
     @Test
     public void sliceBehavesCorrectly() {
         init(0, 1, Double.POSITIVE_INFINITY);
@@ -178,5 +169,40 @@ public class AlchemyRangeTest {
         }
 
         assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void firstValueDefaultsCorrectly() {
+        // Here we assume that the first element is set correctly, and assume that 1 is second.
+        range = new AlchemyRange.AlchemyRangeBuilder().setSecond(AlchemyInt.of(1)).setStop(AlchemyInt.of(5)).build();
+
+        int i = 0;
+
+        for (Data d : range) {
+            assertEquals(AlchemyInt.of(i++), d);
+            assertTrue(i <= 5);
+        }
+    }
+
+    @Test
+    public void secondValueDefaultsCorrectly() {
+        range = new AlchemyRange.AlchemyRangeBuilder().setFirst(AlchemyInt.of(-5)).setStop(AlchemyInt.of(1)).build();
+
+        int i = -5;
+
+        for (Data d : range) {
+            assertEquals(AlchemyInt.of(i++), d);
+            assertTrue(i <= 1);
+        }
+    }
+
+    @Test
+    public void thirdValueDefaultsCorrectly() {
+        range = new AlchemyRange.AlchemyRangeBuilder().setFirst(AlchemyInt.of(5)).setSecond(AlchemyInt.of(6)).build();
+
+        // We can't exactly check that the sequence is infinite, so we just check the first couple billion elements.
+        for (int i = 5; i < Integer.MAX_VALUE; ++i) {
+            assertEquals(AlchemyInt.of(i), range.getIndex(AlchemyInt.of(i - 5)).get());
+        }
     }
 }
