@@ -60,11 +60,6 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
     }
 
     @Override
-    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
-        return chars.slice(start, end, n);
-    }
-
-    @Override
     public Optional<Data> getIndex(Data index) {
         return chars.getIndex(index);
     }

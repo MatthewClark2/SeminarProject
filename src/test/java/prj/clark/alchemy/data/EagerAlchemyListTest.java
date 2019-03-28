@@ -69,38 +69,6 @@ public class EagerAlchemyListTest {
     }
 
     @Test
-    public void sliceContainsCorrectElements() {
-        Data[] data = new Data[]{i64(12), str("a"), f64(1.0), ch('a'), i64(11)};
-        init(data);
-
-        Data[] slice = new Data[]{data[1], data[2], data[3]};
-
-        Iterator i = list.slice(AlchemyInt.of(1), AlchemyInt.of(4), AlchemyInt.of(1)).iterator();
-
-        for (Data d : slice) {
-                assertEquals(d, i.next());
-        }
-
-        assertFalse(i.hasNext());
-    }
-
-    @Test
-    public void skipSliceContainsCorrectElements() {
-        Data[] data = new Data[]{i64(12), str("a"), f64(1.0), ch('a'), i64(11)};
-        init(data);
-
-        Data[] slice = new Data[]{data[0], data[2], data[4]};
-
-        Iterator i = list.slice(AlchemyInt.of(0), AlchemyInt.of(5), AlchemyInt.of(2)).iterator();
-
-        for (Data d : slice) {
-            assertEquals(d, i.next());
-        }
-
-        assertFalse(i.hasNext());
-    }
-
-    @Test
     public void toStringBehavesCorrectly() {
         Data[] data = new Data[]{i64(1), i64(2), i64(3), i64(4), i64(5)};
         init(data);

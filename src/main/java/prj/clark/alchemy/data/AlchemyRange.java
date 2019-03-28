@@ -110,11 +110,6 @@ public class AlchemyRange implements AlchemyList {
     }
 
     @Override
-    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
-        return () -> new SliceIterator(start, end, n, this);
-    }
-
-    @Override
     public Optional<Data> getIndex(Data index) {
         if (!(index instanceof Numeric)) {
             throw new TypeMismatchException();

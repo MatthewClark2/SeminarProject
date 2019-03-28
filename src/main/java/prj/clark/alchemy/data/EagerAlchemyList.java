@@ -25,12 +25,6 @@ public class EagerAlchemyList implements AlchemyList {
     }
 
     @Override
-    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
-        // Use a lambda to wrap the production of a SliceIterator.
-        return () -> new SliceIterator(start, end, n, this);
-    }
-
-    @Override
     public Optional<Data> getIndex(Data index) {
         // TODO(matthew-c21) - Fix thrown exceptions.
         // We specifically check for an AlchemyInt to avoid being able to use floats on accident.

@@ -81,11 +81,6 @@ public class AlchemySlice implements AlchemyList {
     }
 
     @Override
-    public Sequenced slice(Numeric start, Numeric end, Numeric n) {
-        return () -> new SliceIterator(start, end, n, this);
-    }
-
-    @Override
     public Optional<Data> getIndex(Data index) {
         // For now, just iterate to find it.
         if (!(index instanceof Numeric) || !((Numeric) index).isInteger()) {

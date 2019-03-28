@@ -72,22 +72,6 @@ public class RangeCreationNodeTest {
     }
 
     @Test
-    public void sliceBehavesCorrectly() {
-        init(0, 1, Double.POSITIVE_INFINITY);
-
-        Iterator<Data> expected = range.slice(AlchemyInt.of(1), AlchemyInt.of(500), AlchemyInt.of(3)).iterator();
-        Iterator<Data> actual = ((AlchemyList)rcn.evaluate(null))
-                .slice(AlchemyInt.of(1), AlchemyInt.of(500), AlchemyInt.of(3))
-                .iterator();
-
-        for (long i = 1; i < 500; i += 3) {
-            assertEquals(expected.next(), actual.next());
-        }
-
-        assertFalse(actual.hasNext());
-    }
-
-    @Test
     public void negativeIndexThrowsException() {
         init(-1, 3, 50);
         assertFalse(((Indexed)rcn.evaluate(null)).getIndex(AlchemyInt.of(-1)).isPresent());

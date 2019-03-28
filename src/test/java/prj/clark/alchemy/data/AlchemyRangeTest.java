@@ -87,18 +87,6 @@ public class AlchemyRangeTest {
     }
 
     @Test
-    public void sliceBehavesCorrectly() {
-        init(0, 1, Double.POSITIVE_INFINITY);
-
-        Iterator<Data> it = range.slice(AlchemyInt.of(1), AlchemyInt.of(500), AlchemyInt.of(3)).iterator();
-        for (long i = 1; i < 500; i += 3) {
-            assertEquals(AlchemyInt.of(i), it.next());
-        }
-
-        assertFalse(it.hasNext());
-    }
-
-    @Test
     public void negativeIndexThrowsException() {
         init(-1, 3, 50);
         assertFalse(range.getIndex(AlchemyInt.of(-1)).isPresent());
