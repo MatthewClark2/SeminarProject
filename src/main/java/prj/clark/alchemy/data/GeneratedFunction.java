@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  */
 public class GeneratedFunction implements Invokable {
     private final Valued functionBody;
-    private final Context enclosingContext;
+    private Context enclosingContext;
     private final int argCount;
     private final List<String> arguments;
     private final List<BindingNode> withBlock;
@@ -53,7 +53,7 @@ public class GeneratedFunction implements Invokable {
     public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments, List<BindingNode> withBlock) {
         // TODO(matthew-c21) - Consider taking copies rather than pointers.
         this.functionBody = functionBody;
-        this.enclosingContext = new ScopedContext(enclosingContext);
+        this.enclosingContext = enclosingContext;
         this.arguments = arguments;
         this.argCount = arguments.size();
         this.withBlock = withBlock;
@@ -67,16 +67,20 @@ public class GeneratedFunction implements Invokable {
         } else if (args.size() > argCount) {
             throw new FunctionInvocationException("Too many arguments supplied to function.");
         } else {
-            // Calculate given expressions.
-            for (BindingNode n : withBlock) {
-                n.execute(enclosingContext);
-            }
+            // Create a new scoped context to avoid residual modifications. In theory, this shouldn't matter, but is
+            // done for safety anyway.
+            enclosingContext = new ScopedContext(enclosingContext);
 
-            // Apply the function using the given function body.
+            // Bind all values.
             for (int i = 0; i < args.size(); ++i) {
                 enclosingContext.bind(arguments.get(i), args.get(i));
             }
 
+            for (BindingNode n : withBlock) {
+                n.execute(enclosingContext);
+            }
+
+            // Execute the function.
             return functionBody.evaluate(enclosingContext);
         }
     }
