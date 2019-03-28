@@ -1,6 +1,7 @@
 package prj.clark.alchemy.env;
 
 import prj.clark.alchemy.data.Data;
+import prj.clark.alchemy.data.Invokable;
 import prj.clark.alchemy.err.IllegalRebindingException;
 
 import java.util.Optional;
@@ -14,7 +15,14 @@ public class ScopedContext implements Context {
     private Context original;
     private Context current;
 
-    private static final String MODULE = ".";
+    @Override
+    public void bindFunction(String identifier, Invokable i) {
+        if (current.search(identifier).isPresent()) {
+            throw new IllegalRebindingException();
+        }
+
+        current.bindFunction(identifier, i);
+    }
 
     public ScopedContext(Context original) {
         this.original = original;

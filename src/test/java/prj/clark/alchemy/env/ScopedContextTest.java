@@ -95,5 +95,20 @@ public class ScopedContextTest {
         assertEquals(AlchemyString.of("goodbye"), ctx.search("foo").get());
     }
 
+    @Test(expected = IllegalRebindingException.class)
+    public void mayNotRebindValueToFunction() {
+        ctx.bind("msg", AlchemyString.of("f"));
+        ctx.bindFunction("msg", IDENTITY);
+    }
+
+    @Test
+    public void mayRebindValueToValue() {
+        ctx.bind("msg", AlchemyString.of("yo"));
+        ctx.bind("msg", AlchemyString.of(":thinking:"));
+
+        assertTrue(ctx.search("msg").isPresent());
+        assertEquals(AlchemyString.of(":thinking:"), ctx.search("msg").get());
+    }
+
     // TODO(matthew-c21) - Test module imports.
 }
