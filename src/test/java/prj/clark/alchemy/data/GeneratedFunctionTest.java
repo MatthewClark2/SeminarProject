@@ -14,7 +14,10 @@ import java.util.Collections;
 import static org.junit.Assert.*;
 
 public class GeneratedFunctionTest {
+    // f(x, y, z) = x + y + z
     private static final StatementListNode TRIPLE_ADDITION;
+    // f(x, y) = z*z with z = x + y
+    private static final StatementListNode SQUARE_SUM;
 
     static {
         TRIPLE_ADDITION = new StatementListNode(Collections.singletonList(
@@ -24,6 +27,13 @@ public class GeneratedFunctionTest {
                                 new IdentifierNode("y"),
                                 new IdentifierNode("z")
                         )
+                )
+        ));
+
+        SQUARE_SUM = new StatementListNode(Collections.singletonList(
+                new MultiplicationNode(
+                        new IdentifierNode("z"),
+                        new IdentifierNode("z")
                 )
         ));
     }
@@ -38,6 +48,25 @@ public class GeneratedFunctionTest {
             fail();
             return null;
         }
+
+    }
+
+    private static Invokable triple() {
+        return new GeneratedFunction(TRIPLE_ADDITION, new DefaultContext(), Arrays.asList("x", "y", "z"));
+    }
+
+    private static Invokable squareSum() {
+        return new GeneratedFunction(
+                SQUARE_SUM,
+                new DefaultContext(),
+                Arrays.asList("x", "y"),
+                Collections.singletonList(
+                        new BindingNode(
+                                "z",
+                                new AdditionNode(
+                                        new IdentifierNode("x"),
+                                        new IdentifierNode("y")),
+                                BindingNode.BindingType.VALUE)));
     }
 
     @Test
@@ -135,10 +164,6 @@ public class GeneratedFunctionTest {
         assertEquals(AlchemyInt.of(12), f.invoke(Arrays.asList(AlchemyInt.of(6), AlchemyInt.of(6))));
     }
 
-    private static Invokable triple() {
-        return new GeneratedFunction(TRIPLE_ADDITION, new DefaultContext(), Arrays.asList("x", "y", "z"));
-    }
-
     @Test
     public void zeroArgumentsRequiresThreeMore() {
         Invokable f = triple();
@@ -169,5 +194,13 @@ public class GeneratedFunctionTest {
         Data d = f.invoke(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1), AlchemyInt.of(9)));
         assertFalse(d instanceof Invokable);
         assertEquals(AlchemyInt.of(19), d);
+    }
+
+    @Test
+    public void withBlockWorksCorrectly() {
+        Invokable f = squareSum();
+        Data d = f.invoke(Arrays.asList(AlchemyInt.of(5), AlchemyInt.of(-2)));
+
+        assertEquals(AlchemyInt.of(9), d);
     }
 }
