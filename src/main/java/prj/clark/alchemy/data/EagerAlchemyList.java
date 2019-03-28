@@ -51,15 +51,17 @@ public class EagerAlchemyList implements AlchemyList {
 
     @Override
     public boolean equals(Object o) {
+        // TODO(matthew-c21) - Properly test this.
         if (o instanceof Sequenced) {
             Iterator a = ((Sequenced) o).iterator();
-            for (Iterator i = iterator(); i.hasNext() && a.hasNext();) {
+            Iterator i = iterator();
+            while (i.hasNext() && a.hasNext()) {
                 if (! a.next().equals(i.next())) {
                     return false;
                 }
             }
 
-            return ! a.hasNext();
+            return ! (a.hasNext() || i.hasNext());
         }
 
         return false;
