@@ -22,6 +22,8 @@ public class StatementListNode implements Valued {
 
     @Override
     public Data evaluate(Context ctx) {
+        ctx = new ScopedContext(ctx);
+
         Data d = new AlchemyTuple(Collections.emptyList());
         for (Node n : statements) {
             if (n instanceof Valued) {
