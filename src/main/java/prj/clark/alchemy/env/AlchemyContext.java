@@ -33,7 +33,7 @@ import java.util.function.Function;
  */
 public class AlchemyContext implements Context {
     private final Context ctx;
-    private final PrintStream out;
+    private final OutputStream out;
     private final InputStream in;
 
     private static class SingleArgumentInvokable implements Invokable {
@@ -94,7 +94,7 @@ public class AlchemyContext implements Context {
         this(System.in, System.out);
     }
 
-    public AlchemyContext(PrintStream out) {
+    public AlchemyContext(OutputStream out) {
         this(System.in, out);
     }
 
@@ -102,14 +102,14 @@ public class AlchemyContext implements Context {
         this(in, System.out);
     }
 
-    public AlchemyContext(InputStream in, PrintStream out) {
+    public AlchemyContext(InputStream in, OutputStream out) {
         this.in = in;
         this.out = out;
         ctx = new DefaultContext();
 
         // TODO(matthew-c21) - Test all of these functions.
         ctx.bindFunction("print", new SingleArgumentInvokable(x -> {
-            out.println(x);
+            new PrintWriter(out).println(x);
             return new AlchemyTuple(Collections.emptyList());
         }));
 
