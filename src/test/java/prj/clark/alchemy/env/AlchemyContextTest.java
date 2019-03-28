@@ -10,6 +10,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -103,7 +104,7 @@ public class AlchemyContextTest {
         try {
             d.invoke(Collections.singletonList(AlchemyString.of("h")));
             fail();
-        } catch (IOError e) {
+        } catch (NoSuchElementException e) {
         }
     }
 

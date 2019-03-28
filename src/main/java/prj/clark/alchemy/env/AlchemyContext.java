@@ -34,7 +34,7 @@ import java.util.function.Function;
 public class AlchemyContext implements Context {
     private final Context ctx;
     private final OutputStream out;
-    private final InputStream in;
+    private final Scanner in;
 
     private static class SingleArgumentInvokable implements Invokable {
         Function<Data, Data> f;
@@ -103,10 +103,13 @@ public class AlchemyContext implements Context {
     }
 
     public AlchemyContext(InputStream in, OutputStream out) {
-        this.in = in;
+        this.in = new Scanner(in);
         this.out = out;
         ctx = new DefaultContext();
+        initialize();
+    }
 
+    private void initialize() {
         // TODO(matthew-c21) - Test all of these functions.
         ctx.bindFunction("print", new SingleArgumentInvokable(x -> {
             try {
@@ -124,7 +127,7 @@ public class AlchemyContext implements Context {
                 BufferedWriter br = new BufferedWriter(new OutputStreamWriter(out));
                 br.write(x + "\n");
                 br.close();
-                return AlchemyString.of(new Scanner(in).nextLine());
+                return AlchemyString.of(in.nextLine());
             } catch (IOException e) {
                 throw new IOError(e);
             }
