@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 
 /**
  * Used for functions that are created at runtime. This class should conform to the automatic currying in the language.
- * Instances are assumed to be raw, untyped functions.
  */
 public class GeneratedFunction implements Invokable {
     private final Valued functionBody;
