@@ -1,6 +1,7 @@
 package prj.clark.alchemy.data;
 
 import prj.clark.alchemy.env.Context;
+import prj.clark.alchemy.env.ScopedContext;
 import prj.clark.alchemy.err.FunctionInvocationException;
 import prj.clark.alchemy.tree.Valued;
 
@@ -45,7 +46,7 @@ public class GeneratedFunction implements Invokable {
     public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments) {
         // TODO(matthew-c21) - Consider taking copies rather than pointers.
         this.functionBody = functionBody;
-        this.enclosingContext = enclosingContext;
+        this.enclosingContext = new ScopedContext(enclosingContext);
         this.arguments = arguments;
         this.argCount = arguments.size();
     }
