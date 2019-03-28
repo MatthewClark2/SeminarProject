@@ -14,10 +14,43 @@ public class AlchemySlice implements AlchemyList {
     private Numeric skip;
     private long n;
 
+    private static class SliceIterator implements Iterator<Data> {
+        private Numeric end;
+        private Numeric skip;
+        private Sliceable coll;
+        private Numeric pointer;
+
+        public SliceIterator(Numeric start, Numeric end, Numeric skip, Sliceable coll) {
+            this.pointer = start;
+            this.end = end;
+            this.skip = skip;
+            this.coll = coll;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return pointer != null && coll.getIndex(pointer).isPresent();
+        }
+
+        @Override
+        public Data next() {
+            Data d = coll.getIndex(pointer).get();
+
+            if (pointer.intValue() + skip.intValue() < end.intValue()) {
+                pointer = AlchemyInt.of(pointer.intValue() + skip.intValue());
+            } else {
+                pointer = null;
+            }
+
+            return d;
+        }
+    }
+    
     public static class AlchemySliceBuilder {
         private Sliceable coll;
         private Numeric start;
         private Numeric stop;
+
         private Numeric skip;
 
         public AlchemySliceBuilder(Sliceable coll) {
@@ -41,10 +74,10 @@ public class AlchemySlice implements AlchemyList {
             this.skip = skip;
             return this;
         }
-
         public AlchemySlice build() {
             return new AlchemySlice(coll, start, stop, skip);
         }
+
     }
 
     private AlchemySlice(Sliceable coll, Numeric start, Numeric stop, Numeric skip) {
