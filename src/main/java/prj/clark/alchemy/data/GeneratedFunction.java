@@ -22,7 +22,6 @@ public class GeneratedFunction implements Invokable {
     private final List<String> arguments;
     private final List<BindingNode> withBlock;
 
-    // TODO(matthew-c21) - Consider removing this to an external class.
     private static class PartiallyAppliedFunction implements Invokable {
         private final List<Data> suppliedArguments;
         private final Invokable baseFunction;
@@ -40,21 +39,17 @@ public class GeneratedFunction implements Invokable {
 
     }
 
-    /**
-     * Create a new GeneratedFunction that may be utilized.
-     * @param functionBody the actual body of the function, given as a single node.
-     * @param enclosingContext the surrounding context of the function.
-     * @param arguments the names of all bound parameters. The length of this List should be the same as argCount.
-     */
     public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments) {
         this(functionBody, enclosingContext, arguments, Collections.emptyList());
     }
 
     /**
      * Create a new GeneratedFunction that may be utilized.
-     * @param functionBody the actual body of the function, given as a single node.
-     * @param enclosingContext the surrounding context of the function.
+     * @param functionBody the actual body of the function, given as a single valued node.
+     * @param enclosingContext the surrounding context of the function. This context cannot be modified by the function.
      * @param arguments the names of all bound parameters. The length of this List should be the same as argCount.
+     * @param withBlock extra values to be calculated and bound for function execution. There is no guarantee as to when
+     *                 calculation occurs.
      */
     public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments, List<BindingNode> withBlock) {
         // TODO(matthew-c21) - Consider taking copies rather than pointers.
