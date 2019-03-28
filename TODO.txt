@@ -17,5 +17,3 @@
 Focus before symposium
 * Define and implement comparison of sequences
 * Test concatenation, thrush, reverse thrush.
-* Create built-in functions, as well as a context that binds them automatically.
-
