@@ -14,4 +14,10 @@ public interface Sequenced extends Data, Iterable<Data> {
      * @return a new iterator.
      */
     Iterator<Data> iterator();
+
+    /**
+     * Determines whether or not a sequence can be calculated in its entirety.
+     * @return true if the sequence has a terminating condition, and false otherwise.
+     */
+    boolean terminates();
 }

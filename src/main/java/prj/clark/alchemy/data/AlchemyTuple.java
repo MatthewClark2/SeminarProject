@@ -46,6 +46,11 @@ public class AlchemyTuple implements Sequenced, Indexed, Printable {
     }
 
     @Override
+    public boolean terminates() {
+        return true;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o instanceof AlchemyTuple) {
             return ((AlchemyTuple) o).data.equals(this.data);

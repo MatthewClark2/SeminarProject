@@ -20,6 +20,11 @@ public class EagerAlchemyList implements AlchemyList {
     }
 
     @Override
+    public boolean terminates() {
+        return true;
+    }
+
+    @Override
     public Sequenced slice(Numeric start, Numeric end, Numeric n) {
         // Use a lambda to wrap the production of a SliceIterator.
         return () -> new SliceIterator(start, end, n, this);

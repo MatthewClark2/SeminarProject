@@ -18,6 +18,11 @@ public class AlchemyDict implements Sequenced, Indexed, Printable {
     }
 
     @Override
+    public boolean terminates() {
+        return false;
+    }
+
+    @Override
     public Optional<Data> getIndex(Data index) {
         return Optional.empty();
     }

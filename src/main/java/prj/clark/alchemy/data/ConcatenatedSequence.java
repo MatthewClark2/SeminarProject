@@ -41,4 +41,9 @@ public class ConcatenatedSequence implements Sequenced {
     public Iterator<Data> iterator() {
         return new ConcatenationIterator(initialValue, source);
     }
+
+    @Override
+    public boolean terminates() {
+        return source.terminates();
+    }
 }

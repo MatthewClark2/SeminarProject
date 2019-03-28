@@ -105,6 +105,11 @@ public class AlchemyRange implements AlchemyList {
     }
 
     @Override
+    public boolean terminates() {
+        return n != INFINITE_LENGTH;
+    }
+
+    @Override
     public Sequenced slice(Numeric start, Numeric end, Numeric n) {
         return () -> new SliceIterator(start, end, n, this);
     }
