@@ -15,10 +15,7 @@
 * Add `with` block.
 
 Focus before symposium
-* Test concatenation, thrush, reverse thrush, and tuples.
-* Fix bindings
-    * Tuple bindings are almost certainly going to be overlooked for the presentation.
-* Add a scoped context for functions so that closures and shadowing work correctly
-* Add the with block
-* Split DefaultContext into empty and default, where the latter simply populates the former
+* Define and implement comparison of sequences
+* Test concatenation, thrush, reverse thrush.
+* Create built-in functions, as well as a context that binds them automatically.
 
