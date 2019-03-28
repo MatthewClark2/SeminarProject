@@ -156,8 +156,8 @@ public class RangeCreationNodeTest {
 
         compare(range, rcn);
 
-        // We can't exactly check that the sequence is infinite, so we just check the first couple billion elements.
-        for (int i = 5; i < Integer.MAX_VALUE; ++i) {
+        // We can't exactly check that the sequence is infinite, so we just check the first hundred thousand elements.
+        for (int i = 5; i < 100_000; ++i) {
             assertEquals(AlchemyInt.of(i), range.getIndex(AlchemyInt.of(i - 5)).get());
         }
     }

@@ -192,8 +192,8 @@ public class AlchemyRangeTest {
     public void thirdValueDefaultsCorrectly() {
         range = new AlchemyRange.AlchemyRangeBuilder().setFirst(AlchemyInt.of(5)).setSecond(AlchemyInt.of(6)).build();
 
-        // We can't exactly check that the sequence is infinite, so we just check the first couple billion elements.
-        for (int i = 5; i < Integer.MAX_VALUE; ++i) {
+        // We can't exactly check that the sequence is infinite, so we just check the first hundred thousand elements.
+        for (int i = 5; i < 100_000; ++i) {
             assertEquals(AlchemyInt.of(i), range.getIndex(AlchemyInt.of(i - 5)).get());
         }
     }

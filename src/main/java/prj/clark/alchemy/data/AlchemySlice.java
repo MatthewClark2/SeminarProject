@@ -45,7 +45,7 @@ public class AlchemySlice implements AlchemyList {
             return d;
         }
     }
-    
+
     public static class AlchemySliceBuilder {
         private Sliceable coll;
         private Numeric start;
