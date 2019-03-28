@@ -4,7 +4,6 @@ import org.junit.Test;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.FunctionInvocationException;
-import prj.clark.alchemy.err.LangException;
 import prj.clark.alchemy.err.TypeMismatchException;
 import prj.clark.alchemy.tree.*;
 
@@ -14,9 +13,6 @@ import java.util.Collections;
 
 import static org.junit.Assert.*;
 
-/**
- * Note that this class tests with the assumption that all functions are raw.
- */
 public class GeneratedFunctionTest {
     private static final StatementListNode TRIPLE_ADDITION;
 
@@ -45,26 +41,25 @@ public class GeneratedFunctionTest {
     }
 
     @Test
-    public void partialFunctionReturnsFunctionObject() throws LangException {
-        Function f = new GeneratedFunction(null, new DummyContext(), Arrays.asList("foo", "bar"));
-        assertEquals(RawFunction.getInstance(), f.getType());
-        assertEquals(RawFunction.getInstance(), f.apply(Collections.singletonList(null)).getType());
+    public void partialFunctionReturnsFunctionObject() {
+        Invokable f = new GeneratedFunction(null, new DummyContext(), Arrays.asList("foo", "bar"));
+        assertTrue(f.invoke(Collections.singletonList(null)) instanceof Invokable);
     }
 
     @Test(expected = FunctionInvocationException.class)
-    public void tooManyArgumentsThrowsException() throws LangException {
-        Function f = new GeneratedFunction(null, new DummyContext(), new ArrayList<>());
-        f.apply(Collections.singletonList(null));
+    public void tooManyArgumentsThrowsException() {
+        Invokable f = new GeneratedFunction(null, new DummyContext(), new ArrayList<>());
+        f.invoke(Collections.singletonList(null));
     }
 
     @Test
-    public void statementBodyNotEvaluatedIfPartiallyApplied() throws LangException {
-        Function f = new GeneratedFunction(new FailingBody(), new DummyContext(), Arrays.asList("foo", "bar"));
-        f.apply(Collections.singletonList(null));
+    public void statementBodyNotEvaluatedIfPartiallyApplied() {
+        Invokable f = new GeneratedFunction(new FailingBody(), new DummyContext(), Arrays.asList("foo", "bar"));
+        f.invoke(Collections.singletonList(null));
     }
 
     @Test(expected = TypeMismatchException.class)
-    public void innerExceptionBubblesUp() throws LangException {
+    public void innerExceptionBubblesUp() {
         StatementListNode body = new StatementListNode(
                 Collections.singletonList(
                         new AdditionNode(
@@ -74,12 +69,12 @@ public class GeneratedFunctionTest {
                 )
         );
 
-        Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        f.apply(new ArrayList<>());
+        Invokable f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
+        f.invoke(new ArrayList<>());
     }
 
     @Test
-    public void correctValueReturnedFromSingleStatement() throws LangException {
+    public void correctValueReturnedFromSingleStatement() {
         StatementListNode body = new StatementListNode(
                 Collections.singletonList(
                         new AdditionNode(
@@ -89,12 +84,12 @@ public class GeneratedFunctionTest {
                 )
         );
 
-        Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        assertEquals(AlchemyInt.of(12), f.apply(Collections.emptyList()));
+        Invokable f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
+        assertEquals(AlchemyInt.of(12), f.invoke(Collections.emptyList()));
     }
 
     @Test
-    public void correctValueReturnedFromMultipleStatements() throws LangException {
+    public void correctValueReturnedFromMultipleStatements() {
         StatementListNode body = new StatementListNode(
                 Arrays.asList(
                         new AdditionNode(
@@ -108,26 +103,26 @@ public class GeneratedFunctionTest {
                 )
         );
 
-        Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        assertEquals(AlchemyInt.of(9), f.apply(Collections.emptyList()));
+        Invokable f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
+        assertEquals(AlchemyInt.of(9), f.invoke(Collections.emptyList()));
     }
 
     @Test
-    public void emptyBodyEvaluatesToEmptyValue() throws LangException {
+    public void emptyBodyEvaluatesToEmptyValue() {
         StatementListNode body = new StatementListNode(Collections.emptyList());
-        Function f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
-        assertEquals(Empty.get(), f.apply(Collections.emptyList()));
+        Invokable f = new GeneratedFunction(body, new DummyContext(), new ArrayList<>());
+        assertEquals(new AlchemyTuple(Collections.emptyList()), f.invoke(Collections.emptyList()));
     }
 
     @Test
-    public void functionCorrectlyBindsSingleParameter() throws LangException {
+    public void functionCorrectlyBindsSingleParameter() {
         StatementListNode body = new StatementListNode(Collections.singletonList(new IdentifierNode("x")));
-        Function f = new GeneratedFunction(body, new DefaultContext(), Collections.singletonList("x"));
-        assertEquals(AlchemyBoolean.of(false), f.apply(Collections.singletonList(AlchemyBoolean.of(false))));
+        Invokable f = new GeneratedFunction(body, new DefaultContext(), Collections.singletonList("x"));
+        assertEquals(AlchemyBoolean.of(false), f.invoke(Collections.singletonList(AlchemyBoolean.of(false))));
     }
 
     @Test
-    public void functionCorrectlyBindsMultipleParameters() throws LangException {
+    public void functionCorrectlyBindsMultipleParameters() {
         StatementListNode body = new StatementListNode(
                 Collections.singletonList(
                         new AdditionNode(
@@ -136,43 +131,43 @@ public class GeneratedFunctionTest {
                         )
                 )
         );
-        Function f = new GeneratedFunction(body, new DefaultContext(), Arrays.asList("x", "y"));
-        assertEquals(AlchemyInt.of(12), f.apply(Arrays.asList(AlchemyInt.of(6), AlchemyInt.of(6))));
+        Invokable f = new GeneratedFunction(body, new DefaultContext(), Arrays.asList("x", "y"));
+        assertEquals(AlchemyInt.of(12), f.invoke(Arrays.asList(AlchemyInt.of(6), AlchemyInt.of(6))));
     }
 
-    private static Function triple() {
+    private static Invokable triple() {
         return new GeneratedFunction(TRIPLE_ADDITION, new DefaultContext(), Arrays.asList("x", "y", "z"));
     }
 
     @Test
-    public void zeroArgumentsRequiresThreeMore() throws LangException {
-        Function f = triple();
-        Data d = f.apply(Collections.emptyList());
-        assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(AlchemyInt.of(6), ((Function) d).apply(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(2), AlchemyInt.of(3))));
+    public void zeroArgumentsRequiresThreeMore() {
+        Invokable f = triple();
+        Data d = f.invoke(Collections.emptyList());
+        assertTrue(d instanceof Invokable);
+        assertEquals(AlchemyInt.of(6), ((Invokable) d).invoke(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 
     @Test
-    public void oneArgumentRequiresTwoMore() throws LangException {
-        Function f = triple();
-        Data d = f.apply(Collections.singletonList(AlchemyInt.of(7)));
-        assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(AlchemyInt.of(12), ((Function) d).apply(Arrays.asList(AlchemyInt.of(2), AlchemyInt.of(3))));
+    public void oneArgumentRequiresTwoMore() {
+        Invokable f = triple();
+        Data d = f.invoke(Collections.singletonList(AlchemyInt.of(7)));
+        assertTrue(d instanceof Invokable);
+        assertEquals(AlchemyInt.of(12), ((Invokable) d).invoke(Arrays.asList(AlchemyInt.of(2), AlchemyInt.of(3))));
     }
 
     @Test
-    public void twoArgumentsRequiresOneMore() throws LangException {
-        Function f = triple();
-        Data d = f.apply(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1)));
-        assertEquals(RawFunction.getInstance(), d.getType());
-        assertEquals(AlchemyInt.of(14), ((Function) d).apply(Collections.singletonList(AlchemyInt.of(4))));
+    public void twoArgumentsRequiresOneMore() {
+        Invokable f = triple();
+        Data d = f.invoke(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1)));
+        assertTrue(d instanceof Invokable);
+        assertEquals(AlchemyInt.of(14), ((Invokable) d).invoke(Collections.singletonList(AlchemyInt.of(4))));
     }
 
     @Test
-    public void fullApplicationDoesNotReturnPartial() throws LangException {
-        Function f = triple();
-        Data d = f.apply(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1), AlchemyInt.of(9)));
-        assertNotEquals(RawFunction.getInstance(), d.getType());
+    public void fullApplicationDoesNotReturnPartial() {
+        Invokable f = triple();
+        Data d = f.invoke(Arrays.asList(AlchemyInt.of(11), AlchemyInt.of(-1), AlchemyInt.of(9)));
+        assertFalse(d instanceof Invokable);
         assertEquals(AlchemyInt.of(19), d);
     }
 }
