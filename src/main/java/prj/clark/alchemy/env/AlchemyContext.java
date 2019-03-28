@@ -109,13 +109,25 @@ public class AlchemyContext implements Context {
 
         // TODO(matthew-c21) - Test all of these functions.
         ctx.bindFunction("print", new SingleArgumentInvokable(x -> {
-            new PrintWriter(out).println(x);
-            return new AlchemyTuple(Collections.emptyList());
+            try {
+                BufferedWriter br = new BufferedWriter(new OutputStreamWriter(out));
+                br.write(x + "\n");
+                br.close();
+                return new AlchemyTuple(Collections.emptyList());
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
         }));
 
         ctx.bindFunction("input", new SingleArgumentInvokable(x -> {
-            System.out.println(x);
-            return AlchemyString.of(new Scanner(in).nextLine());
+            try {
+                BufferedWriter br = new BufferedWriter(new OutputStreamWriter(out));
+                br.write(x + "\n");
+                br.close();
+                return AlchemyString.of(new Scanner(in).nextLine());
+            } catch (IOException e) {
+                throw new IOError(e);
+            }
         }));
 
         ctx.bindFunction("str", new SingleArgumentInvokable(x -> AlchemyString.of(x.toString())));
