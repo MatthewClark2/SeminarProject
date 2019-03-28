@@ -43,7 +43,7 @@ public class NodeFactory {
     }
 
     private Node get(AlchemyParser.FunctionDeclarationContext ctx) {
-        return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), false);
+        return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), BindingNode.BindingType.FUNCTION);
     }
 
     private Node get(AlchemyParser.AssignmentContext ctx) {
@@ -51,7 +51,7 @@ public class NodeFactory {
             throw new UnsupportedOperationException("Cannot support multiple bindings at this time.");
         }
 
-        return new BindingNode(ctx.binding().IDENTIFIER().getText(), get(ctx.expression()), true);
+        return new BindingNode(ctx.binding().IDENTIFIER().getText(), get(ctx.expression()), BindingNode.BindingType.VALUE);
     }
 
     private Node get(AlchemyParser.StatementContext ctx) {
