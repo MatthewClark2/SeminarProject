@@ -25,12 +25,8 @@ public class ConcatenationNode extends ReferentiallyTransparentValuedNode {
         Data r = right.evaluate(ctx);
 
         if (l instanceof Sequenced) {
-            // Appending requires that the initial list be exhausted first.
-            List<Data> data = new ArrayList<>();
-            ((Sequenced) l).iterator().forEachRemaining(data::add);
-            return new EagerAlchemyList(data);
+            return ConcatenatedSequence.concat((Sequenced)l, r);
         } else if (r instanceof Sequenced) {
-            // Return a lazy sequence.
             return ConcatenatedSequence.concat(l, (Sequenced)r);
         } else {
             throw new TypeMismatchException();
