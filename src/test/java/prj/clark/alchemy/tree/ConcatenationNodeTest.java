@@ -119,6 +119,11 @@ public class ConcatenationNodeTest {
     }
 
     @Test(expected = TypeMismatchException.class)
+    public void cannotConcatTwoChainables() {
+        concat(new LiteralNode(new EagerAlchemyList(Collections.emptyList())), new LiteralNode(new EagerAlchemyList(Collections.emptyList())));
+    }
+
+    @Test(expected = TypeMismatchException.class)
     public void cannotConcatTwoNonSequenceValues() {
         concat(i64(1), f64(11));
     }
