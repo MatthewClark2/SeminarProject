@@ -8,7 +8,7 @@ import java.util.Iterator;
  *
  * Produced iterators should NOT implement any mutating operations available to {@link Iterator}.
  */
-public interface Sequenced extends Data, Iterable<Data> {
+public interface Sequenced extends Data, Printable, Iterable<Data> {
     /**
      * Produce a new iterator that doesn't allow for deletion of underlying members.
      * @return a new iterator.
@@ -20,4 +20,8 @@ public interface Sequenced extends Data, Iterable<Data> {
      * @return true if the sequence has a terminating condition, and false otherwise.
      */
     boolean terminates();
+
+    default String print() {
+        return toString();
+    }
 }
