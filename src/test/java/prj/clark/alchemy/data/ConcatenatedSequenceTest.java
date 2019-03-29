@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 import static prj.clark.alchemy.data.ConcatenatedSequence.concat;
 
 public class ConcatenatedSequenceTest {
-    private class SampleSequence implements Sequenced {
+    private class SampleSequence implements Chainable {
         int i = 0;
         List<Data> data = Arrays.asList(AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE);
         @Override
@@ -38,7 +38,7 @@ public class ConcatenatedSequenceTest {
         }
     }
 
-    private class FailingSequence implements Sequenced {
+    private class FailingSequence implements Chainable {
         @Override
         public Iterator<Data> iterator() {
             fail();
@@ -56,7 +56,7 @@ public class ConcatenatedSequenceTest {
     public void correctlyPrependsData() {
         Data[] expected = new Data[]{AlchemyInt.of(1), AlchemyString.of("hello"), AlchemyString.of("world")};
 
-        Sequenced base = new EagerAlchemyList(Arrays.asList(expected[1], expected[2]));
+        Chainable base = new EagerAlchemyList(Arrays.asList(expected[1], expected[2]));
 
         int i = 0;
         for (Data d : concat(AlchemyInt.of(1), base)) {
@@ -68,7 +68,7 @@ public class ConcatenatedSequenceTest {
     public void correctlyAppendsData() {
         Data[] expected = new Data[]{AlchemyString.of("hello"), AlchemyString.of("world"), AlchemyFloat.of(11.125)};
 
-        Sequenced base = new EagerAlchemyList(Arrays.asList(expected[0], expected[1]));
+        Chainable base = new EagerAlchemyList(Arrays.asList(expected[0], expected[1]));
 
         int i = 0;
         for (Data d : concat(base, AlchemyFloat.of(11.125))) {
@@ -78,7 +78,7 @@ public class ConcatenatedSequenceTest {
 
     @Test
     public void ableToPrependToInfiniteSequence() {
-        Sequenced infiniteSequence = new AlchemyRange.AlchemyRangeBuilder().build();
+        Chainable infiniteSequence = new AlchemyRange.AlchemyRangeBuilder().build();
 
         Iterator<Data> result = concat(AlchemyInt.of(-1), infiniteSequence).iterator();
 
@@ -96,7 +96,7 @@ public class ConcatenatedSequenceTest {
 
         Data[] expected = new Data[]{AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE, AlchemyInt.of(100)};
 
-        Sequenced cat = concat(base, AlchemyInt.of(100));
+        Chainable cat = concat(base, AlchemyInt.of(100));
 
         assertEquals(3, base.i);
 
@@ -111,44 +111,24 @@ public class ConcatenatedSequenceTest {
         concat(AlchemyInt.of(32), new FailingSequence());
     }
 
-    @Test(expected = TypeMismatchException.class)
-    public void cannotPrependWithTuple() {
-        concat(AlchemyInt.of(1), new AlchemyTuple(Collections.emptyList()));
-    }
-
-    @Test(expected = TypeMismatchException.class)
-    public void cannotAppendWithTuple() {
-        concat(new AlchemyTuple(Collections.emptyList()), AlchemyBoolean.of(true));
-    }
-
-    @Test(expected = TypeMismatchException.class)
-    public void cannotPrependWithString() {
-        concat(AlchemyInt.of(1), AlchemyString.of("Hello"));
-    }
-
-    @Test(expected = TypeMismatchException.class)
-    public void cannotAppendWithString() {
-        concat(AlchemyString.of("KONO DIO DA"), AlchemyBoolean.of(false));
-    }
-
     @Test
     public void toStringAndPrintSame() {
-        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
-        Sequenced cat = concat(AlchemyInt.of(1), base);
+        Chainable base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+        Chainable cat = concat(AlchemyInt.of(1), base);
 
         assertEquals(cat.print(), cat.toString());
     }
 
     @Test
     public void printCorrectForAppendedSequence() {
-        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+        Chainable base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
 
         assertEquals("1helloworld", concat(AlchemyInt.of(1), base).print());
     }
 
     @Test
     public void printCorrectForPrependedSequence() {
-        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+        Chainable base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
 
         assertEquals("helloworld1", concat(base, AlchemyInt.of(1)).print());
     }

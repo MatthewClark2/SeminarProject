@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class ConcatenatedSequence implements Sequenced {
+public class ConcatenatedSequence implements Chainable {
     private final Data prependedValue;
-    private final Sequenced source;
+    private final Chainable source;
 
     private static class ConcatenationIterator implements Iterator<Data> {
         private Data prependedValue;
         private Iterator<Data> source;
         private boolean yieldedInitialValue = false;
 
-        ConcatenationIterator(Data prependedValue, Sequenced source) {
+        ConcatenationIterator(Data prependedValue, Chainable source) {
             this.prependedValue = prependedValue;
             this.source = source.iterator();
         }
@@ -35,16 +35,16 @@ public class ConcatenatedSequence implements Sequenced {
         }
     }
 
-    private ConcatenatedSequence(Data prependedValue, Sequenced source) {
+    private ConcatenatedSequence(Data prependedValue, Chainable source) {
         this.prependedValue = prependedValue;
         this.source = source;
     }
 
-    public static Sequenced concat(Data prependedValue, Sequenced source) {
+    public static Chainable concat(Data prependedValue, Chainable source) {
         return new ConcatenatedSequence(prependedValue, source);
     }
 
-    public static Sequenced concat(Sequenced source, Data appendedValue) {
+    public static Chainable concat(Chainable source, Data appendedValue) {
         List<Data> data = new ArrayList<>();
         source.iterator().forEachRemaining(data::add);
         data.add(appendedValue);

@@ -1,9 +1,6 @@
 package prj.clark.alchemy.tree;
 
-import prj.clark.alchemy.data.ConcatenatedSequence;
-import prj.clark.alchemy.data.Data;
-import prj.clark.alchemy.data.EagerAlchemyList;
-import prj.clark.alchemy.data.Sequenced;
+import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.err.TypeMismatchException;
 
@@ -24,10 +21,10 @@ public class ConcatenationNode extends ReferentiallyTransparentValuedNode {
         Data l = left.evaluate(ctx);
         Data r = right.evaluate(ctx);
 
-        if (l instanceof Sequenced) {
-            return ConcatenatedSequence.concat((Sequenced)l, r);
-        } else if (r instanceof Sequenced) {
-            return ConcatenatedSequence.concat(l, (Sequenced)r);
+        if (l instanceof Chainable) {
+            return ConcatenatedSequence.concat((Chainable) l, r);
+        } else if (r instanceof Chainable) {
+            return ConcatenatedSequence.concat(l, (Chainable) r);
         } else {
             throw new TypeMismatchException();
         }
