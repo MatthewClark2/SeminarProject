@@ -21,12 +21,15 @@ public class ConcatenationNode extends ReferentiallyTransparentValuedNode {
         Data l = left.evaluate(ctx);
         Data r = right.evaluate(ctx);
 
-        if (l instanceof Chainable) {
-            return ConcatenatedSequence.concat((Chainable) l, r);
-        } else if (r instanceof Chainable) {
-            return ConcatenatedSequence.concat(l, (Chainable) r);
-        } else {
+        boolean lChainable = l instanceof Chainable;
+        boolean rChainable = r instanceof Chainable;
+
+        if (lChainable && rChainable  || !(lChainable || rChainable)) {
             throw new TypeMismatchException();
+        } else if (lChainable) {
+            return ConcatenatedSequence.concat((Chainable)l, r);
+        } else {
+            return ConcatenatedSequence.concat(l, (Chainable)r);
         }
     }
 }

@@ -12,7 +12,7 @@ import static prj.clark.alchemy.TestUtils.*;
 
 public class ConcatenationNodeTest {
 
-    private class SampleSequence implements Sequenced {
+    private class SampleSequence implements Chainable {
         int i = 0;
         List<Data> data = Arrays.asList(AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE);
         @Override
@@ -38,7 +38,7 @@ public class ConcatenationNodeTest {
         }
     }
 
-    private class FailingSequence implements Sequenced {
+    private class FailingSequence implements Chainable {
         @Override
         public Iterator<Data> iterator() {
             fail();
@@ -116,19 +116,6 @@ public class ConcatenationNodeTest {
     @Test
     public void prependingDoesNotEvaluateInitialSequence() {
         concat(i64(1), new LiteralNode(new FailingSequence()));
-    }
-
-    @Test
-    public void concatenatingMultipleSequencesJoinsSecondToEndOfFirst() {
-        Data d1 = new EagerAlchemyList(Collections.emptyList());
-        Data d2 = new AlchemyTuple(Collections.emptyList());
-
-        Data expected = new EagerAlchemyList(Collections.singletonList(d2));
-
-        Iterator<Data> it = concat(new LiteralNode(d1), new LiteralNode(d2)).iterator();
-
-        assertEquals(expected, it.next());
-        assertFalse(it.hasNext());
     }
 
     @Test(expected = TypeMismatchException.class)
