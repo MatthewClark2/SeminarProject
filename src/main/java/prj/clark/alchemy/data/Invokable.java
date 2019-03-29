@@ -13,4 +13,12 @@ public interface Invokable extends Data {
      */
     // TODO(matthew-c21) @throws
     Data invoke(List<Data> args);
+
+    /**
+     * Returns the number of parameters required to invoke the function.
+     * @return the number of parameters required to invoke the function.
+     */
+    default int parameterCount() {
+        return 0;
+    }
 }

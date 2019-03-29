@@ -52,6 +52,11 @@ public class AlchemyContext implements Context {
             }
             return this;
         }
+
+        @Override
+        public int parameterCount() {
+            return 1;
+        }
     }
 
     private static class DoubleArgumentInvokable implements Invokable {
@@ -72,6 +77,11 @@ public class AlchemyContext implements Context {
             }
             return this;
         }
+
+        @Override
+        public int parameterCount() {
+            return 2;
+        }
     }
 
     private static class ConstantExpression implements Invokable {
@@ -87,6 +97,11 @@ public class AlchemyContext implements Context {
                 throw new FunctionInvocationException();
             }
             return d;
+        }
+
+        @Override
+        public int parameterCount() {
+            return 0;
         }
     }
 

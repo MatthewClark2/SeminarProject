@@ -66,4 +66,9 @@ public class GeneratedFunction implements Invokable {
         }
     }
 
+    @Override
+    public int parameterCount() {
+        return argCount;
+    }
+
 }

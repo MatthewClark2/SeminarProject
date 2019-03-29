@@ -19,4 +19,8 @@ public class PartiallyAppliedFunction implements Invokable {
         return baseFunction.invoke(Stream.concat(suppliedArguments.stream(), args.stream()).collect(Collectors.toList()));
     }
 
+    @Override
+    public int parameterCount() {
+        return 0;
+    }
 }
