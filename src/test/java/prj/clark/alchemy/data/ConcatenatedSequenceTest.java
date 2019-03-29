@@ -123,14 +123,14 @@ public class ConcatenatedSequenceTest {
     public void printCorrectForAppendedSequence() {
         Chainable base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
 
-        assertEquals("1helloworld", concat(AlchemyInt.of(1), base).print());
+        assertEquals("[1, hello, world]", concat(AlchemyInt.of(1), base).print());
     }
 
     @Test
     public void printCorrectForPrependedSequence() {
         Chainable base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
 
-        assertEquals("helloworld1", concat(base, AlchemyInt.of(1)).print());
+        assertEquals("[hello, world, 1]", concat(base, AlchemyInt.of(1)).print());
     }
 
     // TODO(matthew-c21) - Check dictionaries.
