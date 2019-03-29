@@ -8,8 +8,6 @@ import prj.clark.alchemy.tree.Valued;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Used for functions that are created at runtime. This class should conform to the automatic currying in the language.
@@ -20,23 +18,6 @@ public class GeneratedFunction implements Invokable {
     private final int argCount;
     private final List<String> arguments;
     private final List<BindingNode> withBlock;
-
-    private static class PartiallyAppliedFunction implements Invokable {
-        private final List<Data> suppliedArguments;
-        private final Invokable baseFunction;
-
-        public PartiallyAppliedFunction(List<Data> suppliedArguments, Invokable baseFunction) {
-            this.suppliedArguments = suppliedArguments;
-            this.baseFunction = baseFunction;
-        }
-
-        @Override
-        public Data invoke(List<Data> args) {
-            // TODO(matthew-c21) - Determine whether stream concatenation or the creation of a new list is faster.
-            return baseFunction.invoke(Stream.concat(suppliedArguments.stream(), args.stream()).collect(Collectors.toList()));
-        }
-
-    }
 
     public GeneratedFunction(Valued functionBody, Context enclosingContext, List<String> arguments) {
         this(functionBody, enclosingContext, arguments, Collections.emptyList());
