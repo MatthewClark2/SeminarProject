@@ -31,7 +31,7 @@ public class ConcatenationNode extends ReferentiallyTransparentValuedNode {
             return new EagerAlchemyList(data);
         } else if (r instanceof Sequenced) {
             // Return a lazy sequence.
-            return new ConcatenatedSequence(l, (Sequenced)r);
+            return ConcatenatedSequence.concat(l, (Sequenced)r);
         } else {
             throw new TypeMismatchException();
         }

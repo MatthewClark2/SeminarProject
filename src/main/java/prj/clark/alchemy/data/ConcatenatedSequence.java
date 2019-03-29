@@ -1,17 +1,20 @@
 package prj.clark.alchemy.data;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ConcatenatedSequence implements Sequenced {
-    private final Data initialValue;
+    private final Data prependedValue;
     private final Sequenced source;
 
-    private class ConcatenationIterator implements Iterator<Data> {
-        private Data initialValue;
+    private static class ConcatenationIterator implements Iterator<Data> {
+        private Data prependedValue;
         private Iterator<Data> source;
         private boolean yieldedInitialValue = false;
 
-        ConcatenationIterator(Data initialValue, Sequenced source) {
+        ConcatenationIterator(Data prependedValue, Sequenced source) {
+            this.prependedValue = prependedValue;
             this.source = source.iterator();
         }
 
@@ -28,18 +31,29 @@ public class ConcatenatedSequence implements Sequenced {
 
             yieldedInitialValue = true;
 
-            return initialValue;
+            return prependedValue;
         }
     }
 
-    public ConcatenatedSequence(Data initialValue, Sequenced source) {
-        this.initialValue = initialValue;
+    private ConcatenatedSequence(Data prependedValue, Sequenced source) {
+        this.prependedValue = prependedValue;
         this.source = source;
+    }
+
+    public static Sequenced concat(Data prependedValue, Sequenced source) {
+        return new ConcatenatedSequence(prependedValue, source);
+    }
+
+    public static Sequenced concat(Sequenced source, Data appendedValue) {
+        List<Data> data = new ArrayList<>();
+        source.iterator().forEachRemaining(data::add);
+        data.add(appendedValue);
+        return new EagerAlchemyList(data);
     }
 
     @Override
     public Iterator<Data> iterator() {
-        return new ConcatenationIterator(initialValue, source);
+        return new ConcatenationIterator(prependedValue, source);
     }
 
     @Override
