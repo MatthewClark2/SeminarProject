@@ -7,6 +7,7 @@ All operations are considered to be strongly typed according to the attributes o
 * `HoldsAttribute` for data that contains other data.
 * `Indexed` for data that may be indexed directly.
 * `Sliceable` for data that may use slice notation for indexing.
+* `Chainable` for data that can be concatenated with other, non-chainable data.
 * `Printable` for data that can be displayed in a string format.
 * `Invokable` for function-like data.
 
@@ -147,7 +148,7 @@ Ranges are an easy way to define a series of integers starting from one value an
 The first and second values are the literal first and second values of the list. The second value minus the first is the interval for the range. The default value for the first argument is 0. The default value for the second argument is whatever the first argument is plus 1. The default final argument is positive infinity. The common use of range literals is to create infinite series to serve as the basis of more complicated iterative sequences.
 
 #### Type Compliance
-`Sequenced, Indexed, Sliceable, Printable`
+`Sequenced, Indexed, Sliceable, Printable, Chainable`
 
 ### Numeric Types
 Numbers are, by default, either 64 bit signed integers or 64 bit floating point decimals. Numeric literals may be written:
