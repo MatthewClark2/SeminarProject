@@ -5,6 +5,6 @@ package prj.clark.alchemy.data;
  * is just a contractual interface like {@link Sliceable}
  * @see ConcatenatedSequence
  */
-public interface Chainable {
+public interface Chainable extends Sequenced {
 
 }
