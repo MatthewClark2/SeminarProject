@@ -22,7 +22,7 @@ public class FeedFirstNodeTest {
     }
 
     private static Data feedFirst(Valued f, Valued v) {
-        return new FeedFirstNode(f, v).evaluate(new DefaultContext());
+        return new FeedFirstNode(v, f).evaluate(new DefaultContext());
     }
 
     @Before
