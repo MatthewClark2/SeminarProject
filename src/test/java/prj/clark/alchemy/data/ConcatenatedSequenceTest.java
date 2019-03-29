@@ -1,17 +1,17 @@
-package prj.clark.alchemy.tree;
+package prj.clark.alchemy.data;
 
 import org.junit.Test;
-import prj.clark.alchemy.data.*;
-import prj.clark.alchemy.env.DefaultContext;
 import prj.clark.alchemy.err.TypeMismatchException;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.Assert.*;
-import static prj.clark.alchemy.TestUtils.*;
+import static prj.clark.alchemy.data.ConcatenatedSequence.concat;
 
-public class ConcatenationNodeTest {
-
+public class ConcatenatedSequenceTest {
     private class SampleSequence implements Sequenced {
         int i = 0;
         List<Data> data = Arrays.asList(AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE);
@@ -52,21 +52,14 @@ public class ConcatenationNodeTest {
         }
     }
 
-    private static Sequenced concat(Valued left, Valued right) {
-        Data d = new ConcatenationNode(left, right).evaluate(new DefaultContext());
-
-        assertTrue(d instanceof Sequenced);
-        return (Sequenced)d;
-    }
-
     @Test
     public void correctlyPrependsData() {
         Data[] expected = new Data[]{AlchemyInt.of(1), AlchemyString.of("hello"), AlchemyString.of("world")};
 
-        Data base = new EagerAlchemyList(Arrays.asList(expected[1], expected[2]));
+        Sequenced base = new EagerAlchemyList(Arrays.asList(expected[1], expected[2]));
 
         int i = 0;
-        for (Data d : concat(i64(1), new LiteralNode(base))) {
+        for (Data d : concat(AlchemyInt.of(1), base)) {
             assertEquals(expected[i++], d);
         }
     }
@@ -75,19 +68,19 @@ public class ConcatenationNodeTest {
     public void correctlyAppendsData() {
         Data[] expected = new Data[]{AlchemyString.of("hello"), AlchemyString.of("world"), AlchemyFloat.of(11.125)};
 
-        Data base = new EagerAlchemyList(Arrays.asList(expected[0], expected[1]));
+        Sequenced base = new EagerAlchemyList(Arrays.asList(expected[0], expected[1]));
 
         int i = 0;
-        for (Data d : concat(new LiteralNode(base), f64(11.125))) {
+        for (Data d : concat(base, AlchemyFloat.of(11.125))) {
             assertEquals(expected[i++], d);
         }
     }
 
     @Test
     public void ableToPrependToInfiniteSequence() {
-        Data infiniteSequence = new AlchemyRange.AlchemyRangeBuilder().build();
+        Sequenced infiniteSequence = new AlchemyRange.AlchemyRangeBuilder().build();
 
-        Iterator<Data> result = concat(i64(-1), new LiteralNode(infiniteSequence)).iterator();
+        Iterator<Data> result = concat(AlchemyInt.of(-1), infiniteSequence).iterator();
 
         // Just check the first several elements of the range to make sure that it's correct.
         for (int i = -1; i < 50; ++i) {
@@ -101,9 +94,9 @@ public class ConcatenationNodeTest {
         // accessed.
         SampleSequence base = new SampleSequence();
 
-        Data[] expected = new Data[]{AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE, new AlchemyTuple(Collections.emptyList())};
+        Data[] expected = new Data[]{AlchemyInt.of(-100), AlchemyString.of("foo"), AlchemyBoolean.FALSE, AlchemyInt.of(100)};
 
-        Sequenced cat = concat(new LiteralNode(base), new LiteralNode(new AlchemyTuple(Collections.emptyList())));
+        Sequenced cat = concat(base, AlchemyInt.of(100));
 
         assertEquals(3, base.i);
 
@@ -115,45 +108,49 @@ public class ConcatenationNodeTest {
 
     @Test
     public void prependingDoesNotEvaluateInitialSequence() {
-        concat(i64(1), new LiteralNode(new FailingSequence()));
-    }
-
-    @Test
-    public void concatenatingMultipleSequencesJoinsSecondToEndOfFirst() {
-        Data d1 = new EagerAlchemyList(Collections.emptyList());
-        Data d2 = new AlchemyTuple(Collections.emptyList());
-
-        Data expected = new EagerAlchemyList(Collections.singletonList(d2));
-
-        Iterator<Data> it = concat(new LiteralNode(d1), new LiteralNode(d2)).iterator();
-
-        assertEquals(expected, it.next());
-        assertFalse(it.hasNext());
-    }
-
-    @Test(expected = TypeMismatchException.class)
-    public void cannotConcatTwoNonSequenceValues() {
-        concat(i64(1), f64(11));
+        concat(AlchemyInt.of(32), new FailingSequence());
     }
 
     @Test(expected = TypeMismatchException.class)
     public void cannotPrependWithTuple() {
-        concat(i64(1), new LiteralNode(new AlchemyTuple(Collections.emptyList())));
+        concat(AlchemyInt.of(1), new AlchemyTuple(Collections.emptyList()));
     }
 
     @Test(expected = TypeMismatchException.class)
     public void cannotAppendWithTuple() {
-        concat(new LiteralNode(new AlchemyTuple(Collections.emptyList())), bool(true));
+        concat(new AlchemyTuple(Collections.emptyList()), AlchemyBoolean.of(true));
     }
 
     @Test(expected = TypeMismatchException.class)
     public void cannotPrependWithString() {
-        concat(i64(1), str("Hello"));
+        concat(AlchemyInt.of(1), AlchemyString.of("Hello"));
     }
 
     @Test(expected = TypeMismatchException.class)
     public void cannotAppendWithString() {
-        concat(str("KONO DIO DA"), bool(false));
+        concat(AlchemyString.of("KONO DIO DA"), AlchemyBoolean.of(false));
+    }
+
+    @Test
+    public void toStringAndPrintSame() {
+        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+        Sequenced cat = concat(AlchemyInt.of(1), base);
+
+        assertEquals(cat.print(), cat.toString());
+    }
+
+    @Test
+    public void printCorrectForAppendedSequence() {
+        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+
+        assertEquals("1helloworld", concat(AlchemyInt.of(1), base).print());
+    }
+
+    @Test
+    public void printCorrectForPrependedSequence() {
+        Sequenced base = new EagerAlchemyList(Arrays.asList(AlchemyString.of("hello"), AlchemyString.of("world")));
+
+        assertEquals("helloworld1", concat(base, AlchemyInt.of(1)).print());
     }
 
     // TODO(matthew-c21) - Check dictionaries.
