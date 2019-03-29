@@ -2,7 +2,7 @@ package prj.clark.alchemy.data;
 
 import java.util.Iterator;
 
-public interface AlchemyList extends Sequenced, Sliceable, Printable {
+public interface AlchemyList extends Sequenced, Sliceable, Printable, Chainable {
     @Override
     default String print() {
         StringBuilder sb = new StringBuilder("[");
