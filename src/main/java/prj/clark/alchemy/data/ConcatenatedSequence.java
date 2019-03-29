@@ -60,4 +60,21 @@ public class ConcatenatedSequence implements Chainable {
     public boolean terminates() {
         return source.terminates();
     }
+
+    @Override
+    public String print() {
+        StringBuilder sb = new StringBuilder("[");
+        sb.append(prependedValue.toString());
+
+        for (Data d : source) {
+            sb.append(", ").append(d.toString());
+        }
+
+        return sb.append("]").toString();
+    }
+
+    @Override
+    public String toString() {
+        return print();
+    }
 }
