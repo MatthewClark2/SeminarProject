@@ -2,10 +2,12 @@ package prj.clark.alchemy.tree;
 
 import prj.clark.alchemy.data.Data;
 import prj.clark.alchemy.data.Invokable;
+import prj.clark.alchemy.data.PartiallyAppliedFunction;
 import prj.clark.alchemy.env.Context;
 import prj.clark.alchemy.err.TypeMismatchException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,18 +25,15 @@ public class FeedLastNode extends ReferentiallyTransparentValuedNode {
         Data l = left.evaluate(ctx);
         Data r = right.evaluate(ctx);
 
-        if (!(r instanceof Invokable)) {
+        if (!(l instanceof Invokable)) {
             throw new TypeMismatchException();
         }
 
-        List<Valued> args = new ArrayList<>();
-
-        if (r instanceof FunctionApplicationNode) {
-            args.addAll(((FunctionApplicationNode) r).getAppliedArguments());
-        }
-
-        args.add(left);
-
-        return ((Invokable) r).invoke(args.stream().map(x -> x.evaluate(ctx)).collect(Collectors.toList()));
+        // Only a single trailing argument is added, and we invoke the function with that single trailing argument.
+        return new PartiallyAppliedFunction(
+                Collections.emptyList(),
+                Collections.singletonList(r),
+                (Invokable) l)
+                .invoke(Collections.emptyList());
     }
 }
