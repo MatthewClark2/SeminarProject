@@ -46,7 +46,7 @@ public class NodeFactory {
         return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), BindingNode.BindingType.FUNCTION);
     }
 
-    public Node get(AlchemyParser.AssignmentContext ctx) {
+    public BindingNode get(AlchemyParser.AssignmentContext ctx) {
         if (ctx.binding().tupleIdentifier() != null) {
             throw new UnsupportedOperationException("Cannot support multiple bindings at this time.");
         }
@@ -194,7 +194,10 @@ public class NodeFactory {
 
     public Valued get(AlchemyParser.LambdaContext ctx) {
         // TODO(matthew-c21) - Add an injectible set of bindings utilizing the with block.
-        return new FunctionLiteralNode(get(ctx.statementBody()), ctx.IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList()));
+        return new FunctionLiteralNode(
+                get(ctx.statementBody()),
+                ctx.IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList()),
+                ctx.withBlock().assignment().stream().map(this::get).collect(Collectors.toList()));
     }
 
     public Valued get(AlchemyParser.StatementBodyContext ctx) {

@@ -18,7 +18,7 @@ lambda : LPAREN (IDENTIFIER  (COMMA IDENTIFIER)*? COMMA?)? RPAREN statementBody 
 
 functionDeclaration : DEFN IDENTIFIER lambda ;
 
-withBlock : WITH binding (COMMA binding)*? ;
+withBlock : WITH assignment (COMMA assignment)*? ;
 
 tuple : LPAREN expressionList RPAREN ;
 list : LBRACKET expressionList RBRACKET ;
