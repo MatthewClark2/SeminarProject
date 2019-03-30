@@ -74,8 +74,8 @@ public class AlchemyStringTest {
 
     @Test
     public void unicodeEscapedCorrectly() {
-        Data s = AlchemyString.of("\\u236a");
-        assertEquals("\u236a️", s.toString());
+        Data s = AlchemyString.of("\\u263a");
+        assertEquals("\u263a️", s.toString());
 
         Data s2 = AlchemyString.of("\\u26D4");
         assertEquals("⛔️", s2.toString());
@@ -88,7 +88,7 @@ public class AlchemyStringTest {
 
     @Test(expected = StringFormatException.class)
     public void nonHexUnicodeEscapeThrowsException() {
-        Data s = AlchemyString.of("\\uabcf");
+        Data s = AlchemyString.of("\\uabc-");
     }
 
     @Test(expected = StringFormatException.class)
@@ -101,7 +101,7 @@ public class AlchemyStringTest {
         AlchemyString.of("This string continues onto the next\\nline\\");
     }
 
-    @Test(expected = StringFormatException.class)
+    @Test
     public void iterationOccursCorrectly() {
         String expected = "This is a long sentence featuring\n" +
                 "\tmultiple lines\n" +

@@ -17,15 +17,15 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
 
     static {
         ESCAPE_MAP = new HashMap<>();
-        ESCAPE_MAP.put('r', 2);
-        ESCAPE_MAP.put('f', 2);
-        ESCAPE_MAP.put('t', 2);
-        ESCAPE_MAP.put('n', 2);
-        ESCAPE_MAP.put('\\', 2);
-        ESCAPE_MAP.put('"', 2);
-        ESCAPE_MAP.put('\'', 2);
-        ESCAPE_MAP.put('b', 2);
-        ESCAPE_MAP.put('u', 6);
+        ESCAPE_MAP.put('r', 1);
+        ESCAPE_MAP.put('f', 1);
+        ESCAPE_MAP.put('t', 1);
+        ESCAPE_MAP.put('n', 1);
+        ESCAPE_MAP.put('\\', 1);
+        ESCAPE_MAP.put('"', 1);
+        ESCAPE_MAP.put('\'', 1);
+        ESCAPE_MAP.put('b', 1);
+        ESCAPE_MAP.put('u', 5);
     }
 
     private AlchemyString(String value) {
@@ -60,9 +60,9 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
                         throw new StringFormatException("Not enough characters supplied for escape sequence.");
                     }
 
-                    String escape = content.substring(i, i + ESCAPE_MAP.get(next));
+                    String escape = content.substring(i, i + ESCAPE_MAP.get(next) + 1);
                     sb.append(AlchemyCharacter.of(escape));
-                    i += ESCAPE_MAP.get(next) - 1;
+                    i += ESCAPE_MAP.get(next);
                 } else {
                     throw new StringFormatException("Unrecognized escape character: " + next);
                 }
