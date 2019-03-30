@@ -76,7 +76,6 @@ public class NodeFactory {
     }
 
     public Valued get(AlchemyParser.ChrContext ctx) {
-        // TODO(matthew-c21) - Fix this after AlchemyCharacter has a legitimate String constructor.
         return new LiteralNode(AlchemyCharacter.of(ctx.content.getText()));
     }
 
