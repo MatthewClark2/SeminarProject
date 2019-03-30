@@ -1,6 +1,7 @@
 package prj.clark.alchemy.data;
 
 import org.junit.Test;
+import prj.clark.alchemy.err.StringFormatException;
 
 import static org.junit.Assert.*;
 
@@ -57,4 +58,65 @@ public class AlchemyCharacterTest {
             assertTrue(c.toBoolean());
         }
     }
+
+    @Test
+    public void characterFromStringOfLengthOne() {
+        Data c = AlchemyCharacter.of("q");
+        assertEquals("q", c.toString());
+    }
+
+    @Test
+    public void characterFromStringOfEscapedLengthOne() {
+        Data c = AlchemyCharacter.of("\\n");
+        assertEquals("\n", c.toString());
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void cannotMakeCharacterFromExcessivelyLongString() {
+        AlchemyCharacter.of("ab");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void cannotMakeCharacterFromExcessivelyLongStringAfterEscapes() {
+        AlchemyCharacter.of("\\t\\r");
+    }
+
+    @Test
+    public void stringEscapedCorrectly() {
+        Data s1 = AlchemyCharacter.of("\\t \\n \\\\ \\r \\f \\\" \\'");
+        assertEquals("\t \n \\ \r \f \" '", s1.toString());
+
+        Data s2 = AlchemyCharacter.of("\\\\n");
+        assertEquals("\\n", s2.toString());
+    }
+
+    @Test
+    public void unicodeEscapedCorrectly() {
+        Data s = AlchemyCharacter.of("\\u236a");
+        assertEquals("☺️", s.toString());
+
+        Data s2 = AlchemyCharacter.of("\\u26D4️");
+        assertEquals("⛔️", s2.toString());
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void incompleteUnicodeEscapeThrowsException() {
+        Data s = AlchemyCharacter.of("\\u1fd");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void nonHexUnicodeEscapeThrowsException() {
+        Data s = AlchemyCharacter.of("\\uabcf");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void invalidEscapesFail() {
+        AlchemyCharacter.of("\\k");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void incompleteEscapesFail() {
+        AlchemyCharacter.of("\\");
+    }
+
 }
