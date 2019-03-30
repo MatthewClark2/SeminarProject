@@ -52,6 +52,10 @@ public class AlchemyCharacter implements Printable {
         }
 
         if (value.length() == 1) {
+            if (value.charAt(0) == '\\') {
+                throw new StringFormatException("Incomplete escape sequence.");
+            }
+
             return AlchemyCharacter.of(value.charAt(0));
         }
 

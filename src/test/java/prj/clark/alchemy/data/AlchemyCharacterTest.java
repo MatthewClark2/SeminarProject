@@ -99,7 +99,7 @@ public class AlchemyCharacterTest {
         assertEquals("\u263a", s.toString());
 
         Data s2 = AlchemyCharacter.of("\\u26D4");
-        assertEquals("♍", s2.toString());
+        assertEquals("⛔", s2.toString());
     }
 
     @Test(expected = StringFormatException.class)
