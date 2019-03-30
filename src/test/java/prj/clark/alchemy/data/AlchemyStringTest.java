@@ -77,7 +77,7 @@ public class AlchemyStringTest {
         Data s = AlchemyString.of("\\u236a");
         assertEquals("\u236a️", s.toString());
 
-        Data s2 = AlchemyString.of("\\u26D4️");
+        Data s2 = AlchemyString.of("\\u26D4");
         assertEquals("⛔️", s2.toString());
     }
 

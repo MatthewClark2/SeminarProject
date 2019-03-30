@@ -56,6 +56,10 @@ public class AlchemyString implements Sequenced, Sliceable, Printable {
                 char next = content.charAt(i + 1);
 
                 if (ESCAPE_MAP.containsKey(next)) {
+                    if (i + ESCAPE_MAP.get(next) >= content.length()) {
+                        throw new StringFormatException("Not enough characters supplied for escape sequence.");
+                    }
+
                     String escape = content.substring(i, i + ESCAPE_MAP.get(next));
                     sb.append(AlchemyCharacter.of(escape));
                     i += ESCAPE_MAP.get(next) - 1;
