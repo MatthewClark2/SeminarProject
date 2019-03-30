@@ -186,7 +186,6 @@ public class NodeFactory {
     }
 
     public Valued get(AlchemyParser.RangeContext ctx) {
-        // TODO(matthew-c21) - Create a RangeSequence, and wrap it as a literal.
         Valued first = ctx.start == null ? null : get(ctx.start);
         Valued second = ctx.second == null ? null : get(ctx.second);
         Valued last = ctx.end == null ? null : get(ctx.end);
