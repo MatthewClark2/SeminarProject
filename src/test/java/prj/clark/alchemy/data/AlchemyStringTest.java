@@ -75,7 +75,7 @@ public class AlchemyStringTest {
     @Test
     public void unicodeEscapedCorrectly() {
         Data s = AlchemyString.of("\\u236a");
-        assertEquals("☺️", s.toString());
+        assertEquals("\u236a️", s.toString());
 
         Data s2 = AlchemyString.of("\\u26D4️");
         assertEquals("⛔️", s2.toString());
