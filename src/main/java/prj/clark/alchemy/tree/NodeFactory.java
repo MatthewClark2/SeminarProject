@@ -42,11 +42,11 @@ public class NodeFactory {
                 .collect(Collectors.toList());
     }
 
-    private Node get(AlchemyParser.FunctionDeclarationContext ctx) {
+    public Node get(AlchemyParser.FunctionDeclarationContext ctx) {
         return new BindingNode(ctx.IDENTIFIER().getText(), get(ctx.lambda()), BindingNode.BindingType.FUNCTION);
     }
 
-    private Node get(AlchemyParser.AssignmentContext ctx) {
+    public Node get(AlchemyParser.AssignmentContext ctx) {
         if (ctx.binding().tupleIdentifier() != null) {
             throw new UnsupportedOperationException("Cannot support multiple bindings at this time.");
         }
@@ -54,7 +54,7 @@ public class NodeFactory {
         return new BindingNode(ctx.binding().IDENTIFIER().getText(), get(ctx.expression()), BindingNode.BindingType.VALUE);
     }
 
-    private Node get(AlchemyParser.StatementContext ctx) {
+    public Node get(AlchemyParser.StatementContext ctx) {
         if (ctx.assignment() != null) {
             return get(ctx.assignment());
         }
@@ -70,21 +70,21 @@ public class NodeFactory {
         throw new UnsupportedOperationException("Encountered unrecognized statement format.\n" + ctx.getText());
     }
 
-    private Valued get(AlchemyParser.DictContext ctx) {
+    public Valued get(AlchemyParser.DictContext ctx) {
         // TODO(matthew-c21) - Determine how dictionaries are to be formed during runtime.
         return null;
     }
 
-    private Valued get(AlchemyParser.ChrContext ctx) {
+    public Valued get(AlchemyParser.ChrContext ctx) {
         // TODO(matthew-c21) - Fix this after AlchemyCharacter has a legitimate String constructor.
-        return new LiteralNode(AlchemyCharacter.of(0));
+        return new LiteralNode(AlchemyCharacter.of(ctx.content.getText()));
     }
 
-    private Valued get(AlchemyParser.StrContext ctx) {
+    public Valued get(AlchemyParser.StrContext ctx) {
         return new LiteralNode(AlchemyString.of(ctx.content.getText()));
     }
 
-    private Valued get(AlchemyParser.ExpressionContext ctx) {
+    public Valued get(AlchemyParser.ExpressionContext ctx) {
         if (ctx.nested != null) {
             return get(ctx.expression(0));
         }
@@ -185,12 +185,16 @@ public class NodeFactory {
         throw new UnsupportedOperationException("Unable to parse \"" + ctx.getText() + "\" to an expression.");
     }
 
-    private Valued get(AlchemyParser.RangeContext ctx) {
+    public Valued get(AlchemyParser.RangeContext ctx) {
         // TODO(matthew-c21) - Create a RangeSequence, and wrap it as a literal.
-        return null;
+        Valued first = ctx.start == null ? null : get(ctx.start);
+        Valued second = ctx.second == null ? null : get(ctx.second);
+        Valued last = ctx.end == null ? null : get(ctx.end);
+
+        return new RangeCreationNode(first, second, last);
     }
 
-    private Valued get(AlchemyParser.LambdaContext ctx) {
+    public Valued get(AlchemyParser.LambdaContext ctx) {
         // TODO(matthew-c21) - Add an injectible set of bindings utilizing the with block.
         return new FunctionLiteralNode(get(ctx.statementBody()), ctx.IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList()));
     }
@@ -199,11 +203,11 @@ public class NodeFactory {
         return new StatementListNode(ctx.statement().stream().map(this::get).collect(Collectors.toList()));
     }
 
-    private Valued get(AlchemyParser.ListContext ctx) {
+    public Valued get(AlchemyParser.ListContext ctx) {
         return new ListLiteralNode(ctx.expressionList().expression().stream().map(this::get).collect(Collectors.toList()));
     }
 
-    private Valued get(AlchemyParser.TupleContext ctx) {
+    public Valued get(AlchemyParser.TupleContext ctx) {
         return new TupleLiteralNode(ctx.expressionList().expression().stream().map(this::get).collect(Collectors.toList()));
     }
 }
