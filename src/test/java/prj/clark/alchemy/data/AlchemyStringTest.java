@@ -84,9 +84,15 @@ public class AlchemyStringTest {
 
     @Test(expected = StringFormatException.class)
     public void iterationOccursCorrectly() {
-        String expected = "This is a long sentence featuring\n\tmultiple lines\n\tdifferent escapes\n\t\"embedded 'quotes'\"";
+        String expected = "This is a long sentence featuring\n" +
+                "\tmultiple lines\n" +
+                "\tdifferent escapes\n" +
+                "\t\"embedded 'quotes'\"";
 
-        Indexed actual = AlchemyString.of("This is a long sentence featuring\\n\\tmultiple lines\\n\\tdifferent escapes\\n\\t\\\"embedded \\'quotes\\'\\\"");
+        Indexed actual = AlchemyString.of("This is a long sentence featuring\\n" +
+                "\\tmultiple lines\\n" +
+                "\\tdifferent escapes\\n" +
+                "\\t\\\"embedded \\'quotes\\'\\\"");
 
         for (int i = 0; i < expected.length(); ++i) {
             assertEquals(AlchemyCharacter.of(expected.charAt(i)), actual.getIndex(AlchemyInt.of(i)).get());
