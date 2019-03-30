@@ -82,18 +82,21 @@ public class AlchemyCharacterTest {
     }
 
     @Test
-    public void stringEscapedCorrectly() {
-        Data s1 = AlchemyCharacter.of("\\t \\n \\\\ \\r \\f \\\" \\'");
-        assertEquals("\t \n \\ \r \f \" '", s1.toString());
+    public void standardEscapesBehaveCorrectly() {
+        String[] escapes = new String[]{"\\t", "\\n", "\\\\", "\\r", "\\f", "\\\"", "\\'"};
+        String[] expected = new String[]{"\t", "\n", "\\", "\r", "\f", "\"", "'"};
 
-        Data s2 = AlchemyCharacter.of("\\\\n");
-        assertEquals("\\n", s2.toString());
+        for (int i = 0; i < expected.length; ++i) {
+            assertEquals(expected[i], AlchemyCharacter.of(escapes[i]).print());
+        }
     }
 
     @Test
     public void unicodeEscapedCorrectly() {
         Data s = AlchemyCharacter.of("\\u263a");
-        assertEquals("☺️", s.toString());
+        // I would just paste the smiling emoji, but the editor I'm using keeps changing it to a different, wider format
+        // when pasting.
+        assertEquals("\u263a", s.toString());
 
         Data s2 = AlchemyCharacter.of("\\u26D4️");
         assertEquals("♍", s2.toString());
