@@ -9,78 +9,62 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class AlchemyString implements Sequenced, Sliceable, Printable {
-    private static final Map<String, String> ESCAPE_MAP;
+    // Keeps track of the number of characters needed to transform each each escape.
+    private static final Map<Character, Integer> ESCAPE_MAP;
 
     private final String value;
     private final EagerAlchemyList chars;
 
     static {
         ESCAPE_MAP = new HashMap<>();
-        ESCAPE_MAP.put("r", "\r");
-        ESCAPE_MAP.put("f", "\f");
-        ESCAPE_MAP.put("t", "\t");
-        ESCAPE_MAP.put("n", "\n");
-        ESCAPE_MAP.put("\\", "\\");
-        ESCAPE_MAP.put("\"", "\"");
-        ESCAPE_MAP.put("'", "'");
-        ESCAPE_MAP.put("b", "\b");
+        ESCAPE_MAP.put('r', 1);
+        ESCAPE_MAP.put('f', 1);
+        ESCAPE_MAP.put('t', 1);
+        ESCAPE_MAP.put('n', 1);
+        ESCAPE_MAP.put('\\', 1);
+        ESCAPE_MAP.put('"', 1);
+        ESCAPE_MAP.put('\'', 1);
+        ESCAPE_MAP.put('b', 1);
+        ESCAPE_MAP.put('u', 5);
     }
 
     private AlchemyString(String value) {
+        this.value = value;
+        chars = new EagerAlchemyList(value.codePoints().mapToObj(AlchemyCharacter::of).collect(Collectors.toList()));
+    }
+
+    public static AlchemyString of(String content) {
         StringBuilder sb = new StringBuilder();
         /*
         for each character in the string:
             if the character is the escape character:
                 if there isn't another character:
                     throw exception
-                if the next character is u:
-                    consume the next four characters
-                    if they don't match a hex input:
-                        throw exception
-                    escape them, and add the escaped value to the builder
-                    skip the next four
-                else if the next character isn't in the escape list:
+                if the next character not in escape_map
                     throw exception
-                add the escaped character
-                skip the next one
+                else
+                    add new alchemy character based on substring from current through current + escape[next].
             else
                 add it directly
          */
-        for (int i = 0; i < value.length(); ++i) {
-            if (value.charAt(i) == '\\') {
-                if (i == value.length() - 1) {
+        for (int i = 0; i < content.length(); ++i) {
+            if (content.charAt(i) == '\\') {
+                if (i == content.length() - 1) {
                     throw new StringFormatException("Cannot have single escape character at end of string.");
                 }
 
-                char next = value.charAt(i + 1);
-                if (next == 'u') {
-                    if (i + 6 <= value.length()) {
-                        String hexCode = value.substring(i + 2, i + 6);
-                        if (hexCode.matches("[A-Fa-f0-9]")) {
-                            // TODO(fix unicode interpolation.
-                            throw new UnsupportedOperationException("Creating string ESCAPE_MAP is harder than I thought.");
-                        }
-                    } else {
-                        throw new StringFormatException("Not enough characters provided for unicode escape.");
-                    }
-                } else if (ESCAPE_MAP.containsKey("" + next)) {
-                    sb.append(ESCAPE_MAP.get("" + next));
-                    i++;
+                char next = content.charAt(i + 1);
+
+                if (ESCAPE_MAP.containsKey(next)) {
+                    sb.append(AlchemyCharacter.of(content.substring(i, i + ESCAPE_MAP.get(next))));
                 } else {
-                    throw new StringFormatException("Unrecognized string escape: " + next);
+                    throw new StringFormatException("Unrecognized escape character: " + next);
                 }
             } else {
-                sb.append(value.charAt(i));
+                sb.append(content.charAt(i));
             }
         }
-
-        this.value = sb.toString();
-
-        chars = new EagerAlchemyList(value.codePoints().mapToObj(AlchemyCharacter::of).collect(Collectors.toList()));
-    }
-
-    public static AlchemyString of(String content) {
-        return new AlchemyString(content);
+        return new AlchemyString(sb.toString());
     }
 
     @Override
