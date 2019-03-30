@@ -368,7 +368,7 @@ public class AlchemyContextTest {
         assertEquals(AlchemyInt.of(0), ((Invokable)len).invoke(Collections.singletonList(b)));
 
         Sequenced c = new AlchemyRange.AlchemyRangeBuilder().build();
-        assertEquals(AlchemyFloat.of(Double.POSITIVE_INFINITY), ((Invokable)len).invoke(Collections.singletonList(b)));
+        assertEquals(AlchemyFloat.of(Double.POSITIVE_INFINITY), ((Invokable)len).invoke(Collections.singletonList(c)));
     }
 
     @Test(expected = FunctionInvocationException.class)

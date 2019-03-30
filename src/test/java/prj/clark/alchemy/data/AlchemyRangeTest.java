@@ -197,4 +197,16 @@ public class AlchemyRangeTest {
             assertEquals(AlchemyInt.of(i), range.getIndex(AlchemyInt.of(i - 5)).get());
         }
     }
+
+    @Test
+    public void sequenceTerminates() {
+        range = new AlchemyRange.AlchemyRangeBuilder().setStop(AlchemyInt.of(6)).build();
+        assertTrue(range.terminates());
+    }
+
+    @Test
+    public void sequencesDoNotTerminate() {
+        range = new AlchemyRange.AlchemyRangeBuilder().build();
+        assertFalse(range.terminates());
+    }
 }
