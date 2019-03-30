@@ -98,7 +98,7 @@ public class AlchemyCharacterTest {
         // when pasting.
         assertEquals("\u263a", s.toString());
 
-        Data s2 = AlchemyCharacter.of("\\u26D4️");
+        Data s2 = AlchemyCharacter.of("\\u26D4");
         assertEquals("♍", s2.toString());
     }
 
