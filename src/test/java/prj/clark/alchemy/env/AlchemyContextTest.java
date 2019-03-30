@@ -5,6 +5,7 @@ import org.junit.Test;
 import prj.clark.alchemy.data.*;
 import prj.clark.alchemy.err.FunctionInvocationException;
 import prj.clark.alchemy.err.IllegalRebindingException;
+import prj.clark.alchemy.err.TypeMismatchException;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class AlchemyContextTest {
     private static final String[] FUNCTIONS = new String[]{
-            "print", "input", "str", "int", "float", "pi", "e", "inf", "slurp", "spit", "write", "rand", "reverse"
+            "print", "input", "str", "int", "float", "pi", "e", "inf", "slurp", "spit", "write", "rand", "reverse", "len"
     };
 
     private Context ctx;
@@ -353,6 +354,37 @@ public class AlchemyContextTest {
         Invokable d = getFunction("rand");
 
         d.invoke(Collections.singletonList(null));
+    }
+
+    @Test
+    public void lenBehavesCorrectly() {
+        Data len = ctx.search("len").get();
+        assertTrue(len instanceof Invokable);
+
+        Sequenced a = new EagerAlchemyList(Arrays.asList(AlchemyInt.of(1), AlchemyInt.of(1), AlchemyInt.of(1), AlchemyInt.of(1)));
+        assertEquals(AlchemyInt.of(4), ((Invokable)len).invoke(Collections.singletonList(a)));
+
+        Sequenced b = new EagerAlchemyList(Collections.emptyList());
+        assertEquals(AlchemyInt.of(0), ((Invokable)len).invoke(Collections.singletonList(b)));
+
+        Sequenced c = new AlchemyRange.AlchemyRangeBuilder().build();
+        assertEquals(AlchemyFloat.of(Double.POSITIVE_INFINITY), ((Invokable)len).invoke(Collections.singletonList(b)));
+    }
+
+    @Test(expected = FunctionInvocationException.class)
+    public void lenFailsCorrectly() {
+        Data len = ctx.search("len").get();
+        assertTrue(len instanceof Invokable);
+
+        ((Invokable)len).invoke(Arrays.asList(null, null));
+    }
+
+    @Test(expected = TypeMismatchException.class)
+    public void lenRequiresSequenced() {
+        Data len = ctx.search("len").get();
+        assertTrue(len instanceof Invokable);
+
+        ((Invokable)len).invoke(Collections.singletonList(AlchemyInt.of(11)));
     }
 
     @Test

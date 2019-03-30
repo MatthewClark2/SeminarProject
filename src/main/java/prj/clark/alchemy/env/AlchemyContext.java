@@ -208,6 +208,20 @@ public class AlchemyContext implements Context {
             ((Sequenced) x).iterator().forEachRemaining(d -> a.add(0, d));
             return new EagerAlchemyList(a);
         }));
+        ctx.bindFunction("len", new SingleArgumentInvokable(x -> {
+            if (!(x instanceof Sequenced)) {
+                throw new TypeMismatchException();
+            } else if (!((Sequenced)x).terminates()) {
+                return AlchemyFloat.of(Double.POSITIVE_INFINITY);
+            } else {
+                long i = 0;
+                for (Data d : (Sequenced)x) {
+                    i++;
+                }
+
+                return AlchemyInt.of(i);
+            }
+        }));
     }
 
     @Override
