@@ -45,7 +45,7 @@ public class AlchemyFloat implements Numeric, Printable {
 
         sb.append(fValue);
 
-        if (!sb.toString().contains(".")) {
+        if (!(Math.abs(fValue) == Double.POSITIVE_INFINITY || sb.toString().contains("."))) {
             sb.append(".0");
         }
 

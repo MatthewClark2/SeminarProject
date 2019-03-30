@@ -90,6 +90,7 @@ public class AlchemyFloatTest {
     @Test
     public void infinityPrintsCorrectly() {
         assertEquals("Infinity", AlchemyFloat.of(Double.POSITIVE_INFINITY).toString());
+        assertEquals("-Infinity", AlchemyFloat.of(Double.NEGATIVE_INFINITY).toString());
     }
 
     @Test
