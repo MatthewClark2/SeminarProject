@@ -92,11 +92,11 @@ public class AlchemyCharacterTest {
 
     @Test
     public void unicodeEscapedCorrectly() {
-        Data s = AlchemyCharacter.of("\\u236a");
+        Data s = AlchemyCharacter.of("\\u263a");
         assertEquals("☺️", s.toString());
 
         Data s2 = AlchemyCharacter.of("\\u26D4️");
-        assertEquals("⛔️", s2.toString());
+        assertEquals("♍", s2.toString());
     }
 
     @Test(expected = StringFormatException.class)
@@ -106,7 +106,7 @@ public class AlchemyCharacterTest {
 
     @Test(expected = StringFormatException.class)
     public void nonHexUnicodeEscapeThrowsException() {
-        Data s = AlchemyCharacter.of("\\uabcf");
+        Data s = AlchemyCharacter.of("\\uabcp");
     }
 
     @Test(expected = StringFormatException.class)
