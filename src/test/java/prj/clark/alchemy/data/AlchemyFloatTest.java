@@ -86,4 +86,14 @@ public class AlchemyFloatTest {
         assertFalse(AlchemyFloat.of(2.5).isInteger());
         assertFalse(AlchemyFloat.of(-1.75).isInteger());
     }
+
+    @Test
+    public void infinityPrintsCorrectly() {
+        assertEquals("Infinity", AlchemyFloat.of(Double.POSITIVE_INFINITY).toString());
+    }
+
+    @Test
+    public void infiniteValuesEqual() {
+        assertEquals(AlchemyFloat.of(Double.POSITIVE_INFINITY), AlchemyFloat.of(Double.POSITIVE_INFINITY));
+    }
 }
