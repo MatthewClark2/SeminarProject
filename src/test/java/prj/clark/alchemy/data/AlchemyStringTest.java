@@ -1,6 +1,9 @@
 package prj.clark.alchemy.data;
 
 import org.junit.Test;
+import prj.clark.alchemy.err.StringFormatException;
+
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
@@ -58,5 +61,35 @@ public class AlchemyStringTest {
     public void truthinessIsCorrect() {
         assertTrue(AlchemyString.of("a").toBoolean());
         assertFalse(AlchemyString.of("").toBoolean());
+    }
+
+    @Test
+    public void stringEscapedCorrectly() {
+        Data s1 = AlchemyString.of("\\t \\n \\\\ \\r \\f \\\" \\'");
+        assertEquals("\t \n \\ \r \f \" '", s1.toString());
+
+        Data s2 = AlchemyString.of("\\\\n");
+        assertEquals("\\n", s2.toString());
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void invalidEscapesFail() {
+        AlchemyString.of("\\k");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void incompleteEscapesFail() {
+        AlchemyString.of("This string continues onto the next\\nline\\");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void iterationOccursCorrectly() {
+        String expected = "This is a long sentence featuring\n\tmultiple lines\n\tdifferent escapes\n\t\"embedded 'quotes'\"";
+
+        Indexed actual = AlchemyString.of("This is a long sentence featuring\\n\\tmultiple lines\\n\\tdifferent escapes\\n\\t\\\"embedded \\'quotes\\'\\\"");
+
+        for (int i = 0; i < expected.length(); ++i) {
+            assertEquals(AlchemyCharacter.of(expected.charAt(i)), actual.getIndex(AlchemyInt.of(i)).get());
+        }
     }
 }
