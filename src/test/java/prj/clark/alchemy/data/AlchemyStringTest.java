@@ -72,6 +72,25 @@ public class AlchemyStringTest {
         assertEquals("\\n", s2.toString());
     }
 
+    @Test
+    public void unicodeEscapedCorrectly() {
+        Data s = AlchemyString.of("\\u236a");
+        assertEquals("☺️", s.toString());
+
+        Data s2 = AlchemyString.of("\\u26D4️");
+        assertEquals("⛔️", s2.toString());
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void incompleteUnicodeEscapeThrowsException() {
+        Data s = AlchemyString.of("\\u1fd");
+    }
+
+    @Test(expected = StringFormatException.class)
+    public void nonHexUnicodeEscapeThrowsException() {
+        Data s = AlchemyString.of("\\uabcf");
+    }
+
     @Test(expected = StringFormatException.class)
     public void invalidEscapesFail() {
         AlchemyString.of("\\k");
