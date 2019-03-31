@@ -5,7 +5,7 @@ import prj.clark.alchemy.err.TypeMismatchException;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class AlchemySlice implements AlchemyList {
+public class AlchemySlice extends AlchemyList {
     private static final long INFINITE_LENGTH = -1;
 
     private Sliceable coll;

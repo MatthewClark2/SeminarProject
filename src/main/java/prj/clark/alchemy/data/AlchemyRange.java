@@ -5,7 +5,7 @@ import prj.clark.alchemy.err.TypeMismatchException;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class AlchemyRange implements AlchemyList {
+public class AlchemyRange extends AlchemyList {
     private static final long INFINITE_LENGTH = -1;
 
     private Numeric start;

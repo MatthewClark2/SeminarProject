@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Optional;
 
-public class EagerAlchemyList implements AlchemyList {
+public class EagerAlchemyList extends AlchemyList {
     private final List<Data> data;
 
     public EagerAlchemyList(List<Data> data) {
@@ -46,24 +46,6 @@ public class EagerAlchemyList implements AlchemyList {
     @Override
     public String toString() {
         return print();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        // TODO(matthew-c21) - Properly test this.
-        if (o instanceof Sequenced) {
-            Iterator a = ((Sequenced) o).iterator();
-            Iterator i = iterator();
-            while (i.hasNext() && a.hasNext()) {
-                if (! a.next().equals(i.next())) {
-                    return false;
-                }
-            }
-
-            return ! (a.hasNext() || i.hasNext());
-        }
-
-        return false;
     }
 
     @Override
