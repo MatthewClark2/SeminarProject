@@ -33,6 +33,7 @@ public class NodeFactory {
         BINOP_SUPPLIER.put(":", ConcatenationNode::new);
         BINOP_SUPPLIER.put("and", AndNode::new);
         BINOP_SUPPLIER.put("or", OrNode::new);
+        BINOP_SUPPLIER.put("++", StringConcatenationNode::new);
     }
 
     public List<Node> getAll(AlchemyParser.FileContext ctx) {
