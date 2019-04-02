@@ -62,6 +62,7 @@ Note that the `<`, `<=`, `>`, and `>=` require two `Numeric` operands, and will 
 * Cat `:` - Takes a sequence and some element. A new sequence containing the given element at the start or end of the stream will be returned. If both arguments are sequences, the second sequence will be added as an element at the end of the first sequence.
    * `element : sequence` - element is prepended
    * `sequence : element` - element is appended
+* String Concatenation `++` - joins two strings together. If either argument is not a string, then a TypeMismatchException is thrown.
 
 #### Unary Operators
 * Not `!` - Coerces a value into a boolean, then negates it.
