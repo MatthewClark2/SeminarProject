@@ -43,6 +43,7 @@ expression : LPAREN nested=expression RPAREN
            | left=expression op=(LT | LE | GT | GE) right=expression
            | left=expression op=(FEED_FIRST | FEED_LAST) right=expression
            | left=expression op=(EQ | NEQ) right=expression
+           | left=expression op=STRCAT right=expression
            | func=expression args=tuple
            | left=expression TICK infix=expression TICK right=expression
            | left=expression op=COLON right=expression
@@ -123,6 +124,7 @@ ACCESS : '.' ;
 NOT : '!' ;
 OR : 'or' ;
 AND : 'and' ;
+STRCAT : '++' ;
 
 // Assignment
 ASSIGN : '=' ;
