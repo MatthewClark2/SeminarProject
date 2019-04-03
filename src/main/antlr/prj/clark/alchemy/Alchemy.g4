@@ -47,7 +47,7 @@ expression : LPAREN nested=expression RPAREN
            | left=expression op=AND right=expression
            | left=expression op=OR right=expression
            | left=expression op=(FEED_FIRST | FEED_LAST) right=expression
-           | left=expression op=(STRCAT | COLON) right=expression
+           | left=expression op=(STRCAT | CONCAT) right=expression
            | cond=expression QUESTION ifTrue=expression COLON ifFalse=expression
            | lambda
            | tuple
@@ -127,6 +127,7 @@ NOT : '!' ;
 OR : 'or' ;
 AND : 'and' ;
 STRCAT : '++' ;
+CONCAT : '::' ;
 
 // Assignment
 ASSIGN : '=' ;
