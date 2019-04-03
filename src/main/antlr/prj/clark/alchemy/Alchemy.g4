@@ -22,7 +22,10 @@ withBlock : WITH assignment (COMMA assignment)*? ;
 
 tuple : LPAREN expressionList RPAREN ;
 list : LBRACKET expressionList RBRACKET ;
-slice : LBRACKET (index=expression | ((start=expression? COLON)? (end=expression? COLON)? skip=expression?)) RBRACKET;
+slice : LBRACKET (index=expression
+                    | start=expression? COLON end=expression?
+                    | start=expression? COLON end=expression? COLON skip=expression) RBRACKET;
+
 range : LBRACKET (start=expression (COMMA second=expression)?)? RANGE (end=expression)? RBRACKET ;
 dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? RBRACE ;
 
