@@ -89,7 +89,7 @@ public class NodeFactoryTest {
 
         assertTrue(i instanceof Invokable);
 
-        assertEquals(AlchemyFloat.of("6"), ((Invokable)i).invoke(Arrays.asList(AlchemyInt.of(4), AlchemyInt.of(8))));
+        assertEquals(AlchemyFloat.of("8"), ((Invokable)i).invoke(Arrays.asList(AlchemyInt.of(4), AlchemyInt.of(8))));
     }
 
     @Test
@@ -196,7 +196,7 @@ public class NodeFactoryTest {
 
     @Test
     public void slice() {
-        AlchemyList l = new AlchemyRange.AlchemyRangeBuilder().build();
+        AlchemyList l = new AlchemyRange.AlchemyRangeBuilder().setFirst(AlchemyInt.of(1)).build();
 
         ctx.bind("l", l);
 
