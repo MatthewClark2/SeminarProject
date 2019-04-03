@@ -136,11 +136,11 @@ public class NodeFactory {
         }
 
         if (ctx.slice() != null) {
-            SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.slice().expression(0)));
+            SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.expression(0)));
 
             if (ctx.slice().start == null && ctx.slice().end == null) {
                 // There are no colons, and this is just a list access.
-                return new ListAccessNode(get(ctx.slice().expression(0)), get(ctx.slice().skip));
+                return new ListAccessNode(get(ctx.expression(0)), get(ctx.slice().skip));
             }
 
             if (ctx.slice().start != null) {
@@ -148,11 +148,11 @@ public class NodeFactory {
             }
 
             if (ctx.slice().end != null) {
-                snb.setStart(get(ctx.slice().end));
+                snb.setStop(get(ctx.slice().end));
             }
 
             if (ctx.slice().skip != null) {
-                snb.setStart(get(ctx.slice().skip));
+                snb.setSkip(get(ctx.slice().skip));
             }
 
             return snb.build();
@@ -202,7 +202,9 @@ public class NodeFactory {
         return new FunctionLiteralNode(
                 get(ctx.statementBody()),
                 ctx.IDENTIFIER().stream().map(ParseTree::getText).collect(Collectors.toList()),
-                ctx.withBlock().assignment().stream().map(this::get).collect(Collectors.toList()));
+                ctx.withBlock() == null ?
+                        Collections.emptyList()
+                        : ctx.withBlock().assignment().stream().map(this::get).collect(Collectors.toList()));
     }
 
     public Valued get(AlchemyParser.StatementBodyContext ctx) {

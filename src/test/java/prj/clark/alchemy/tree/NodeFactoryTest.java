@@ -210,11 +210,11 @@ public class NodeFactoryTest {
 
         assertEquals(
                 b.setStart(AlchemyInt.of(0)).setStop(AlchemyInt.of(30)).setSkip(AlchemyInt.of(3)).build(),
-                parseSingleValue("l[0:30:3").evaluate(ctx));
+                parseSingleValue("l[0:30:3]").evaluate(ctx));
 
         assertEquals(
                 b.setStart(AlchemyInt.of(0)).setStop(AlchemyInt.of(30)).setSkip(AlchemyInt.of(3)).build(),
-                parseSingleValue("l[:30:3").evaluate(ctx));
+                parseSingleValue("l[:30:3]").evaluate(ctx));
     }
 
     @Test
