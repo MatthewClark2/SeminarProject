@@ -73,8 +73,8 @@ public class NodeFactoryTest {
 
     @Test
     public void booleanLiteral() {
-        assertEquals(AlchemyBoolean.TRUE, parseSingleValue("true").evaluate(ctx));
-        assertEquals(AlchemyBoolean.FALSE, parseSingleValue("false").evaluate(ctx));
+        assertEquals(AlchemyBoolean.TRUE, parseSingleValue("True").evaluate(ctx));
+        assertEquals(AlchemyBoolean.FALSE, parseSingleValue("False").evaluate(ctx));
     }
 
     @Test
@@ -268,14 +268,19 @@ public class NodeFactoryTest {
 
     @Test
     public void logicalInversion() {
-        assertEquals(AlchemyBoolean.FALSE, parseSingleValue("!true").evaluate(ctx));
-        assertEquals(AlchemyBoolean.TRUE, parseSingleValue("!false").evaluate(ctx));
+        assertEquals(AlchemyBoolean.FALSE, parseSingleValue("!True").evaluate(ctx));
+        assertEquals(AlchemyBoolean.TRUE, parseSingleValue("!False").evaluate(ctx));
         assertEquals(AlchemyBoolean.FALSE, parseSingleValue("!\"hello\"").evaluate(ctx));
     }
 
     @Test
     public void conditional() {
-        assertEquals(AlchemyInt.of(1), parseSingleValue("true ? 1 : 2").evaluate(ctx));
-        assertEquals(AlchemyInt.of(2), parseSingleValue("false ? 1 : 2").evaluate(ctx));
+        assertEquals(AlchemyInt.of(1), parseSingleValue("True ? 1 : 2").evaluate(ctx));
+        assertEquals(AlchemyInt.of(2), parseSingleValue("False ? 1 : 2").evaluate(ctx));
+    }
+
+    @Test
+    public void unaryNegation() {
+        assertEquals(AlchemyInt.of(-12), parseSingleValue("-12").evaluate(ctx));
     }
 }
