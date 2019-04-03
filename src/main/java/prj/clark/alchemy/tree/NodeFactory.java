@@ -167,7 +167,7 @@ public class NodeFactory {
                 return new LiteralNode(AlchemyBoolean.of(ctx.BOOL().getText()));
             } else if (ctx.CHAR() != null) {
                 TerminalNode n = ctx.CHAR();
-                return new LiteralNode(AlchemyString.of(n.getText().substring(1, n.getText().length() - 1)));
+                return new LiteralNode(AlchemyCharacter.of(n.getText().substring(1, n.getText().length() - 1)));
             } else if (ctx.STRING() != null) {
                 TerminalNode n = ctx.STRING();
                 return new LiteralNode(AlchemyString.of(n.getText().substring(1, n.getText().length() - 1)));

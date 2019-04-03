@@ -165,6 +165,20 @@ public class AlchemySliceTest {
         assertFalse(slice.getIndex(AlchemyInt.of(4)).isPresent());
     }
 
+    @Test
+    public void equivalentSlicesEquivalent() {
+        AlchemySlice slice1 = new AlchemySlice.AlchemySliceBuilder(exactData).setStart(AlchemyInt.of(1)).build();
+        AlchemySlice slice2 = new AlchemySlice.AlchemySliceBuilder(exactData).setStart(AlchemyInt.of(1)).build();
+        assertEquals(slice1, slice2);
+    }
+
+    @Test
+    public void unequalSlicesNotEquivalent() {
+        AlchemySlice slice1 = new AlchemySlice.AlchemySliceBuilder(exactData).setStart(AlchemyInt.of(2)).build();
+        AlchemySlice slice2 = new AlchemySlice.AlchemySliceBuilder(exactData).setStart(AlchemyInt.of(1)).build();
+        assertNotEquals(slice1, slice2);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void negativeIndexThrowsException() {
         AlchemySlice slice = new AlchemySlice.AlchemySliceBuilder(exactData).build();
