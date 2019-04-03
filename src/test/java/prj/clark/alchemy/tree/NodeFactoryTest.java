@@ -205,8 +205,8 @@ public class NodeFactoryTest {
         assertEquals(AlchemyInt.of(1), parseSingleValue("l[0]").evaluate(ctx));
 
         assertEquals(
-                b.setStart(AlchemyInt.of(1)).build(),
-                parseSingleValue("l[1:]").evaluate(ctx));
+                b.setStart(AlchemyInt.of(1)).setStop(AlchemyInt.of(50)).build(),
+                parseSingleValue("l[1:50]").evaluate(ctx));
 
         assertEquals(
                 b.setStart(AlchemyInt.of(0)).setStop(AlchemyInt.of(30)).setSkip(AlchemyInt.of(3)).build(),

@@ -34,27 +34,26 @@ assignment : binding ASSIGN expression ;
 // Defined in descending order of precedence.
 // TODO(matthew-c21) - Test to ensure that precendence is correctly followed.
 expression : LPAREN nested=expression RPAREN
+           | expression slice
+           | func=expression args=tuple
+           | left=expression TICK infix=expression TICK right=expression
            | NOT inverse=expression
            | MINUS neg=expression
            | left=expression op=POW right=expression
            | left=expression op=(MUL | DIV | MOD) right=expression
            | left=expression op=(PLUS | MINUS) right=expression
            | left=expression op=(LT | LE | GT | GE) right=expression
-           | left=expression op=(FEED_FIRST | FEED_LAST) right=expression
            | left=expression op=(EQ | NEQ) right=expression
-           | left=expression op=STRCAT right=expression
-           | func=expression args=tuple
-           | left=expression TICK infix=expression TICK right=expression
-           | left=expression op=COLON right=expression
+           | left=expression op=AND right=expression
+           | left=expression op=OR right=expression
+           | left=expression op=(FEED_FIRST | FEED_LAST) right=expression
+           | left=expression op=(STRCAT | COLON) right=expression
+           | cond=expression QUESTION ifTrue=expression COLON ifFalse=expression
            | lambda
            | tuple
            | list
-           | expression slice
            | range
            | dict
-           | cond=expression QUESTION ifTrue=expression COLON ifFalse=expression
-           | left=expression op=OR right=expression
-           | left=expression op=AND right=expression
            | terminal=(FLOAT | INT | BOOL | STRING | CHAR | IDENTIFIER)
            ;
 
