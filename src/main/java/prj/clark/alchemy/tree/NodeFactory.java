@@ -93,6 +93,10 @@ public class NodeFactory {
             return new LogicalInversionNode(get(ctx.expression(0)));
         }
 
+        if (ctx.neg != null) {
+            return new UnaryNegationNode(get(ctx.expression(0)));
+        }
+
         if (ctx.op != null) {
             return BINOP_SUPPLIER.get(ctx.op.getText()).apply(get(ctx.left), get(ctx.right));
         }
