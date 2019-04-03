@@ -118,7 +118,7 @@ public class NodeFactoryTest {
                         "a != b\n" +
                         "a >> b\n" +
                         "a << b\n" +
-                        "a:b \n" +
+                        "a::b \n" +
                         "a and b \n" +
                         "a or b\n" +
                         "a ++ b\n");
