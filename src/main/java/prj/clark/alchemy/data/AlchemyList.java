@@ -25,7 +25,7 @@ public abstract class AlchemyList implements Sequenced, Sliceable, Printable, Ch
         if (o instanceof AlchemyList) {
             AlchemyList l = (AlchemyList) o;
 
-            if (!l.terminates() || l.terminates() != this.terminates()) {
+            if (!(l.terminates() && this.terminates())) {
                 return false;
             }
 

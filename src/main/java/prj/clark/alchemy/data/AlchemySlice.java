@@ -110,7 +110,7 @@ public class AlchemySlice extends AlchemyList {
 
     @Override
     public boolean terminates() {
-        return n != INFINITE_LENGTH;
+        return n != INFINITE_LENGTH || coll.terminates() ;
     }
 
     @Override
