@@ -1,6 +1,7 @@
 package prj.clark.alchemy.tree;
 
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import prj.clark.alchemy.AlchemyParser;
 import prj.clark.alchemy.data.*;
 
@@ -76,14 +77,6 @@ public class NodeFactory {
         return null;
     }
 
-    public Valued get(AlchemyParser.ChrContext ctx) {
-        return new LiteralNode(AlchemyCharacter.of(ctx.content.getText()));
-    }
-
-    public Valued get(AlchemyParser.StrContext ctx) {
-        return new LiteralNode(AlchemyString.of(ctx.content.getText()));
-    }
-
     public Valued get(AlchemyParser.ExpressionContext ctx) {
         if (ctx.nested != null) {
             return get(ctx.expression(0));
@@ -136,12 +129,11 @@ public class NodeFactory {
         }
 
         if (ctx.slice() != null) {
-            SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.expression(0)));
-
-            if (ctx.slice().start == null && ctx.slice().end == null) {
-                // There are no colons, and this is just a list access.
-                return new ListAccessNode(get(ctx.expression(0)), get(ctx.slice().skip));
+            if (ctx.slice().index != null) {
+                return new ListAccessNode(get(ctx.expression(0)), get(ctx.slice().index));
             }
+
+            SliceNode.SliceNodeBuilder snb = new SliceNode.SliceNodeBuilder(get(ctx.expression(0)));
 
             if (ctx.slice().start != null) {
                 snb.setStart(get(ctx.slice().start));
@@ -162,14 +154,6 @@ public class NodeFactory {
             return new Conditional(get(ctx.ifTrue), get(ctx.ifFalse), get(ctx.cond));
         }
 
-        if (ctx.chr() != null) {
-            return get(ctx.chr());
-        }
-
-        if (ctx.str() != null) {
-            return get(ctx.str());
-        }
-
         if (ctx.terminal != null) {
             if (ctx.IDENTIFIER() != null) {
                 return new IdentifierNode(ctx.IDENTIFIER().getText());
@@ -181,6 +165,12 @@ public class NodeFactory {
                 return new LiteralNode(AlchemyInt.of(ctx.INT().getText()));
             } else if (ctx.BOOL() != null) {
                 return new LiteralNode(AlchemyBoolean.of(ctx.BOOL().getText()));
+            } else if (ctx.CHAR() != null) {
+                TerminalNode n = ctx.CHAR();
+                return new LiteralNode(AlchemyString.of(n.getText().substring(1, n.getText().length() - 1)));
+            } else if (ctx.STRING() != null) {
+                TerminalNode n = ctx.STRING();
+                return new LiteralNode(AlchemyString.of(n.getText().substring(1, n.getText().length() - 1)));
             } else {
                 throw new IllegalStateException("Could not resolve \"" + ctx.terminal.getText() + "\" to a value.");
             }

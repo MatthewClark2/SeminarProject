@@ -22,11 +22,9 @@ withBlock : WITH assignment (COMMA assignment)*? ;
 
 tuple : LPAREN expressionList RPAREN ;
 list : LBRACKET expressionList RBRACKET ;
-slice : LBRACKET (start=expression? COLON)? (end=expression? COLON)? skip=expression RBRACKET;
+slice : LBRACKET (index=expression | ((start=expression? COLON)? (end=expression? COLON)? skip=expression?)) RBRACKET;
 range : LBRACKET (start=expression (COMMA second=expression)?)? RANGE (end=expression)? RBRACKET ;
 dict : LBRACE (expression COLON expression (COMMA expression COLON expression)*? COMMA?)? RBRACE ;
-str : STRING_DELIMITER content=.*? STRING_DELIMITER ;
-chr : CHAR_DELIMITER content=.*? CHAR_DELIMITER ;
 
 tupleIdentifier : LPAREN ((IDENTIFIER | tupleIdentifier) (COMMA (IDENTIFIER | tupleIdentifier))*? COMMA?)? RPAREN ;
 binding : (IDENTIFIER | tupleIdentifier) ;
@@ -57,9 +55,7 @@ expression : LPAREN nested=expression RPAREN
            | cond=expression QUESTION ifTrue=expression COLON ifFalse=expression
            | left=expression op=OR right=expression
            | left=expression op=AND right=expression
-           | chr
-           | str
-           | terminal=(FLOAT | INT | BOOL | IDENTIFIER)
+           | terminal=(FLOAT | INT | BOOL | STRING | CHAR | IDENTIFIER)
            ;
 
 expressionList : (expression (COMMA expression)*? COMMA?)? ;
@@ -105,6 +101,12 @@ INT : DIGIT+ ;
 STRING_DELIMITER : '"' ;
 
 CHAR_DELIMITER : '\'' ;
+
+fragment BACKSLASH : '\\' ;
+fragment QUOTE_CONTENT : .*? | BACKSLASH ;
+
+STRING : STRING_DELIMITER QUOTE_CONTENT STRING_DELIMITER ;
+CHAR : CHAR_DELIMITER QUOTE_CONTENT CHAR_DELIMITER ;
 
 // Operators
 PLUS : '+' ;
