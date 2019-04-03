@@ -37,6 +37,7 @@ assignment : binding ASSIGN expression ;
 // TODO(matthew-c21) - Test to ensure that precendence is correctly followed.
 expression : LPAREN nested=expression RPAREN
            | NOT inverse=expression
+           | MINUS neg=expression
            | left=expression op=POW right=expression
            | left=expression op=(MUL | DIV | MOD) right=expression
            | left=expression op=(PLUS | MINUS) right=expression
