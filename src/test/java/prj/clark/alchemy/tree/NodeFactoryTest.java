@@ -103,27 +103,6 @@ public class NodeFactoryTest {
 
     @Test
     public void allBinaryOperators() {
-        Class[] expectedClasses = new Class[]{
-                ExponentialNode.class,
-                MultiplicationNode.class,
-                DivisionNode.class,
-                ModulusNode.class,
-                AdditionNode.class,
-                SubtractionNode.class,
-                LessThanNode.class,
-                GreaterThanNode.class,
-                LessThanEqualNode.class,
-                GreaterThanEqualNode.class,
-                EqualNode.class,
-                NotEqualNode.class,
-                FeedLastNode.class,
-                FeedFirstNode.class,
-                ConcatenationNode.class,
-                AndNode.class,
-                OrNode.class,
-                StringConcatenationNode.class
-        };
-
         List<Node> nodes = parse(
                 "a ^ b\n" +
                         "a * b\n" +
@@ -144,9 +123,24 @@ public class NodeFactoryTest {
                         "a or b\n" +
                         "a ++ b\n");
 
-        for (int i = 0; i < expectedClasses.length; ++i) {
-            assertTrue(expectedClasses[i].isInstance(nodes.get(i)));
-        }
+        assertTrue(nodes.get(0) instanceof ExponentialNode);
+        assertTrue(nodes.get(1) instanceof MultiplicationNode);
+        assertTrue(nodes.get(2) instanceof DivisionNode);
+        assertTrue(nodes.get(3) instanceof ModulusNode);
+        assertTrue(nodes.get(4) instanceof AdditionNode);
+        assertTrue(nodes.get(5) instanceof SubtractionNode);
+        assertTrue(nodes.get(6) instanceof LessThanNode);
+        assertTrue(nodes.get(7) instanceof GreaterThanNode);
+        assertTrue(nodes.get(8) instanceof LessThanEqualNode);
+        assertTrue(nodes.get(9) instanceof GreaterThanEqualNode);
+        assertTrue(nodes.get(10) instanceof EqualNode);
+        assertTrue(nodes.get(11) instanceof NotEqualNode);
+        assertTrue(nodes.get(12) instanceof FeedFirstNode);
+        assertTrue(nodes.get(13) instanceof FeedLastNode);
+        assertTrue(nodes.get(14) instanceof ConcatenationNode);
+        assertTrue(nodes.get(15) instanceof AndNode);
+        assertTrue(nodes.get(16) instanceof OrNode);
+        assertTrue(nodes.get(17) instanceof StringConcatenationNode);
     }
 
     @Test
